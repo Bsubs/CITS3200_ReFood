@@ -1,4 +1,4 @@
-import React from 'react'; //, { useState } 
+import React, {useEffect, useState} from 'react'; //, { useState } 
 //import { Link } from 'react-router-dom';
 import './Navbar.css';
 import search from './search.png'
@@ -8,6 +8,35 @@ import profile from './profile-circle.png'
 import message from './message.png'
 
 function Navbar() {
+  let page = window.location.pathname;
+  let colour="blue";
+  useEffect(()=>{
+    switch(page){
+      case "/":
+        break
+      case "/explore":
+        document.getElementById("explore_icon_text").style.color='red'
+        document.getElementById("explore_icon").style.filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)";
+        
+        break
+      case "/inbox":
+        document.getElementById("inbox_icon_text").style.color='red'
+        document.getElementById("inbox_icon").style.filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)";
+        break
+      case "/orders":
+        document.getElementById("orders_icon_text").style.color='red'
+        document.getElementById("orders_icon").style.filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)";
+        break
+      case "/profile":
+        document.getElementById("profile_icon_text").style.color='red'
+        document.getElementById("profile_icon").style.filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)";
+        break
+      default:
+        
+        break
+    }
+  });
+  
   return (
     <>
     <nav className="navbar">
@@ -15,14 +44,14 @@ function Navbar() {
           <ul>
             <li>
               <a href="/explore">
-              <img src={search} alt="search icon"/>
-              <div className="nav_text">Explore</div>
+              <img id="explore_icon" src={search} alt="search icon"/>
+              <div id="explore_icon_text" className="nav_text">Explore</div>
               </a>
             </li>
             <li>
               <a href="/orders">
-              <img src={orders} alt="orders icon"/>
-              <div className="nav_text">Orders</div>
+              <img id="orders_icon" src={orders} alt="orders icon"/>
+              <div id="orders_icon_text" className="nav_text">Orders</div>
               </a>
             </li>
             <li>
@@ -32,14 +61,14 @@ function Navbar() {
             </li>
             <li>
             <a href="/inbox">
-            <img src={message} alt="message icon"/>
-            <div className="nav_text">Inbox</div>
+            <img id="inbox_icon" src={message} alt="message icon"/>
+            <div id="inbox_icon_text" className="nav_text">Inbox</div>
             </a>
             </li>
             <li>
             <a href="/profile">
-            <img src={profile} alt="profile icon"/>
-            <div className="nav_text">Profile</div>
+            <img id="profile_icon" src={profile} alt="profile icon"/>
+            <div id="profile_icon_text" className="nav_text">Profile</div>
             </a>
             </li>
           </ul>
