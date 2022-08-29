@@ -1,7 +1,5 @@
 import React from 'react';
-//import logo from './assets/images/logo.png';
 import Navbar from './components/layout/Navbar';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Explore from "./pages/Explore"
 import Inbox from "./pages/Inbox"
@@ -11,7 +9,6 @@ import Profile from "./pages/Profile"
 function App() {
   let component
   switch(window.location.pathname){
-   
     case "/":
       component = <App/>
       break
@@ -27,17 +24,30 @@ function App() {
     case "/profile":
       component = <Profile />
       break
+    default:
+      component = <App/>
+      break
   }
   return (
-    <>
-    {component}
-    <Navbar />
-  
-    
-    </>
-    
-      
-    
+    <div className="App">
+      <header className="App-header">
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <>
+      {component}
+      <Navbar />
+      </>
+      </header>
+    </div>
   );
 }
 
