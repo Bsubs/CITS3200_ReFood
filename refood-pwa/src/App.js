@@ -5,7 +5,7 @@ import './App.css';
 import Explore from "./pages/Explore"
 import Inbox from "./pages/Inbox"
 import Orders from "./pages/Orders"
-import Profile from "./pages/Profile"
+import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
 
 function App() {
