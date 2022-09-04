@@ -7,6 +7,7 @@ import Inbox from "./pages/Inbox"
 import Orders from "./pages/Orders"
 import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
+import ConsentForm from "./components/forms/ConsentForm"
 
 function App() {
   let component
@@ -22,6 +23,9 @@ function App() {
       break
     case "/orders":
       component = <Orders />
+      break
+    case "/consentform":
+      component = <ConsentForm/>
       break
     case "/profile":
       component = <Profile />
