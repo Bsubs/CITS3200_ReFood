@@ -7,14 +7,14 @@ import Inbox from "./pages/Inbox"
 import Orders from "./pages/Orders"
 import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
-import ConsentForm from "./components/forms/ConsentForm"
+import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 
 function App() {
   let component
   switch(window.location.pathname){
     case "/":
-      component = <Home/>
-      break
+      return <ConsentForm/>
+      
     case "/explore":
       component = <Explore />
       break
