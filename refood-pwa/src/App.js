@@ -14,7 +14,6 @@ function App() {
   switch(window.location.pathname){
     case "/":
       return <ConsentForm/>
-      
     case "/explore":
       component = <Explore />
       break
