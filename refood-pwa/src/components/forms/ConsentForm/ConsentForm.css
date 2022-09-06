@@ -1,0 +1,53 @@
+#consent_form{
+    height: 90vh;
+    padding: 1rem;
+}
+h1{
+    text-align: center;
+}
+h2{
+    padding: 0.1rem;
+    border-bottom: 1px solid;
+}
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
+#consent_form a{
+    text-decoration: underline;
+}
+
+br{
+    line-height: 10rem;
+}
+
+#consent_form li{
+    padding-top: 0.4rem;
+}
+
+#consent_form .buttonsContainer{
+    display: flex;
+    justify-content: space-around;
+    
+    align-items: center;
+}
+#consent_form .button{
+    padding: 1vh;
+    border-radius: 1vh;
+    font-size: 2.5vh;
+  
+  }
+
+#exit_app_button{
+    border: none;
+  outline: none;
+  background: none;
+  text-decoration: underline;
+}
+
+#accept_terms_button{
+
+  background: red;
+  color: white;
+  border: none;
+}
