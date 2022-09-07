@@ -1,0 +1,74 @@
+
+ p {
+    font-size: 16px;
+    padding: 0px 45px;
+    text-align: left;  
+    padding-top: 40px;
+ }
+
+#Submit {
+    height: 4.5vh;
+    width: 80%;
+    position:absolute; 
+    top: 35%;
+    left: 10%;
+    font-size: 9.5px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    background-color:rgb(236, 48, 48);
+    border: none;
+    
+}
+
+#company_name {
+    font-size: 8px;
+    height: 5vh;
+    width: 80%;
+    display: flex;
+    justify-content: start;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+#email{
+    font-size: 8px;
+    height: 5vh;
+    width: 80%;
+    display: flex;
+    text-align: start;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#password{
+    font-size: 8px;
+    height: 5vh;
+    width: 80%;
+    display: flex;
+    text-align: start;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button {
+    background-color: #ffffff; /* Green */
+    color: rgb(5, 0, 0);
+    height: 6vh;
+    width: 80%;
+    position:absolute; 
+    bottom: 50%;
+    left: 10%;
+    border-width: thin;
+    font-size: 10px;
+    text-align: center; 
+    line-height: 22px;
+  }
+
+  #login_logo {
+    width: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+    float: left;
+    padding: 3px 0;
+  }
