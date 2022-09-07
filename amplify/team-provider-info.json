@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cits3200refood-dev-150317-authRole",
+      "UnauthRoleArn": "arn:aws:iam::305585051215:role/amplify-cits3200refood-dev-150317-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::305585051215:role/amplify-cits3200refood-dev-150317-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-cits3200refood-dev-150317-deployment",
+      "UnauthRoleName": "amplify-cits3200refood-dev-150317-unauthRole",
+      "StackName": "amplify-cits3200refood-dev-150317",
+      "StackId": "arn:aws:cloudformation:us-west-1:305585051215:stack/amplify-cits3200refood-dev-150317/2865d1d0-2e7b-11ed-8b9f-02333ab2fdc9",
+      "AmplifyAppId": "dgqsr13a5546i"
+    }
+  }
+}
