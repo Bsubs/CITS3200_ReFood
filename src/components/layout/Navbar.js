@@ -55,9 +55,9 @@ function Navbar() {
               </a>
             </li>
             <li>
-              
+            <a href="/home">
             <img id="logo" src={logo} alt="ReFood logo"/>
-           
+            </a>  
             </li>
             <li>
             <a href="/inbox">

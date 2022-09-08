@@ -1,0 +1,98 @@
+#donation-heading1 {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 10%;
+  }
+.top-row, .middle-row, .bottom-row {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+#cancel-icon {
+ margin-top: 5px;
+ display: block;
+ margin-left: 0%;
+ margin-right: 15px;
+ float: left;
+}
+#help-button {
+  margin-top: 5px;
+  margin-left: 15px;
+  float: right;
+  margin-right: 3%;
+  background-color: lightgray;
+  padding: 8px;
+  border-radius: 10px 10px 10px 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.top-row {
+  background-color: rgb(48, 154, 87);
+  top: 0;
+  height: 15%;
+}
+.middle-row {
+  background-color: rgb(255, 255, 255);
+  height: 75%;
+  top: 15%;
+  bottom: 10%;
+  overflow-y: scroll;
+}
+.bottom-row {
+  height: 10%;
+  bottom: 0;
+}
+.food-type {
+  border-radius: 25px;
+  padding: 10px;
+  width: 350px;
+  height: 125px;
+  border: 2px solid gray;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+.Donation .navbar {
+  display: none;
+}
+.solid-bar {
+  border-top: 3px solid #bbb;
+}
+.back-button {
+  text-decoration: underline;
+  margin-left: 5%;
+  float: left;
+  margin-top: 5%;
+}
+.next-button {
+  margin-right: 5%;
+  margin-top: 2%;
+  float: right;
+  background-color: lightgray;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px 10px 10px 10px;
+}
+#second-donation {
+    display: none;
+}
+#third-donation {
+  display: none;
+}
+.selected {
+  border-color: red;
+}
+.form-col {
+  float: left;
+  width: 55%;
+  margin-left: 25%;
+  margin-top: 15%;
+}
+.form-row {
+  margin-top: 35%;
+}
+.donation-submit {
+  margin-top: 30%;
+  margin-right: 50%;
+}
