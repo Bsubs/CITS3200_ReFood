@@ -9,7 +9,9 @@ import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import LoginForm from "./pages/LoginForm/LoginForm"
+import Donation from "./pages/Donation/Donation"
 import { useState } from 'react';
+// USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
   const adminUser = {
     company_name: "admin",
@@ -26,20 +28,30 @@ function App() {
       return <ConsentForm/>
     case "/explore":
       component = <Explore />
+      var showNav = "True";
       break
     case "/inbox":
       component = <Inbox />
+      var showNav = "True";
       break
     case "/orders":
       component = <Orders />
+      var showNav = "True";
       break
     case "/consentform":
       component = <ConsentForm/>
+      var showNav = "True";
       break
     case "/profile":
       component = <Profile />
+      var showNav = "True";
+      break
+    case "/donation":
+      component = <Donation />
+      var showNav = "False";
       break
     case "/register":
+      var showNav = "True";
       const Login = details => { //passing details to method called "Login"
         console.log(details)
 
@@ -62,6 +74,7 @@ function App() {
       break
     default:
       component = <Home />
+      var showNav = "True";
       break
   }
   return (
@@ -69,11 +82,11 @@ function App() {
       <header className="App-header">
         <>
       {component}
-      <Navbar />
+      {showNav == "True" &&
+      <Navbar/> }
       </>
       </header>
     </div>
   );
 }
-
 export default App;
