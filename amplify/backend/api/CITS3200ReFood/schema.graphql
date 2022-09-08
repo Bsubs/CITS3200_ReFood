@@ -1,0 +1,38 @@
+type FOODITEM @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  pickup_date: AWSDate
+  pickup_time: AWSTime
+  category: String
+  quantity: Float
+  expiry_date: AWSDate
+  transport_reqs: String
+  picture: AWSURL
+  nfpID: ID! @index(name: "byNFP")
+  donorID: ID! @index(name: "byDONOR")
+}
+
+type DONOR @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  email: AWSEmail
+  password: String
+  business_name: String
+  type: String
+  abn: Int
+  contact_number: AWSPhone
+  address: String
+  FOODITEMS: [FOODITEM] @hasMany(indexName: "byDONOR", fields: ["id"])
+}
+
+type NFP @model @auth(rules: [{allow: public, operations: [create, read, update]}]) {
+  id: ID!
+  email: AWSEmail
+  password: String
+  org_name: String
+  type: String
+  registered_charity: Boolean
+  abn: Int
+  contact_number: AWSPhone
+  address: String
+  FOODITEMS: [FOODITEM] @hasMany(indexName: "byNFP", fields: ["id"])
+}
