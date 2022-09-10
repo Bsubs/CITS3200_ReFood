@@ -26,6 +26,7 @@ function Donation(props) {
         document.getElementById("third-donation").style.display = "none"
     }
     function selectType(event) {
+        
         var elem;
         for (elem of document.getElementsByClassName("selected")) {
             elem.classList.remove("selected");
@@ -40,82 +41,82 @@ function Donation(props) {
     }
     
     return (
-        <div>
+        <div id="donation_page">
             <div id="first-donation">
-                <div class="top-row">
-                <a href="/home"><img id="cancel-icon" src={cancel} alt="cancel icon"/></a>
-                <label id="help-button">Help</label>
+                <div className="top-row">
+        
+               
                 <h1 id="donation-heading1">What kind of food do you want to donate?</h1>
                 </div>
-                <div class="middle-row">
-                    <div class="food-type" onClick={selectType}><h2>Bread</h2>Different types of bread to savour, from Baguettes to Whole Wheat</div>
-
-                    <div class="food-type" onClick={selectType}><h2>Canned Food</h2>Various types of meat can be canned, such as chicken, ham, sausage</div>
-
-                    <div class="food-type" onClick={selectType}><h2>Meats</h2>The most popular kinds of meats are beef, lamb, pork and fish</div>
-
-                    <div class="food-type" onClick={selectType}><h2>Confectionaries</h2>TBD</div>
-
-                    <div class="food-type" onClick={selectType}><h2>Test</h2>Room for more food types</div>
-
-                    <div class="food-type" onClick={selectType}><h2>Test</h2>Room for more food types</div>
+                <div className="middle-row">
+                    <ul id="food_category_selection">
+                        <li className="food_category" onClick={selectType}>Meat & Seafood</li>
+                        <li className="food_category" onClick={selectType}>Fruit & Vegetables</li>
+                        <li className="food_category" onClick={selectType}>Dairy, Eggs and Fridge</li>
+                        <li className="food_category" onClick={selectType}>Bakery</li>
+                        <li className="food_category" onClick={selectType}>Deli</li>
+                        <li className="food_category" onClick={selectType}>Pantry</li>
+                        <li className="food_category" onClick={selectType}>Drinks</li>
+                        <li className="food_category" onClick={selectType}>Frozen</li>
+                    </ul>
+                   
                 </div>
-                <div class="bottom-row">
-                <hr class="solid-bar"></hr>
-                <a href="home"><label class="back-button">Back</label></a>
-                <button class="next-button" onClick={next1}>Next</button>
+                <div className="bottom-row">
+                
+                <a href="home"><label className="back-button">Back</label></a>
+                <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
             <div id="second-donation">
-            <div class="top-row">
+            <div className="top-row">
                 <a href="/home"><img id="cancel-icon" src={cancel} alt="cancel icon"/></a>
                 <label id="help-button">Help</label>
                 <h1 id="donation-heading1">Where's your business located? </h1>
                 </div>
-                <div class="middle-row">
+                <div className="middle-row">
                 </div>
-                <div class="bottom-row">
-                <hr class="solid-bar"></hr>
-                <label class="back-button" onClick={back1}>Back</label>
-                <button class="next-button" onClick={next2}>Next</button>
+                <div className="bottom-row">
+                
+                 <label className="back-button" onClick={back1}>Back</label>
+                 <button className="next-button" onClick={next2}>Next</button>
                 </div>
             </div>
             <div id="third-donation">
-            <div class="top-row">
+            <div className="top-row">
                 <a href="/home"><img id="cancel-icon" src={cancel} alt="cancel icon"/></a>
                 <label id="help-button">Help</label>
                 <h1 id="donation-heading1">Tell collectors about the food you are donating</h1>
                 </div>
-                <div class="middle-row">
-                    <div class="form-container">
+                <div className="middle-row">
+                    <div className="form-container">
                         <form>
-                            <div class="form-col">
-                                <div class="form-row">
-                                <label for="description" class="description-label">Description</label><br></br>
-                                <input type="text" class="description-input" name="text"></input>
-                                </div> <div class="form-row">
-                                <label for="quantity" class="quantity-label">Quantity</label><br></br>
-                                <select name="quantity" class="quantity-input">
+                            <div className="form-col">
+                                <div className="form-row">
+                                <label for="description" className="description-label">Description</label><br></br>
+                                <input type="text" className="description-input" name="text"></input>
+                                </div> <div className="form-row">
+                                <label for="quantity" className="quantity-label">Quantity</label><br></br>
+                                <select name="quantity" className="quantity-input">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5+">5+</option>
                                 </select><br></br>
-                                </div> <div class="form-row">
-                                <label for="image" class="image-label">Upload Image</label><br></br>
-                                <input type="file" class="image-input" name="image" accept="image/*"></input>
+                                </div> <div className="form-row">
+                                <label for="image" className="image-label">Upload Image</label><br></br>
+                                <input type="file" className="image-input" name="image" accept="image/*"></input>
                                 </div>
-                                <div class ="donation-submit">
-                                    <input class="next-button" type="submit"></input>
+                                <div className ="donation-submit">
+                                    <input className="next-button" type="submit"></input>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="bottom-row">
-                <hr class="solid-bar"></hr>
-                <label class="back-button" onClick={back2}>Back</label>
+                <div className="bottom-row">
+                <hr className="solid-bar"></hr>
+                <label className="back-button" onClick={back2}>Back</label>
                 </div>
             </div>
         </div>
