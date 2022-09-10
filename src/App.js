@@ -14,20 +14,22 @@ import { useState } from 'react';
 //Configuring AWS Amplify 
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
-Amplify.configure(awsExports);
 // Authentication Module
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import '@aws-amplify/ui-react/styles.css';
+Amplify.configure(awsExports);
+
 
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
-function App() {
-  const adminUser = {
-    company_name: "admin",
-    email: "admin@admin.com",
-    password: "admin123"
-  }
+function App({ signOut, user }) {
+  // const adminUser = {
+  //   company_name: "admin",
+  //   email: "admin@admin.com",
+  //   password: "admin123"
+  // }
 
-  const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
-  const [error, setError] = useState(""); 
+  // const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
+  // const [error, setError] = useState(""); 
 
   let component
   switch(window.location.pathname){
@@ -57,32 +59,32 @@ function App() {
       component = <Donation />
       var showNav = "False";
       break
-    case "/register":
-      var showNav = "True";
-      const Login = details => { //passing details to method called "Login"
-        console.log(details)
+    // case "/register":
+    //   var showNav = "True";
+    //   const Login = details => { //passing details to method called "Login"
+    //     console.log(details)
 
-        if (details.company_name == adminUser.company_name && details.email == adminUser.email && details.password == adminUser.password) {
-          console.log("Logged in");
-          setUser({
-            company_name: details.company_name, //This should direct to create Create Log in Details
-            email: details.email,
-            password: details.password
-          });
-        } else {
-          console.log("Details do not match!");
-        }
+    //     if (details.company_name == adminUser.company_name && details.email == adminUser.email && details.password == adminUser.password) {
+    //       console.log("Logged in");
+    //       setUser({
+    //         company_name: details.company_name, //This should direct to create Create Log in Details
+    //         email: details.email,
+    //         password: details.password
+    //       });
+    //     } else {
+    //       console.log("Details do not match!");
+    //     }
         
-      }
-      const Logout = () => {
-        setUser({company_name:"", email:"", password:""});
-      }
-      component = <LoginForm Login={Login} error={error} />
-      break
-    default:
-      component = <Home />
-      var showNav = "True";
-      break
+    //   }
+    //   const Logout = () => {
+    //     setUser({company_name:"", email:"", password:""});
+    //   }
+    //   component = <LoginForm Login={Login} error={error} />
+    //   break
+    // default:
+    //   component = <Home />
+    //   var showNav = "True";
+    //   break
   }
   return (
     <div className="App">
@@ -93,7 +95,7 @@ function App() {
       <Navbar/> }
       </>
       </header>
-      <AmplifySignOut />
+      <button onClick={signOut}>Sign out</button>
     </div>
   );
 }
