@@ -33,7 +33,6 @@ export declare class FOODITEM {
 export declare class DONOR {
   readonly id: string;
   readonly email?: string | null;
-  readonly password?: string | null;
   readonly business_name?: string | null;
   readonly type?: string | null;
   readonly abn?: number | null;
@@ -49,7 +48,6 @@ export declare class DONOR {
 export declare class NFP {
   readonly id: string;
   readonly email?: string | null;
-  readonly password?: string | null;
   readonly org_name?: string | null;
   readonly type?: string | null;
   readonly registered_charity?: boolean | null;

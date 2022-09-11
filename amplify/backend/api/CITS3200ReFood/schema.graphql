@@ -15,7 +15,6 @@ type FOODITEM @model @auth(rules: [{allow: public}]) {
 type DONOR @model @auth(rules: [{allow: public}]) {
   id: ID!
   email: AWSEmail
-  password: String
   business_name: String
   type: String
   abn: Int
@@ -27,7 +26,6 @@ type DONOR @model @auth(rules: [{allow: public}]) {
 type NFP @model @auth(rules: [{allow: public, operations: [create, read, update]}]) {
   id: ID!
   email: AWSEmail
-  password: String
   org_name: String
   type: String
   registered_charity: Boolean
@@ -36,3 +34,4 @@ type NFP @model @auth(rules: [{allow: public, operations: [create, read, update]
   address: String
   FOODITEMS: [FOODITEM] @hasMany(indexName: "byNFP", fields: ["id"])
 }
+ 

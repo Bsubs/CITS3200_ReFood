@@ -157,13 +157,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "password": {
-                    "name": "password",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "business_name": {
                     "name": "business_name",
                     "isArray": false,
@@ -272,13 +265,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "password": {
-                    "name": "password",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "org_name": {
                     "name": "org_name",
                     "isArray": false,
@@ -379,5 +365,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "ff8a39e8919d818505a25e1394c7d89a"
+    "version": "bbb3e98d6fb1182ebe318f1b226b0c19"
 };
