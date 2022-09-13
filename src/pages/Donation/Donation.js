@@ -1,8 +1,20 @@
 import React from 'react';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
+import DatePicker from "react-datepicker";
+import {useState} from 'react';
 
 function Donation(props) {
+
+  
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(null);
+    const onChange = (dates) => {
+        const [start, end] = dates;
+        setStartDate(start);
+        setEndDate(end);
+      };
+      
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
@@ -42,6 +54,7 @@ function Donation(props) {
     
     return (
         <div id="donation_page">
+             <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.css" />
             <div id="first-donation">
                 <div className="top-row">
         
@@ -85,28 +98,48 @@ function Donation(props) {
             <div id="third-donation">
             <div className="top-row">
              
-                <h1 id="donation-heading1">Tell collectors about the food you are donating</h1>
+                <h1 id="donation-heading1">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
                         <form>
                             <div className="form-col">
                                 <div className="form-row">
-                                <label for="description" className="description-label">Description</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
-                                </div> <div className="form-row">
-                                <label for="quantity" className="quantity-label">Quantity</label><br></br>
-                                <select name="quantity" className="quantity-input">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5+">5+</option>
-                                </select><br></br>
-                                </div> <div className="form-row">
-                                <label for="image" className="image-label">Upload Image</label><br></br>
-                                <input type="file" className="image-input" name="image" accept="image/*"></input>
+                                    <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
+                                    <input type="text" className="description-input" name="text"></input>
+                                </div> 
+                                <div className="form-row">
+                                    <label htmlFor="quantity" className="quantity-label">Quantity</label><br></br>
+                                    <select name="quantity" className="quantity-input">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5+">5+</option>
+                                    </select><br></br>
+                                </div> 
+                                <div className="form-row">
+                                    <label htmlFor="image" className="image-label">Upload Image</label><br></br>
+                                    <input type="file" className="image-input" name="image" accept="image/*"></input>
                                 </div>
+                                <div className="form-row">
+                                    <label htmlFor="description" className="description-label">Food Description</label><br></br>
+                                    <input type="text" className="description-input" name="text"></input>
+                                    
+                                </div> 
+                                <div>
+                                    <label htmlFor="description" className="description-label">Pick-up Date</label><br></br>
+                                 
+                                    <DatePicker
+                                    selected={startDate}
+                                    onChange={onChange}
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    selectsRange
+                                    isClearable
+                                    />
+                                </div>
+                                
                                 <div className ="donation-submit">
                                     <input className="next-button" type="submit"></input>
                                 </div>
@@ -115,8 +148,8 @@ function Donation(props) {
                     </div>
                 </div>
                 <div className="bottom-row">
-                <hr className="solid-bar"></hr>
                 <label className="back-button" onClick={back2}>Back</label>
+                 <button className="next-button" >Submit</button>
                 </div>
             </div>
         </div>
