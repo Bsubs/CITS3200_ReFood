@@ -1,8 +1,25 @@
+#donation_page li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  border-top: 1px solid black;
+  height: 12.5%;
+  font-size: 3vh;
+  margin-top: 0;
+
+}
+#donation_page ul{
+  margin-top: 0;
+  padding: 0rem;
+  height: 75vh;
+}
 #donation-heading1 {
-    color: rgb(255, 255, 255);
-    text-align: center;
-    margin-top: 10%;
-  }
+
+  color: rgb(255, 255, 255);
+  
+  
+}
 .top-row, .middle-row, .bottom-row {
   position: fixed;
   left: 0;
@@ -29,18 +46,28 @@
 .top-row {
   background-color: rgb(48, 154, 87);
   top: 0;
-  height: 15%;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
 .middle-row {
   background-color: rgb(255, 255, 255);
-  height: 75%;
+  height: 75vh;
   top: 15%;
   bottom: 10%;
-  overflow-y: scroll;
+
 }
 .bottom-row {
-  height: 10%;
+  height: 10vh;
+  padding: 2rem;
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top:3px solid #bbb;
+  font-size: 100%;
 }
 .food-type {
   border-radius: 25px;
@@ -55,24 +82,24 @@
 .Donation .navbar {
   display: none;
 }
-.solid-bar {
-  border-top: 3px solid #bbb;
-}
+
 .back-button {
   text-decoration: underline;
-  margin-left: 5%;
+  font-size: 2vh;
   float: left;
-  margin-top: 5%;
+
 }
 .next-button {
-  margin-right: 5%;
-  margin-top: 2%;
-  float: right;
+  
+  font-size: 2vh;
   background-color: lightgray;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 10px 10px 10px 10px;
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  color: white;
+  border: none;
+  border-radius: 1rem;
 }
 #second-donation {
     display: none;
@@ -82,6 +109,7 @@
 }
 .selected {
   border-color: red;
+  background-color: grey;
 }
 .form-col {
   float: left;
