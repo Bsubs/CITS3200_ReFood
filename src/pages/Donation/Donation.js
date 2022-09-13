@@ -68,9 +68,10 @@ function Donation(props) {
                 </div>
             </div>
             <div id="second-donation">
+       
             <div className="top-row">
-                <a href="/home"><img id="cancel-icon" src={cancel} alt="cancel icon"/></a>
-                <label id="help-button">Help</label>
+                
+           
                 <h1 id="donation-heading1">Where's your business located? </h1>
                 </div>
                 <div className="middle-row">
@@ -83,8 +84,7 @@ function Donation(props) {
             </div>
             <div id="third-donation">
             <div className="top-row">
-                <a href="/home"><img id="cancel-icon" src={cancel} alt="cancel icon"/></a>
-                <label id="help-button">Help</label>
+             
                 <h1 id="donation-heading1">Tell collectors about the food you are donating</h1>
                 </div>
                 <div className="middle-row">
