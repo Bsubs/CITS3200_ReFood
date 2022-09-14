@@ -1,35 +1,33 @@
 import React from "react";
 import "./SearchPage.css";
-import search from './search.png'
+import search from './search.png';
+import clearAll from './clearAll.js';
+
+
 
 function SearchPage({ placeholder, data }) {
   return (
     <div id="SearchPage">
-    <script type="text/javascript">
-        function clearFields()
-        {(document.getElementsByTagName("input").value = "!!")}
-    </script>
 
-    <script type="text/javascript">
-        function clearFields()
-        {(document.querySelectorAll("input").value = "!!")}
-    </script>
       <div className="search">
         <div className="searchHeader">What Food</div>
         <div className="inputs">
-          <input type="text" placeholder={placeholder} />
+          <input id='input1' type="text" placeholder={placeholder} name='input1'/>
         </div>
         <div className="dataResult"></div>
       </div>
 
+  
+
       <div className="search">
         <div className="searchHeader">Where</div>
-        <input type="text" placeholder="enter here..." />
+        <input id='input2' type="text" name='input2' placeholder="enter here..." />
       </div>
 
       
       <div id="buttonsContainer">
-        <button id="clearAll" className="button" onclick="clearFields()">
+        
+        <button id="clearAll" className="button" onclick={clearAll}>
           Clear all
         </button>
 
@@ -37,9 +35,12 @@ function SearchPage({ placeholder, data }) {
            <img  src={search} alt="search icon"/>
           Search
         </button>
-      </div>
       
+      </div>
+
     </div>
+
+  
   );
 }
 
