@@ -1,0 +1,159 @@
+#donation_page{
+  background-color: red;
+}
+#donation_page li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  border-top: 1px solid black;
+  height: 12.5%;
+  font-size: 3vh;
+  margin-top: 0;
+}
+
+#donation_page ul{
+  margin-top: 0;
+  padding: 0rem;
+  height: 75vh;
+}
+#donation-heading1 {
+
+  color: rgb(255, 255, 255);
+  
+  
+}
+.top-row, .middle-row, .bottom-row {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+#cancel-icon {
+ margin-top: 5px;
+ display: block;
+ margin-left: 0%;
+ margin-right: 15px;
+ float: left;
+}
+#help-button {
+  margin-top: 5px;
+  margin-left: 15px;
+  float: right;
+  margin-right: 3%;
+  background-color: lightgray;
+  padding: 8px;
+  border-radius: 10px 10px 10px 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.top-row {
+  background-color: rgb(48, 154, 87);
+  top: 0;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.middle-row {
+  background-color: rgb(255, 255, 255);
+  height: 75vh;
+  top: 15%;
+  bottom: 10%;
+  border-radius: 1rem;
+
+}
+.bottom-row {
+  height: 10vh;
+  padding: 2rem;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top:3px solid #bbb;
+  font-size: 100%;
+}
+.food-type {
+  border-radius: 25px;
+  padding: 10px;
+  width: 350px;
+  height: 125px;
+  border: 2px solid gray;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+.Donation .navbar {
+  display: none;
+}
+
+.back-button {
+  text-decoration: underline;
+  font-size: 2vh;
+  float: left;
+
+}
+.next-button {
+  
+  font-size: 2vh;
+  background-color: lightgray;
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+}
+#first-donation{
+  display: visible;
+}
+#second-donation {
+    display: none;
+}
+#third-donation {
+  display: none;
+}
+.selected {
+  border-color: red;
+  background-color: grey;
+}
+.form-col {
+  float: left;
+  width: 100%;
+ 
+}
+.form-row {
+ 
+}
+
+input{
+  outline: 0;
+  border-width: 0 0 1px;
+
+  width: 100%;
+}
+.description-input{
+  opacity: 50%;
+}
+.description-input:focus{
+  opacity: 100%;
+}
+
+#third-donation .middle-row{
+  box-sizing: border-box;
+  margin: 5vh;
+}
+
+#donation_page .form-row{
+  box-sizing: border-box;
+  padding-bottom: 0.5rem;
+}
+
+#donation_page .upload-image{
+  padding-top: 1rem;
+}
+
+.react-DatePicker{
+  width: 100%;
+}
