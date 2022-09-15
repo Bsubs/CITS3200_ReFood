@@ -4,10 +4,8 @@ import { schema } from './schema';
 
 
 
-const { FOODITEM, DONOR, NFP } = initSchema(schema);
+const { FOODITEM } = initSchema(schema);
 
 export {
-  FOODITEM,
-  DONOR,
-  NFP
+  FOODITEM
 };
