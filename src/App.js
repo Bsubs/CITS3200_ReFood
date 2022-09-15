@@ -73,7 +73,7 @@ function App() {
       component = <LoginForm Login={Login} error={error} />
       break
     default:
-      component = <Home />
+      component = <Donation/>
       var showNav = "True";
       break
   }
