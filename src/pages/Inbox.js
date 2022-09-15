@@ -45,11 +45,11 @@ function Inbox(props) {
       <div>
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
-                <h5>You have no unread Messages</h5>
+                <p class="thick">You have no unread Messages</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>
             </TabItem>
             <TabItem label="Notifications" index="2">
-                <h5>You have no unread Notifications</h5>
+                <p class="thick">You have no unread Notifications</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you Notifications here.</p>
             </TabItem>
         </Tabs>
