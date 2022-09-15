@@ -37,7 +37,8 @@
           "EMAIL",
           "FAMILY_NAME",
           "GIVEN_NAME",
-          "PHONE_NUMBER"
+          "PHONE_NUMBER",
+          "ADDRESS"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
