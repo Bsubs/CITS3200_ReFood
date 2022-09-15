@@ -1,11 +1,18 @@
 import React from "react";
 import "./SearchPage.css";
 import search from './search.png';
-import clearAll from './clearAll.js';
 
 
 
 function SearchPage({ placeholder, data }) {
+  function clearText() {
+    let input1=document.getElementById("input1");
+    let input2=document.getElementById("input2");
+
+    input1.value = '';
+    input2.value = '';
+  }
+
   return (
     <div id="SearchPage">
 
@@ -27,7 +34,7 @@ function SearchPage({ placeholder, data }) {
       
       <div id="buttonsContainer">
         
-        <button id="clearAll" className="button" onclick={clearAll}>
+        <button id="clearAll" className="button" onClick={clearText}>
           Clear all
         </button>
 
@@ -37,6 +44,7 @@ function SearchPage({ placeholder, data }) {
         </button>
       
       </div>
+      
 
     </div>
 
