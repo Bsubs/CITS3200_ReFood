@@ -45,7 +45,7 @@ function Navbar() {
             <li>
               <a href="/explore">
               <img id="explore_icon" src={search} alt="search icon"/>
-              <div id="explore_icon_text" className="nav_text">Explore</div>
+              <div id="explore_icon_text" className="nav_text">Find Food</div>
               </a>
             </li>
             <li>
