@@ -1,0 +1,13 @@
+.tab-menu > button {
+    float: left;
+    width: 50%;
+    padding: 10px 30px;
+    font-size: 40px;
+  }
+  .tab-menu > button.focus {
+    border-bottom: 2px solid #b32424;
+  }
+  .tab-menu > button:hover {
+    border-bottom: 2px solid #f6f6f8;
+  }
+  p.thick{font-weight: bold;}
