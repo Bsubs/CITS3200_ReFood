@@ -76,7 +76,7 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                 
-                <a href="home"><label className="back-button">Back</label></a>
+                <a href="/profile"><label className="back-button">Exit</label></a>
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>

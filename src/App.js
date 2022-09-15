@@ -74,7 +74,7 @@ function App() {
       break
     default:
       component = <Donation/>
-      var showNav = "True";
+      var showNav = "False";
       break
   }
   return (
