@@ -8,7 +8,7 @@ function Donation(props) {
 
   
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);
+    const [endDate, setEndDate] = useState(new Date());
     const onChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
@@ -85,7 +85,7 @@ function Donation(props) {
             <div className="top-row">
                 
            
-                <h1 id="donation-heading1">Where's your business located? </h1>
+                <h1 id="donation-heading1">Where is your business located? </h1>
                 </div>
                 <div className="middle-row">
                 </div>
@@ -109,40 +109,41 @@ function Donation(props) {
                                     <input type="text" className="description-input" name="text"></input>
                                 </div> 
                                 <div className="form-row">
-                                    <label htmlFor="quantity" className="quantity-label">Quantity</label><br></br>
-                                    <select name="quantity" className="quantity-input">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5+">5+</option>
-                                    </select><br></br>
+                                    <label htmlFor="quantity" className="quantity-label">Quantity/Volume of Food</label><br></br>
+                                    <input type="text" className="description-input" name="text"></input>
                                 </div> 
-                                <div className="form-row">
-                                    <label htmlFor="image" className="image-label">Upload Image</label><br></br>
-                                    <input type="file" className="image-input" name="image" accept="image/*"></input>
-                                </div>
+                                
                                 <div className="form-row">
                                     <label htmlFor="description" className="description-label">Food Description</label><br></br>
                                     <input type="text" className="description-input" name="text"></input>
                                     
                                 </div> 
                                 <div>
-                                    <label htmlFor="description" className="description-label">Pick-up Date</label><br></br>
+                                    <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
                                  
                                     <DatePicker
-                                    selected={startDate}
-                                    onChange={onChange}
-                                    startDate={startDate}
-                                    endDate={endDate}
-                                    selectsRange
-                                    isClearable
+                                        selected={startDate}
+                                        onChange={(date) => setStartDate(date)}
+                                        selectsStart
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                    />
+                                    <DatePicker
+                                        selected={endDate}
+                                        onChange={(date) => setEndDate(date)}
+                                        selectsEnd
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        minDate={startDate}
                                     />
                                 </div>
-                                
-                                <div className ="donation-submit">
-                                    <input className="next-button" type="submit"></input>
+
+                                <div className="form-row upload-image">
+                                    <label htmlFor="image" className="image-label">Upload Image</label><br></br>
+                                    <input type="file" className="image-input" name="image" accept="image/*"></input>
                                 </div>
+                                
+                                
                             </div>
                         </form>
                     </div>

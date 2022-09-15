@@ -106,13 +106,13 @@
   border-radius: 1rem;
 }
 #first-donation{
-  display: none;
+  display: visible;
 }
 #second-donation {
     display: none;
 }
 #third-donation {
-  display: visible;
+  display: none;
 }
 .selected {
   border-color: red;
@@ -143,4 +143,17 @@ input{
 #third-donation .middle-row{
   box-sizing: border-box;
   margin: 5vh;
+}
+
+#donation_page .form-row{
+  box-sizing: border-box;
+  padding-bottom: 0.5rem;
+}
+
+#donation_page .upload-image{
+  padding-top: 1rem;
+}
+
+.react-DatePicker{
+  width: 100%;
 }
