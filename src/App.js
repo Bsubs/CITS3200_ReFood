@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 // Authentication Module
-import { signOut, Authenticator } from "@aws-amplify/ui-react";
+import { signOut, Authenticator, useAuthenticator, TextField, SelectField } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 Amplify.configure(awsExports);
 
@@ -52,7 +52,56 @@ function App({ signOut, user }) {
       break
   }
   return (
-    <div className="App">
+    <Authenticator
+    // Default to Sign Up screen
+    initialState="signUp"
+    // Customize `Authenticator.SignUp.FormFields`
+    signUpAttributes={[
+      'address',
+      'email',
+      'family_name',
+      'given_name',
+      'phone_number',
+      'custom:business_name',
+      'custom:type',
+      'custom:abn',
+    ]}
+    components={{
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+
+          return (
+            <>
+              {/* Re-use default `Authenticator.SignUp.FormFields` */}
+              <Authenticator.SignUp.FormFields />
+              <TextField
+                name="custom:business_name"
+                placeholder='Business Name'
+              />
+              <TextField
+                name="address"
+                placeholder='Address of Business'
+              />
+              <TextField
+                name='custom:abn'
+                placeholder='ABN'
+              />
+              <SelectField
+                name='custom:type'
+                placeholder='Select Type of Business'
+              >
+                <option value="Donor">Donor</option>
+                <option value="Collector">Collector</option>
+              </SelectField>
+            </>
+          );
+        },
+      },
+    }}
+  >
+    {({ signOut, user }) => (
+      <div className="App">
       <header className="App-header">
         <>
       {component}
@@ -62,7 +111,8 @@ function App({ signOut, user }) {
       </header>
       <button onClick={signOut}>Sign out</button>
     </div>
-
+    )}
+  </Authenticator>
   );
 }
 export default App;
