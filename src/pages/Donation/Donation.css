@@ -1,5 +1,6 @@
 #donation_page{
   background-color: red;
+  font-family: "arial","verdana";
 }
 #donation_page li{
   display: flex;
@@ -106,26 +107,20 @@
   border-radius: 1rem;
 }
 #first-donation{
-  display: visible;
+  display: none;
 }
 #second-donation {
     display: none;
 }
 #third-donation {
-  display: none;
+  display: visible;
 }
 .selected {
   border-color: red;
   background-color: grey;
 }
-.form-col {
-  float: left;
-  width: 100%;
- 
-}
-.form-row {
- 
-}
+
+
 
 input{
   outline: 0;
@@ -147,7 +142,7 @@ input{
 
 #donation_page .form-row{
   box-sizing: border-box;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
 }
 
 #donation_page .upload-image{
