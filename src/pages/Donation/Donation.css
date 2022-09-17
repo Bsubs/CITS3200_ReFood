@@ -1,3 +1,7 @@
+#donation_page{
+  background-color: red;
+  font-family: "arial","verdana";
+}
 #donation_page li{
   display: flex;
   justify-content: center;
@@ -7,8 +11,8 @@
   height: 12.5%;
   font-size: 3vh;
   margin-top: 0;
-
 }
+
 #donation_page ul{
   margin-top: 0;
   padding: 0rem;
@@ -57,6 +61,7 @@
   height: 75vh;
   top: 15%;
   bottom: 10%;
+  border-radius: 1rem;
 
 }
 .bottom-row {
@@ -101,26 +106,49 @@
   border: none;
   border-radius: 1rem;
 }
+#first-donation{
+  display: none;
+}
 #second-donation {
     display: none;
 }
 #third-donation {
-  display: none;
+  display: visible;
 }
 .selected {
   border-color: red;
   background-color: grey;
 }
-.form-col {
-  float: left;
-  width: 55%;
-  margin-left: 25%;
-  margin-top: 15%;
+
+
+
+input{
+  outline: 0;
+  border-width: 0 0 1px;
+
+  width: 100%;
 }
-.form-row {
-  margin-top: 35%;
+.description-input{
+  opacity: 50%;
 }
-.donation-submit {
-  margin-top: 30%;
-  margin-right: 50%;
+.description-input:focus{
+  opacity: 100%;
+}
+
+#third-donation .middle-row{
+  box-sizing: border-box;
+  margin: 5vh;
+}
+
+#donation_page .form-row{
+  box-sizing: border-box;
+  padding-bottom: 1rem;
+}
+
+#donation_page .upload-image{
+  padding-top: 1rem;
+}
+
+.react-DatePicker{
+  width: 100%;
 }

@@ -1,8 +1,21 @@
 import React from 'react';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
+import "react-multi-date-picker/styles/layouts/mobile.css"
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
+import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
+import {useState} from 'react';
+import DatePicker from "react-multi-date-picker";
 
 function Donation(props) {
+
+  
+    const minDate= new Date();
+    const [value, setValue] = useState(new Date());
+    const [state, setState] = useState({});
+ 
+      
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
@@ -42,6 +55,7 @@ function Donation(props) {
     
     return (
         <div id="donation_page">
+             <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.css" />
             <div id="first-donation">
                 <div className="top-row">
         
@@ -63,7 +77,7 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                 
-                <a href="home"><label className="back-button">Back</label></a>
+                <a href="/"><label className="back-button">Back</label></a>
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
@@ -72,7 +86,7 @@ function Donation(props) {
             <div className="top-row">
                 
            
-                <h1 id="donation-heading1">Where's your business located? </h1>
+                <h1 id="donation-heading1">Where is your business located? </h1>
                 </div>
                 <div className="middle-row">
                 </div>
@@ -85,38 +99,69 @@ function Donation(props) {
             <div id="third-donation">
             <div className="top-row">
              
-                <h1 id="donation-heading1">Tell collectors about the food you are donating</h1>
+                <h1 id="donation-heading1">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
                         <form>
-                            <div className="form-col">
-                                <div className="form-row">
-                                <label for="description" className="description-label">Description</label><br></br>
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
+                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
+                            </div> 
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
                                 <input type="text" className="description-input" name="text"></input>
-                                </div> <div className="form-row">
-                                <label for="quantity" className="quantity-label">Quantity</label><br></br>
-                                <select name="quantity" className="quantity-input">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5+">5+</option>
-                                </select><br></br>
-                                </div> <div className="form-row">
-                                <label for="image" className="image-label">Upload Image</label><br></br>
-                                <input type="file" className="image-input" name="image" accept="image/*"></input>
-                                </div>
-                                <div className ="donation-submit">
-                                    <input className="next-button" type="submit"></input>
-                                </div>
+                            </div> 
+                            <div className="form-row">
+                                <label htmlFor="quantity" className="quantity-label">Quantity/Volume of Food</label><br></br>
+                                <input type="text" className="description-input" name="text"></input>
+                            </div> 
+                            
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Food Description</label><br></br>
+                                <input type="text" className="description-input" name="text"></input>
+                                
+                            </div> 
+                            <div>
+                                <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
+                                
+                               
+                                <DatePicker className="rmdp-mobile" multiple value={value} onChange={setValue} format="DD/MM/YYYY" 
+                                mobileButtons={[
+                                    {
+                                      label: "RESET",
+                                      type: "button",
+                                      className: "rmdp-button rmdp-action-button",
+                                      onClick: () => setValue({}),
+                                    },
+                                  ]}
+
+                                  onFocusedDateChange={(dateFocused, dateClicked) => {
+                                    setState({ dateFocused, dateClicked });
+                                  }}
+                                  onClose={() => setState({})}
+                                  plugins={[<DatePanel markFocused />]}
+                                />
                             </div>
+
+                            <div className="form-row upload-image">
+                                <label htmlFor="image" className="image-label">Upload Image</label><br></br>
+                                <input type="file" className="image-input" name="image" accept="image/*"></input>
+                                
+                            </div>
+                           
+                            <div className="form-row upload-image">
+                            <MultipleImageUploadComponent />
+                                
+                            </div>
+                                s
+                           
                         </form>
                     </div>
                 </div>
                 <div className="bottom-row">
-                <hr className="solid-bar"></hr>
                 <label className="back-button" onClick={back2}>Back</label>
+                 <button className="next-button" >Submit</button>
                 </div>
             </div>
         </div>
