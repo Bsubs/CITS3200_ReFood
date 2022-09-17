@@ -3,7 +3,8 @@ import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
 import "react-multi-date-picker/styles/layouts/mobile.css"
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
-
+import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
+import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
 import {useState} from 'react';
 import DatePicker from "react-multi-date-picker";
 
@@ -146,9 +147,14 @@ function Donation(props) {
                             <div className="form-row upload-image">
                                 <label htmlFor="image" className="image-label">Upload Image</label><br></br>
                                 <input type="file" className="image-input" name="image" accept="image/*"></input>
-                            </div>
-                            
                                 
+                            </div>
+                           
+                            <div className="form-row upload-image">
+                            <MultipleImageUploadComponent />
+                                
+                            </div>
+                                s
                            
                         </form>
                     </div>
