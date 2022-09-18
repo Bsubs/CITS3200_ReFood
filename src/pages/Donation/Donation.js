@@ -5,6 +5,9 @@ import "react-multi-date-picker/styles/layouts/mobile.css"
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
 import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
+import '../../App.css';
+import Camera from '../../assets/icons/PNG/camera.png'
+
 import {useState} from 'react';
 import DatePicker from "react-multi-date-picker";
 
@@ -25,6 +28,8 @@ function Donation(props) {
         else {
             window.alert("Please select a food type");
         }
+
+        
     }
     function next2() {
         document.getElementById("second-donation").style.display = "none"
@@ -40,8 +45,9 @@ function Donation(props) {
     }
     function selectType(event) {
         
-        var elem;
-        for (elem of document.getElementsByClassName("selected")) {
+      
+        var next_buttons=document.getElementsByClassName("next-button");
+        for (let elem of document.getElementsByClassName("selected")) {
             elem.classList.remove("selected");
         }
         if (event.target.nodeName == "H2") {
@@ -50,6 +56,17 @@ function Donation(props) {
         else {
             event.target.classList.add("selected");
         }
+
+        for (let elem of document.getElementsByClassName("next-button")){
+         
+            if (!(getComputedStyle(elem).display ==="hidden")){
+                elem.classList.add("selected");
+                
+            }
+            
+            
+        }
+
     
     }
     
@@ -105,21 +122,19 @@ function Donation(props) {
                     <div className="form-container">
                         <form>
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
-                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
-                            </div> 
-                            <div className="form-row">
-                                <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
+                                <label htmlFor="description" className="description-label"> Food Item(s)</label><br></br>
                                 <input type="text" className="description-input" name="text"></input>
                             </div> 
+                            
+                            
                             <div className="form-row">
-                                <label htmlFor="quantity" className="quantity-label">Quantity/Volume of Food</label><br></br>
+                                <label htmlFor="quantity" className="quantity-label description-label">Quantity/Volume of Food</label><br></br>
                                 <input type="text" className="description-input" name="text"></input>
                             </div> 
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Food Description</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
+                                <textarea id="food-description-input" type="text" className="description-input" name="text"></textarea>
                                 
                             </div> 
                             <div>
@@ -145,16 +160,21 @@ function Donation(props) {
                             </div>
 
                             <div className="form-row upload-image">
-                                <label htmlFor="image" className="image-label">Upload Image</label><br></br>
-                                <input type="file" className="image-input" name="image" accept="image/*"></input>
+                                <label htmlFor="image" className="image-label description-label">Pictures</label><br></br>
+                                <div id="image_box_1" className="image_box">
+                                    <img id="logo" src={Camera} alt="camera"/>
+                                    
+                                </div>
+                                
+                                
                                 
                             </div>
                            
-                            <div className="form-row upload-image">
-                            <MultipleImageUploadComponent />
-                                
-                            </div>
-                                s
+                            
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
+                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
+                            </div> 
                            
                         </form>
                     </div>
