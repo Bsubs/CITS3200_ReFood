@@ -10,12 +10,15 @@ import book from './book.png'
 import banner from "./bakers-delight.jpg"
 function Profile(props) {
 
+    //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
 
+    //The fetch attribute function is called everytime the component is rendered
     useEffect(() => {
         fetchAttributes();
       }, []);
-
+    
+    //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
     const fetchAttributes = async() => {
         try{
             const userData = await Auth.currentAuthenticatedUser();

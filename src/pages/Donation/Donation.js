@@ -1,15 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Amplify, Auth } from 'aws-amplify';
+import { type } from '@testing-library/user-event/dist/type';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
 import "react-multi-date-picker/styles/layouts/mobile.css"
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
 import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
-import {useState} from 'react';
 import DatePicker from "react-multi-date-picker";
 
 function Donation(props) {
 
+    const [donatedItem, setDonatedItem] = useState({
+        title: "",
+        pickup_date:"",
+        pickup_time:"",
+        category:"",
+        quantity:"",
+        expiry_date:"",
+        transport_reqs:"",
+        donorID:"",
+        nfpID:""
+    });
+
+    //The attributes object stores the user attributes retrived from the AWS Cognito Database
+    const [attributes, setAttributes] = useState({});
+
+    //The fetch attribute function is called everytime the component is rendered
+    useEffect(() => {
+        fetchAttributes();
+      }, []);
+    
+    //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+    const fetchAttributes = async() => {
+        try{
+            const userData = await Auth.currentAuthenticatedUser();
+            const attributesList = userData.attributes;
+            setAttributes(attributesList);
+        } catch (error) {
+            console.log('error in fetching user data', error);
+        }
+
+    };
   
     const minDate= new Date();
     const [value, setValue] = useState(new Date());
@@ -20,24 +52,18 @@ function Donation(props) {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
-            document.getElementById("second-donation").style.display = "initial"
+            document.getElementById("third-donation").style.display = "initial"
         }
         else {
             window.alert("Please select a food type");
         }
     }
-    function next2() {
-        document.getElementById("second-donation").style.display = "none"
-        document.getElementById("third-donation").style.display = "initial"
-    }
+
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
-        document.getElementById("second-donation").style.display = "none"
-    }
-    function back2() {
-        document.getElementById("second-donation").style.display = "initial"
         document.getElementById("third-donation").style.display = "none"
     }
+
     function selectType(event) {
         
         var elem;
@@ -49,8 +75,13 @@ function Donation(props) {
         }
         else {
             event.target.classList.add("selected");
+            console.log(event.target.innerHTML);
+
+            const donatedItem = {...state.donatedItem, ['category']: event.target.innerHTML};
+            setDonatedItem (() => ({donatedItem}));
+
         }
-    
+        console.log(donatedItem);
     }
     
     return (
@@ -81,21 +112,7 @@ function Donation(props) {
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
-            <div id="second-donation">
-       
-            <div className="top-row">
-                
-           
-                <h1 id="donation-heading1">Where is your business located? </h1>
-                </div>
-                <div className="middle-row">
-                </div>
-                <div className="bottom-row">
-                
-                 <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" onClick={next2}>Next</button>
-                </div>
-            </div>
+
             <div id="third-donation">
             <div className="top-row">
              
@@ -104,10 +121,6 @@ function Donation(props) {
                 <div className="middle-row">
                     <div className="form-container">
                         <form>
-                            <div className="form-row">
-                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
-                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
-                            </div> 
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
                                 <input type="text" className="description-input" name="text"></input>
@@ -160,7 +173,7 @@ function Donation(props) {
                     </div>
                 </div>
                 <div className="bottom-row">
-                <label className="back-button" onClick={back2}>Back</label>
+                <label className="back-button" onClick={back1}>Back</label>
                  <button className="next-button" >Submit</button>
                 </div>
             </div>
