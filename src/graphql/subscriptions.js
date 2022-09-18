@@ -13,8 +13,8 @@ export const onCreateFOODITEM = /* GraphQL */ `
       expiry_date
       transport_reqs
       picture
-      nfpID
       donorID
+      nfpID
       createdAt
       updatedAt
       _version
@@ -35,8 +35,8 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       expiry_date
       transport_reqs
       picture
-      nfpID
       donorID
+      nfpID
       createdAt
       updatedAt
       _version
@@ -57,149 +57,8 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       expiry_date
       transport_reqs
       picture
-      nfpID
       donorID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateDONOR = /* GraphQL */ `
-  subscription OnCreateDONOR {
-    onCreateDONOR {
-      id
-      email
-      password
-      business_name
-      type
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateDONOR = /* GraphQL */ `
-  subscription OnUpdateDONOR {
-    onUpdateDONOR {
-      id
-      email
-      password
-      business_name
-      type
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteDONOR = /* GraphQL */ `
-  subscription OnDeleteDONOR {
-    onDeleteDONOR {
-      id
-      email
-      password
-      business_name
-      type
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateNFP = /* GraphQL */ `
-  subscription OnCreateNFP {
-    onCreateNFP {
-      id
-      email
-      password
-      org_name
-      type
-      registered_charity
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateNFP = /* GraphQL */ `
-  subscription OnUpdateNFP {
-    onUpdateNFP {
-      id
-      email
-      password
-      org_name
-      type
-      registered_charity
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteNFP = /* GraphQL */ `
-  subscription OnDeleteNFP {
-    onDeleteNFP {
-      id
-      email
-      password
-      org_name
-      type
-      registered_charity
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
+      nfpID
       createdAt
       updatedAt
       _version
