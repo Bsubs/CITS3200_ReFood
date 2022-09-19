@@ -45,7 +45,7 @@ function Navbar() {
             <li>
               <a href="/explore">
               <img id="explore_icon" src={search} alt="search icon"/>
-              <div id="explore_icon_text" className="nav_text">Find Food</div>
+              <div id="explore_icon_text" className="nav_text">Explore</div>
               </a>
             </li>
             <li>
@@ -55,9 +55,9 @@ function Navbar() {
               </a>
             </li>
             <li>
-            <a href="/home">
+              
             <img id="logo" src={logo} alt="ReFood logo"/>
-            </a>  
+           
             </li>
             <li>
             <a href="/inbox">
