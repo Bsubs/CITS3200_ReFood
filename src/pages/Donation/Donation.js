@@ -1,19 +1,20 @@
 import React from 'react';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
-import DatePicker from "react-datepicker";
+import "react-multi-date-picker/styles/layouts/mobile.css"
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
+import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
 import {useState} from 'react';
+import DatePicker from "react-multi-date-picker";
 
 function Donation(props) {
 
   
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const onChange = (dates) => {
-        const [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
-      };
+    const minDate= new Date();
+    const [value, setValue] = useState(new Date());
+    const [state, setState] = useState({});
+ 
       
     function next1() {
         var i = document.getElementsByClassName("selected")
@@ -76,7 +77,8 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                 
-                <a href="/profile"><label className="back-button">Exit</label></a>
+                <a href="/"><label className="back-button">Back</label></a>
+                
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
@@ -103,48 +105,58 @@ function Donation(props) {
                 <div className="middle-row">
                     <div className="form-container">
                         <form>
-                            <div className="form-col">
-                                <div className="form-row">
-                                    <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
-                                    <input type="text" className="description-input" name="text"></input>
-                                </div> 
-                                <div className="form-row">
-                                    <label htmlFor="quantity" className="quantity-label">Quantity/Volume of Food</label><br></br>
-                                    <input type="text" className="description-input" name="text"></input>
-                                </div> 
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
+                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
+                            </div> 
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
+                                <input type="text" className="description-input" name="text"></input>
+                            </div> 
+                            <div className="form-row">
+                                <label htmlFor="quantity" className="quantity-label">Quantity/Volume of Food</label><br></br>
+                                <input type="text" className="description-input" name="text"></input>
+                            </div> 
+                            
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Food Description</label><br></br>
+                                <input type="text" className="description-input" name="text"></input>
                                 
-                                <div className="form-row">
-                                    <label htmlFor="description" className="description-label">Food Description</label><br></br>
-                                    <input type="text" className="description-input" name="text"></input>
-                                    
-                                </div> 
-                                <div>
-                                    <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
-                                 
-                                    <DatePicker
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
-                                        selectsStart
-                                        startDate={startDate}
-                                        endDate={endDate}
-                                    />
-                                    <DatePicker
-                                        selected={endDate}
-                                        onChange={(date) => setEndDate(date)}
-                                        selectsEnd
-                                        startDate={startDate}
-                                        endDate={endDate}
-                                        minDate={startDate}
-                                    />
-                                </div>
+                            </div> 
+                            <div>
+                                <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
+                                
+                               
+                                <DatePicker className="rmdp-mobile" multiple value={value} onChange={setValue} format="DD/MM/YYYY" 
+                                mobileButtons={[
+                                    {
+                                      label: "RESET",
+                                      type: "button",
+                                      className: "rmdp-button rmdp-action-button",
+                                      onClick: () => setValue({}),
+                                    },
+                                  ]}
 
-                                <div className="form-row upload-image">
-                                    <label htmlFor="image" className="image-label">Upload Image</label><br></br>
-                                    <input type="file" className="image-input" name="image" accept="image/*"></input>
-                                </div>
-                                
+                                  onFocusedDateChange={(dateFocused, dateClicked) => {
+                                    setState({ dateFocused, dateClicked });
+                                  }}
+                                  onClose={() => setState({})}
+                                  plugins={[<DatePanel markFocused />]}
+                                />
+                            </div>
+
+                            <div className="form-row upload-image">
+                                <label htmlFor="image" className="image-label">Upload Image</label><br></br>
+                                <input type="file" className="image-input" name="image" accept="image/*"></input>
                                 
                             </div>
+                           
+                            <div className="form-row upload-image">
+                            <MultipleImageUploadComponent />
+                                
+                            </div>
+                                s
+                           
                         </form>
                     </div>
                 </div>
