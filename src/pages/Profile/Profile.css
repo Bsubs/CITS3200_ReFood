@@ -1,12 +1,15 @@
 *{
     font-family: "arial","verdana";
+   
 }
 #profile_page{
+
+    
     margin: 2rem;
     display: flex;
     flex-direction: column;
     height: 100vh;
-    
+  
 }
 
 .user_image{

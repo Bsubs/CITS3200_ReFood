@@ -78,6 +78,7 @@ function Donation(props) {
                 <div className="bottom-row">
                 
                 <a href="/"><label className="back-button">Back</label></a>
+                
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
