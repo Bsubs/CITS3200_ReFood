@@ -24,31 +24,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "pickup_time": {
-                    "name": "pickup_time",
-                    "isArray": false,
-                    "type": "AWSTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "category": {
                     "name": "category",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "quantity": {
-                    "name": "quantity",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "expiry_date": {
-                    "name": "expiry_date",
-                    "isArray": false,
-                    "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -75,6 +54,20 @@ export const schema = {
                 },
                 "nfpID": {
                     "name": "nfpID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "pickup_location": {
+                    "name": "pickup_location",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "quantity": {
+                    "name": "quantity",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -125,5 +118,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "86acb8e80d9c9ab8de1adda1e1aae8cd"
+    "version": "c77e55802b4d9dc18c39c75cf219ea3a"
 };

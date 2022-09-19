@@ -7,14 +7,13 @@ export const getFOODITEM = /* GraphQL */ `
       id
       title
       pickup_date
-      pickup_time
       category
-      quantity
-      expiry_date
       transport_reqs
       picture
       donorID
       nfpID
+      pickup_location
+      quantity
       createdAt
       updatedAt
       _version
@@ -34,14 +33,13 @@ export const listFOODITEMS = /* GraphQL */ `
         id
         title
         pickup_date
-        pickup_time
         category
-        quantity
-        expiry_date
         transport_reqs
         picture
         donorID
         nfpID
+        pickup_location
+        quantity
         createdAt
         updatedAt
         _version
@@ -70,14 +68,13 @@ export const syncFOODITEMS = /* GraphQL */ `
         id
         title
         pickup_date
-        pickup_time
         category
-        quantity
-        expiry_date
         transport_reqs
         picture
         donorID
         nfpID
+        pickup_location
+        quantity
         createdAt
         updatedAt
         _version

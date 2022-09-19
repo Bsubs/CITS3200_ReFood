@@ -2,13 +2,12 @@ type FOODITEM @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String
   pickup_date: AWSDate
-  pickup_time: AWSTime
   category: String
-  quantity: Float
-  expiry_date: AWSDate
   transport_reqs: String
   picture: AWSURL
   donorID: String
   nfpID: String
+  pickup_location: String
+  quantity: String
 }
  

@@ -11,18 +11,6 @@ import DatePicker from "react-multi-date-picker";
 
 function Donation(props) {
 
-    const [donatedItem, setDonatedItem] = useState({
-        title: "",
-        pickup_date:"",
-        pickup_time:"",
-        category:"",
-        quantity:"",
-        expiry_date:"",
-        transport_reqs:"",
-        donorID:"",
-        nfpID:""
-    });
-
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
 
@@ -43,6 +31,18 @@ function Donation(props) {
 
     };
   
+    const [donatedItem, setDonatedItem] = useState({
+        title: "",
+        pickup_date:"",
+        pickup_time:"",
+        category:"",
+        quantity:"",
+        expiry_date:"",
+        transport_reqs:"",
+        donorID:"",
+        nfpID:""
+    });
+
     const minDate= new Date();
     const [value, setValue] = useState(new Date());
     const [state, setState] = useState({});
@@ -79,7 +79,8 @@ function Donation(props) {
 
             setDonatedItem (() => ({
                 ...donatedItem,
-                ['category']: event.target.innerHTML
+                ['category']: event.target.innerHTML,
+                ['donorID']: attributes['sub']
             }));
 
         }
