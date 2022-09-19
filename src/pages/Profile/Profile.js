@@ -22,6 +22,7 @@ function Profile(props) {
     const fetchAttributes = async() => {
         try{
             const userData = await Auth.currentAuthenticatedUser();
+            console.log(userData);
             const attributesList = userData.attributes;
             setAttributes(attributesList);
         } catch (error) {
@@ -115,7 +116,7 @@ function Profile(props) {
                 <h1>User Details</h1>
                 <ul>
                     <li>
-                        <div className='list_member'>{attributes.given_name} {attributes.family_name}</div>
+                        <div className='list_member'>{attributes.name}</div>
                     </li>
                     <li>
                         <div className='list_member'>{attributes.email}</div>

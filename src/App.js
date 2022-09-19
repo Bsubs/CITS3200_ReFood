@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 // Authentication Module
-import { signOut, Authenticator, useAuthenticator, TextField, SelectField } from "@aws-amplify/ui-react";
+import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 Amplify.configure(awsExports);
 
@@ -59,8 +59,7 @@ function App({ signOut, user }) {
     signUpAttributes={[
       'address',
       'email',
-      'family_name',
-      'given_name',
+      'name',
       'phone_number',
       'custom:business_name',
       'custom:type',
