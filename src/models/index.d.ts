@@ -15,6 +15,7 @@ export declare class FOODITEM {
   readonly nfpID?: string | null;
   readonly pickup_location?: string | null;
   readonly quantity?: string | null;
+  readonly description?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<FOODITEM, FOODITEMMetaData>);

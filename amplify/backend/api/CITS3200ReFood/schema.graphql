@@ -1,7 +1,7 @@
 type FOODITEM @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String
-  pickup_date: AWSDate
+  pickup_date: String
   category: String
   transport_reqs: String
   picture: AWSURL
@@ -9,5 +9,6 @@ type FOODITEM @model @auth(rules: [{allow: public}]) {
   nfpID: String
   pickup_location: String
   quantity: String
+  description: String
 }
  

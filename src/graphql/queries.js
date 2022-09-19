@@ -14,6 +14,7 @@ export const getFOODITEM = /* GraphQL */ `
       nfpID
       pickup_location
       quantity
+      description
       createdAt
       updatedAt
       _version
@@ -40,6 +41,7 @@ export const listFOODITEMS = /* GraphQL */ `
         nfpID
         pickup_location
         quantity
+        description
         createdAt
         updatedAt
         _version
@@ -75,6 +77,7 @@ export const syncFOODITEMS = /* GraphQL */ `
         nfpID
         pickup_location
         quantity
+        description
         createdAt
         updatedAt
         _version

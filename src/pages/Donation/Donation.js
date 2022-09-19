@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
@@ -8,6 +8,7 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
 import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
 import DatePicker from "react-multi-date-picker";
+import * as mutations from '../../graphql/mutations';
 
 function Donation(props) {
 
@@ -30,17 +31,17 @@ function Donation(props) {
         }
 
     };
-  
+
     const [donatedItem, setDonatedItem] = useState({
         title: "",
         pickup_date:"",
-        pickup_time:"",
         category:"",
-        quantity:"",
-        expiry_date:"",
         transport_reqs:"",
         donorID:"",
-        nfpID:""
+        nfpID:"",
+        pickup_location:"",
+        quantity:"",
+        description:""
     });
 
     const minDate= new Date();
@@ -86,6 +87,48 @@ function Donation(props) {
         }
         console.log(donatedItem);
     }
+
+    // Updates Title Field upon user input
+    function handleTitleChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['title']: e.target.value
+        }));
+    }
+
+     // Updates Quantity Field upon user input
+    function handleQuantityChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['quantity']: e.target.value
+        }));
+    }
+
+    // Updates Description Field upon user input
+    function handleDescriptionChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['description']: e.target.value
+        }));
+    }
+
+    // WIP -> need to get date form datepicker
+    function handleDateChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['pickup_date']: e.target.value
+        }));
+    }
+
+    // Creates a new FOODITEM and adds it to the database
+    const addDonation = async() => {
+        try{
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+        } catch (error) {
+            console.log('error in fetching posting to database', error);
+        }
+
+    };
     
     return (
         <div id="donation_page">
@@ -127,16 +170,16 @@ function Donation(props) {
                         <form>
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Food Item(s)</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
+                                <input type="text" className="description-input" name="text" onChange={handleTitleChange}></input>
                             </div> 
                             <div className="form-row">
                                 <label htmlFor="quantity" className="quantity-label">Quantity/Volume of Food</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
+                                <input type="text" className="description-input" name="text" onChange={handleQuantityChange}></input>
                             </div> 
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Food Description</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
+                                <input type="text" className="description-input" name="text" onChange={handleDescriptionChange}></input>
                                 
                             </div> 
                             <div>
@@ -178,7 +221,7 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                 <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" >Submit</button>
+                 <button className="next-button" onClick={addDonation} >Submit</button>
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@ export const onCreateFOODITEM = /* GraphQL */ `
       nfpID
       pickup_location
       quantity
+      description
       createdAt
       updatedAt
       _version
@@ -35,6 +36,7 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       nfpID
       pickup_location
       quantity
+      description
       createdAt
       updatedAt
       _version
@@ -56,6 +58,7 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       nfpID
       pickup_location
       quantity
+      description
       createdAt
       updatedAt
       _version
