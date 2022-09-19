@@ -10,6 +10,7 @@ import message from './message.png'
 function Navbar() {
   let page = window.location.pathname;
   let colour="blue";
+  
   useEffect(()=>{
     switch(page){
       case "/":

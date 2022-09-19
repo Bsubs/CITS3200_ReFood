@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
 import "react-multi-date-picker/styles/layouts/mobile.css"
@@ -8,17 +8,74 @@ import MultipleImageUploadComponent from "../../components/layout/uploadImages/m
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
 
-import {useState} from 'react';
+
 import DatePicker from "react-multi-date-picker";
 
 function Donation(props) {
 
-  
+    useEffect(()=>{
+        let delete_buttons=document.getElementsByClassName("delete_image");
+        console.log(delete_buttons);
+        Array.from(delete_buttons).forEach(function(elem){
+            elem.addEventListener("click",delete_image);
+        })
+    })
     const minDate= new Date();
     const [value, setValue] = useState(new Date());
     const [state, setState] = useState({});
+    let num_images=0;
  
-      
+    const [image, setImage]= useState(undefined);
+    const handleChange = (event) => {
+        
+        let image_placement=document.getElementById("uploaded_image_"+num_images);
+        image_placement.src= URL.createObjectURL(event.target.files[0]);
+        image_placement.classList.add("make_image_visible");
+        num_images=num_images+1;
+  }
+
+    function delete_image(){
+        console.log(this.parentElement);
+        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
+        if (uploaded_image.classList.contains("make_image_visible")){
+            uploaded_image.src="";
+            uploaded_image.classList.remove("make_image_visible");
+            num_images=num_images-1;
+        }
+        if (num_images<0){
+            num_images=0;
+        }
+        cascade_images();
+       
+    }
+    function log_image_src(){
+        let images=document.getElementsByClassName("uploaded_image"); 
+        console.log(images);
+        for (let i=0;i<images.length;i++){
+            
+            console.log(images[i].getAttribute("src"));
+        }
+    }
+    function cascade_images(){
+        if (num_images>0){
+            let images=document.getElementsByClassName("uploaded_image"); 
+            while (images[0].getAttribute("src")==""){
+                for (let i=1; i<images.length;i++){
+                    images[i-1].setAttribute("src",images[i].getAttribute("src"));
+                    images[i-1].classList.add('make_image_visible');
+                }
+
+                log_image_src();
+            }
+            images[images.length-1].src="";
+            images[images.length-1].classList.remove("make_image_visible");
+        }
+    }
+    function onChangePicture(e){
+        let uploaded_image=URL.createObjectURL(e.target.files[0]);
+        console.log(e);
+        console.log(uploaded_image);     
+    }
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
@@ -160,13 +217,28 @@ function Donation(props) {
                             </div>
 
                             <div className="form-row upload-image">
-                                <label htmlFor="image" className="image-label description-label">Pictures</label><br></br>
-                                <div id="image_box_1" className="image_box">
-                                    <img id="logo" src={Camera} alt="camera"/>
+                            <div className="description-label"> Images </div>
+                                <label htmlFor="image" className="images description-label">
                                     
-                                </div>
-                                
-                                
+                                    <div id="image_box_0" className="image_box">
+                                        <img id="uploaded_image_0" className="uploaded_image" src="data:," alt></img>
+                                        <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
+                                        
+                                        <img src={Camera} alt="camera"/>
+                                        
+                                        <div className="delete_image">x</div>
+                                    
+                                    </div>
+
+                                    <div id="image_box_1" className="image_box">
+                                        <img id="uploaded_image_1" className="uploaded_image" src="data:," alt></img>
+                                        <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
+                                        <img src={Camera} alt="camera"/>
+                                        <div className="delete_image">x</div>
+                                    
+                                    </div>
+                                    
+                                </label>
                                 
                             </div>
                            
