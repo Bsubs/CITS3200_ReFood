@@ -77,8 +77,10 @@ function Donation(props) {
             event.target.classList.add("selected");
             console.log(event.target.innerHTML);
 
-            const donatedItem = {...state.donatedItem, ['category']: event.target.innerHTML};
-            setDonatedItem (() => ({donatedItem}));
+            setDonatedItem (() => ({
+                ...donatedItem,
+                ['category']: event.target.innerHTML
+            }));
 
         }
         console.log(donatedItem);
