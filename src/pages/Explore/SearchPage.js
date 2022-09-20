@@ -1,6 +1,8 @@
 import React from "react";
 import "./SearchPage.css";
 import search from './search.png';
+import { Products } from './products';
+import contents from './content';
 
 
 
@@ -31,6 +33,18 @@ function SearchPage({ placeholder, data }) {
         <input id='input2' type="text" name='input2' placeholder="enter here..." />
       </div>
 
+      <div className='App'>
+                {contents.map(contents => (
+                    <Products 
+                        key={contents.id}
+                        image={contents.image}
+                        name={contents.name}
+                        type={contents.type}
+                        location={contents.location}
+                    />
+                ))}
+      </div>
+
       
       <div id="buttonsContainer">
         
@@ -38,10 +52,10 @@ function SearchPage({ placeholder, data }) {
           Clear all
         </button>
 
-        <button id="search" className="button">
+        <a href='ListPage'><button id="search" className="button">
            <img  src={search} alt="search icon"/>
           Search
-        </button>
+        </button></a>
       
       </div>
       

@@ -1,0 +1,20 @@
+.productList{
+  display: block;
+  justify-content: space-evenly;
+  margin-top: 5rem;
+}
+
+.productCard{
+  position: relative;
+  background-color: lightgray;
+  margin: 1rem;
+  flex: 1 0 25rem;
+  max-width: 30rem;
+  max-height: 50rem;
+}
+
+.productImage{
+  margin-top: 2rem;
+  max-width: 100%;
+  height: auto;
+}
