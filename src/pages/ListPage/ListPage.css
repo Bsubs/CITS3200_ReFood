@@ -1,7 +1,7 @@
 *{
     overflow: auto;
 }
-.product_list{
+#list-page .product_list{
     height: 100vh;
     margin: 0rem;
     padding: 0rem;
@@ -10,7 +10,7 @@
   
 
 
-.productCard{
+  #list-page .productCard{
     display: flex;
     background-color: white;
     border-radius: 0.5rem;
@@ -18,7 +18,7 @@
     margin-bottom: 1rem;
   }
   
-  .productImage{
+  #list-page .productImage{
     
     min-width: 100%;
     min-height: 100%;
@@ -27,7 +27,7 @@
     
   }
 
-  .image_box{
+  #list-page .image_box{
     height: auto;
     display: flex;
    

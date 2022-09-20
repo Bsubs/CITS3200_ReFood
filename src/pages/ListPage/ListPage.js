@@ -4,7 +4,7 @@ import contents from './content';
 import './ListPage.css'
 function ListPage() {
   return (
-    
+    <div id="list_page">
     <div className="product_list">
               {contents.map(contents => (
                   <Products 
@@ -15,6 +15,7 @@ function ListPage() {
                       location={contents.location}
                   />
               ))}
+    </div>
     </div>
   
   )
