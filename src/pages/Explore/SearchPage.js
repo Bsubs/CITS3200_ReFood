@@ -6,6 +6,7 @@ import * as queries from '../../graphql/queries';
 
 
 
+
 function SearchPage({ placeholder, data }) {
 
   // Array to store FoodItems
@@ -55,6 +56,7 @@ function SearchPage({ placeholder, data }) {
         <input id='input2' type="text" name='input2' placeholder="enter here..." />
       </div>
 
+
       
       <div id="buttonsContainer">
         
@@ -62,10 +64,10 @@ function SearchPage({ placeholder, data }) {
           Clear all
         </button>
 
-        <button id="search" className="button">
+        <a href='/listpage'><button id="search" className="button">
            <img  src={search} alt="search icon"/>
           Search
-        </button>
+        </button></a>
       
       </div>
       
