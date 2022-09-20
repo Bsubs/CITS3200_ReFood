@@ -4,7 +4,7 @@
   font-family: "arial","verdana";
   overflow: scroll;
 }
-#donation_page li{
+#food_category_selection li{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,6 +119,7 @@
 }
 #third-donation {
   display: visible;
+  overflow: scroll;
 }
 .selected {
   border-color: red;
@@ -154,10 +155,6 @@ input:not(:placeholder-shown){
   padding-bottom: 1rem;
 }
 
-#donation_page .upload-image{
-  padding-top: 1rem;
-}
-
 .react-DatePicker{
   width: 100%;
 }
@@ -185,6 +182,7 @@ input:not(:placeholder-shown){
   width: 35vw;
   height: 10vh;
   margin-right: 3vh;
+  overflow: hidden;
 }
 
 .image_upload_button{
@@ -229,4 +227,19 @@ input:not(:placeholder-shown){
   object-fit: "cover";
   opacity: 100%;
   border-radius: 0.5rem;
+}
+
+.timePicker{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.react-datepicker-wrapper{
+  width: 45%;
+}
+
+#dates-input{
+  margin-bottom: 1rem;
 }
