@@ -9,8 +9,6 @@ import SingleImageUploadComponent from '../../components/layout/uploadImages/sin
 import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
-
-
 import DatePicker from "react-multi-date-picker";
 import * as mutations from '../../graphql/mutations';
 
@@ -36,6 +34,7 @@ function Donation(props) {
 
     };
 
+    // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
         title: "",
         pickup_date:"",
@@ -45,90 +44,11 @@ function Donation(props) {
         nfpID:"",
         pickup_location:"",
         quantity:"",
-        description:""
+        description:"",
+        picture:""
     });
 
-    useEffect(()=>{
-        let delete_buttons=document.getElementsByClassName("delete_image");
-        console.log(delete_buttons);
-        Array.from(delete_buttons).forEach(function(elem){
-            elem.addEventListener("click",delete_image);
-        })
-    })
-    const minDate= new Date();
-    const [value, setValue] = useState(new Date());
-    const [state, setState] = useState({});
-    let num_images=0;
- 
-    const [image, setImage]= useState(undefined);
-    const handleChange = (event) => {
-        
-        let image_placement=document.getElementById("uploaded_image_"+num_images);
-        image_placement.src= URL.createObjectURL(event.target.files[0]);
-        image_placement.classList.add("make_image_visible");
-        num_images=num_images+1;
-  }
-
-    function delete_image(){
-        console.log(this.parentElement);
-        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
-        if (uploaded_image.classList.contains("make_image_visible")){
-            uploaded_image.src="";
-            uploaded_image.classList.remove("make_image_visible");
-            num_images=num_images-1;
-        }
-        if (num_images<0){
-            num_images=0;
-        }
-        cascade_images();
-       
-    }
-    function log_image_src(){
-        let images=document.getElementsByClassName("uploaded_image"); 
-        console.log(images);
-        for (let i=0;i<images.length;i++){
-            
-            console.log(images[i].getAttribute("src"));
-        }
-    }
-    function cascade_images(){
-        if (num_images>0){
-            let images=document.getElementsByClassName("uploaded_image"); 
-            while (images[0].getAttribute("src")==""){
-                for (let i=1; i<images.length;i++){
-                    images[i-1].setAttribute("src",images[i].getAttribute("src"));
-                    images[i-1].classList.add('make_image_visible');
-                }
-
-                log_image_src();
-            }
-            images[images.length-1].src="";
-            images[images.length-1].classList.remove("make_image_visible");
-        }
-    }
-    function onChangePicture(e){
-        let uploaded_image=URL.createObjectURL(e.target.files[0]);
-        console.log(e);
-        console.log(uploaded_image);     
-    }
-    function next1() {
-        var i = document.getElementsByClassName("selected")
-        if (i.length > 0) {
-            document.getElementById("first-donation").style.display = "none"
-            document.getElementById("third-donation").style.display = "initial"
-        }
-        else {
-            window.alert("Please select a food type");
-        }
-
-        
-    }
-
-    function back1() {
-        document.getElementById("first-donation").style.display = "initial"
-        document.getElementById("third-donation").style.display = "none"
-    }
-
+    // Selects the category of food in the initial page
     function selectType(event) {
         
       
@@ -212,6 +132,90 @@ function Donation(props) {
         }
 
     };
+
+    useEffect(()=>{
+        let delete_buttons=document.getElementsByClassName("delete_image");
+        console.log(delete_buttons);
+        Array.from(delete_buttons).forEach(function(elem){
+            elem.addEventListener("click",delete_image);
+        })
+    })
+    const minDate= new Date();
+    const [value, setValue] = useState(new Date());
+    const [state, setState] = useState({});
+    let num_images=0;
+ 
+    const [image, setImage]= useState(undefined);
+    const handleChange = (event) => {
+        
+        let image_placement=document.getElementById("uploaded_image_"+num_images);
+        image_placement.src= URL.createObjectURL(event.target.files[0]);
+        image_placement.classList.add("make_image_visible");
+        num_images=num_images+1;
+  }
+
+    function delete_image(){
+        console.log(this.parentElement);
+        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
+        if (uploaded_image.classList.contains("make_image_visible")){
+            uploaded_image.src="";
+            uploaded_image.classList.remove("make_image_visible");
+            num_images=num_images-1;
+        }
+        if (num_images<0){
+            num_images=0;
+        }
+        cascade_images();
+       
+    }
+    function log_image_src(){
+        let images=document.getElementsByClassName("uploaded_image"); 
+        console.log(images);
+        for (let i=0;i<images.length;i++){
+            
+            console.log(images[i].getAttribute("src"));
+        }
+    }
+    function cascade_images(){
+        if (num_images>0){
+            let images=document.getElementsByClassName("uploaded_image"); 
+            while (images[0].getAttribute("src")==""){
+                for (let i=1; i<images.length;i++){
+                    images[i-1].setAttribute("src",images[i].getAttribute("src"));
+                    images[i-1].classList.add('make_image_visible');
+                }
+
+                log_image_src();
+            }
+            images[images.length-1].src="";
+            images[images.length-1].classList.remove("make_image_visible");
+        }
+    }
+    function onChangePicture(e){
+        let uploaded_image=URL.createObjectURL(e.target.files[0]);
+        console.log(e);
+        console.log(uploaded_image);     
+    }
+    
+    // Function for navigation buttons
+    function next1() {
+        var i = document.getElementsByClassName("selected")
+        if (i.length > 0) {
+            document.getElementById("first-donation").style.display = "none"
+            document.getElementById("third-donation").style.display = "initial"
+        }
+        else {
+            window.alert("Please select a food type");
+        }
+
+        
+    }
+
+    // Function for navigation buttons
+    function back1() {
+        document.getElementById("first-donation").style.display = "initial"
+        document.getElementById("third-donation").style.display = "none"
+    }
     
     return (
         <div id="donation_page">
