@@ -1,6 +1,6 @@
 {
-  "authSelections": "userPoolOnly",
-  "resourceName": "cits3200refood092eafdc",
+  "authSelections": "identityPoolAndUserPool",
+  "resourceName": "cits3200refoodaf75e72f",
   "serviceType": "imported",
   "region": "us-west-1",
   "usernameAttributes": [
