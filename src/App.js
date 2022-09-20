@@ -60,11 +60,7 @@ function App({ signOut, user }) {
       'address',
       'email',
       'name',
-      'phone_number',
-      'custom:address',
-      'custom:business_name',
-      'custom:type',
-      'custom:abn',
+      'phone_number'
     ]}
     components={{
       SignUp: {
@@ -75,25 +71,6 @@ function App({ signOut, user }) {
             <>
               {/* Re-use default `Authenticator.SignUp.FormFields` */}
               <Authenticator.SignUp.FormFields />
-              <TextField
-                name="custom:business_name"
-                placeholder='Business Name'
-              />
-              <TextField
-                name="custom:address"
-                placeholder='Address of Business'
-              />
-              <TextField
-                name='custom:abn'
-                placeholder='ABN'
-              />
-              <SelectField
-                name='custom:type'
-                placeholder='Select Type of Business'
-              >
-                <option value="Donor">Donor</option>
-                <option value="Collector">Collector</option>
-              </SelectField>
             </>
           );
         },

@@ -13,7 +13,13 @@
     },
     "categories": {
       "auth": {
-        "CITS3200ReFood": {}
+        "CITS3200ReFood": {},
+        "cits3200refood092eafdc": {
+          "userPoolId": "us-west-1_im2Y8lF6V",
+          "userPoolName": "CITS3200ReFood-Staging",
+          "webClientId": "1gblfrb4jcbu3gpoberrj37rn6",
+          "nativeClientId": "2v6dfgtifd58ena50cgneqd3rg"
+        }
       }
     }
   },
