@@ -30,5 +30,12 @@
       "dependsOn": [],
       "customAuth": false
     }
+  },
+  "storage": {
+    "s3b57aa867": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }
