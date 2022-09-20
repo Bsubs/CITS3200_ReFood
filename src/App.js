@@ -61,6 +61,7 @@ function App({ signOut, user }) {
       'email',
       'name',
       'phone_number',
+      'custom:address',
       'custom:business_name',
       'custom:type',
       'custom:abn',
@@ -79,7 +80,7 @@ function App({ signOut, user }) {
                 placeholder='Business Name'
               />
               <TextField
-                name="address"
+                name="custom:address"
                 placeholder='Address of Business'
               />
               <TextField

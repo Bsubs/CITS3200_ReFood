@@ -128,7 +128,7 @@ function Profile(props) {
                         <div className='list_member'>{attributes['custom:business_name']}</div>
                     </li>
                     <li>
-                        <div className='list_member'>{attributes['address']}</div>
+                        <div className='list_member'>{attributes['custom:address']}</div>
                     </li>
                     <li>
                         <div className='list_member'>{attributes['custom:abn']}</div>
