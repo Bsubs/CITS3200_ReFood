@@ -1,0 +1,14 @@
+type FOODITEM @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  pickup_date: String
+  category: String
+  transport_reqs: String
+  picture: AWSURL
+  donorID: String
+  nfpID: String
+  pickup_location: String
+  quantity: String
+  description: String
+}
+ 

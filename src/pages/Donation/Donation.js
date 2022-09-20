@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation } from 'aws-amplify';
+import { type } from '@testing-library/user-event/dist/type';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
 import "react-multi-date-picker/styles/layouts/mobile.css"
@@ -10,8 +12,41 @@ import Camera from '../../assets/icons/PNG/camera.png'
 
 
 import DatePicker from "react-multi-date-picker";
+import * as mutations from '../../graphql/mutations';
 
 function Donation(props) {
+
+    //The attributes object stores the user attributes retrived from the AWS Cognito Database
+    const [attributes, setAttributes] = useState({});
+
+    //The fetch attribute function is called everytime the component is rendered
+    useEffect(() => {
+        fetchAttributes();
+      }, []);
+    
+    //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+    const fetchAttributes = async() => {
+        try{
+            const userData = await Auth.currentAuthenticatedUser();
+            const attributesList = userData.attributes;
+            setAttributes(attributesList);
+        } catch (error) {
+            console.log('error in fetching user data', error);
+        }
+
+    };
+
+    const [donatedItem, setDonatedItem] = useState({
+        title: "",
+        pickup_date:"",
+        category:"",
+        transport_reqs:"",
+        donorID:"",
+        nfpID:"",
+        pickup_location:"",
+        quantity:"",
+        description:""
+    });
 
     useEffect(()=>{
         let delete_buttons=document.getElementsByClassName("delete_image");
@@ -80,7 +115,7 @@ function Donation(props) {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
-            document.getElementById("second-donation").style.display = "initial"
+            document.getElementById("third-donation").style.display = "initial"
         }
         else {
             window.alert("Please select a food type");
@@ -88,18 +123,12 @@ function Donation(props) {
 
         
     }
-    function next2() {
-        document.getElementById("second-donation").style.display = "none"
-        document.getElementById("third-donation").style.display = "initial"
-    }
+
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
-        document.getElementById("second-donation").style.display = "none"
-    }
-    function back2() {
-        document.getElementById("second-donation").style.display = "initial"
         document.getElementById("third-donation").style.display = "none"
     }
+
     function selectType(event) {
         
       
@@ -112,6 +141,14 @@ function Donation(props) {
         }
         else {
             event.target.classList.add("selected");
+            console.log(event.target.innerHTML);
+
+            setDonatedItem (() => ({
+                ...donatedItem,
+                ['category']: event.target.innerHTML,
+                ['donorID']: attributes['sub']
+            }));
+
         }
 
         for (let elem of document.getElementsByClassName("next-button")){
@@ -126,6 +163,48 @@ function Donation(props) {
 
     
     }
+
+    // Updates Title Field upon user input
+    function handleTitleChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['title']: e.target.value
+        }));
+    }
+
+     // Updates Quantity Field upon user input
+    function handleQuantityChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['quantity']: e.target.value
+        }));
+    }
+
+    // Updates Description Field upon user input
+    function handleDescriptionChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['description']: e.target.value
+        }));
+    }
+
+    // WIP -> need to get date form datepicker
+    function handleDateChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['pickup_date']: e.target.value
+        }));
+    }
+
+    // Creates a new FOODITEM and adds it to the database
+    const addDonation = async() => {
+        try{
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+        } catch (error) {
+            console.log('error in fetching posting to database', error);
+        }
+
+    };
     
     return (
         <div id="donation_page">
@@ -156,21 +235,7 @@ function Donation(props) {
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
-            <div id="second-donation">
-       
-            <div className="top-row">
-                
-           
-                <h1 id="donation-heading1">Where is your business located? </h1>
-                </div>
-                <div className="middle-row">
-                </div>
-                <div className="bottom-row">
-                
-                 <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" onClick={next2}>Next</button>
-                </div>
-            </div>
+
             <div id="third-donation">
             <div className="top-row">
              
@@ -253,8 +318,8 @@ function Donation(props) {
                     </div>
                 </div>
                 <div className="bottom-row">
-                <label className="back-button" onClick={back2}>Back</label>
-                 <button className="next-button" >Submit</button>
+                <label className="back-button" onClick={back1}>Back</label>
+                 <button className="next-button" onClick={addDonation} >Submit</button>
                 </div>
             </div>
         </div>
