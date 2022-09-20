@@ -146,9 +146,10 @@ function Donation(props) {
             setDonatedItem (() => ({
                 ...donatedItem,
                 ['category']: event.target.innerHTML,
-                ['donorID']: attributes['sub']
+                ['donorID']: attributes['sub'],
+                ['pickup_location']: attributes['custom:address']
             }));
-
+            console.log(donatedItem);
         }
 
         for (let elem of document.getElementsByClassName("next-button")){
@@ -160,8 +161,6 @@ function Donation(props) {
             
             
         }
-
-    
     }
 
     // Updates Title Field upon user input
@@ -185,6 +184,14 @@ function Donation(props) {
         setDonatedItem (() => ({
             ...donatedItem,
             ['description']: e.target.value
+        }));
+    }
+    
+    // Updates Address Field upon user input
+    function handleAddressChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['custom:address']: e.target.value
         }));
     }
 
@@ -246,18 +253,18 @@ function Donation(props) {
                         <form>
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label"> Food Item(s)</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
+                                <input type="text" className="description-input" name="text" onChange={handleTitleChange}></input>
                             </div> 
                             
                             
                             <div className="form-row">
                                 <label htmlFor="quantity" className="quantity-label description-label">Quantity/Volume of Food</label><br></br>
-                                <input type="text" className="description-input" name="text"></input>
+                                <input type="text" className="description-input" name="text" onChange={handleQuantityChange}></input>
                             </div> 
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Food Description</label><br></br>
-                                <textarea id="food-description-input" type="text" className="description-input" name="text"></textarea>
+                                <textarea id="food-description-input" type="text" className="description-input" name="text" onChange={handleDescriptionChange}></textarea>
                                 
                             </div> 
                             <div>
@@ -311,7 +318,7 @@ function Donation(props) {
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
-                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
+                                <input type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
                            
                         </form>
