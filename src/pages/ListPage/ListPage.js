@@ -10,6 +10,9 @@ function ListPage() {
                   <Products 
                       key={contents.id}
                       image={contents.image}
+                      description={contents.description}
+                      quantity={contents.quantity}
+                      pickupDate={contents.pickupDate}
                       name={contents.name}
                       type={contents.type}
                       location={contents.location}

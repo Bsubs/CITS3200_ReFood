@@ -6,8 +6,6 @@ import './Donation.css';
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
 
-import { Alert } from '@coreui/react';
-import { CTimePicker } from '@coreui/react-pro'
 
 import DatePicker from "react-multi-date-picker";
 import "react-multi-date-picker/styles/layouts/mobile.css"
