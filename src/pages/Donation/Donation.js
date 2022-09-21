@@ -203,6 +203,11 @@ function Donation(props) {
                                 <textarea id="food-description-input" type="text" className="description-input" name="text"></textarea>
                                 
                             </div> 
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
+                                <textarea id="food-requirements-input" type="text" className="description-input" name="text"></textarea>
+                                
+                            </div> 
                             
 
                             <div className="form-row upload-image">
