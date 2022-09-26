@@ -6,6 +6,10 @@ import './Donation.css';
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 import DatePicker from "react-multi-date-picker";
 import "react-multi-date-picker/styles/layouts/mobile.css"
