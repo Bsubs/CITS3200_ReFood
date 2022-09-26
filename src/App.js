@@ -10,6 +10,7 @@ import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import LoginForm from "./pages/LoginForm/LoginForm"
 import Donation from "./pages/Donation/Donation"
+import ListPage from "./pages/ListPage/ListPage"
 import { useState } from 'react';
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
@@ -49,6 +50,10 @@ function App() {
     case "/donation":
       component = <Donation />
       var showNav = "False";
+      break
+    case "/listpage":
+      component = <ListPage />
+      var showNav= "True";
       break
     case "/register":
       var showNav = "True";
