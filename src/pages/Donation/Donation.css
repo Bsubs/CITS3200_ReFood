@@ -130,11 +130,11 @@
   border-radius: 1rem;
 }
 #first-donation{
-  display: none;
+  display: visible;
 }
 
 #second-donation {
-  display: visible;
+  display: none;
   overflow: scroll;
 }
 .selected {
