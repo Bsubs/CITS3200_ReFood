@@ -1,8 +1,9 @@
 
 #donation_page{
-  background-color: red;
+
   font-family: "arial","verdana";
-  overflow: scroll;
+
+  height: 100%;
 }
 #food_category_selection li{
   display: flex;
@@ -26,8 +27,10 @@
   
   
 }
+
+
 .top-row, .middle-row, .bottom-row {
-  position: fixed;
+ 
   left: 0;
   right: 0;
 }
@@ -56,6 +59,7 @@
   padding-right: 20px;
 }
 .top-row {
+  
   background-color: rgb(48, 154, 87);
   top: 0;
   height: 15vh;
@@ -70,14 +74,18 @@
   top: 15%;
   bottom: 10%;
 
-  overflow-y: auto;
+  
+ 
 
 }
 
 #third-donation .middle-row{
   top: 10%;
+  overflow-y: scroll;
+  padding-bottom: 10vh;
 }
 .bottom-row {
+  position: fixed;
   z-index: 1;
   height: 10vh;
   padding: 2rem;
@@ -156,7 +164,7 @@ input:not(:placeholder-shown){
 }
 
 #third-donation .middle-row{
-  box-sizing: border-box;
+ 
   margin: 2vh;
 }
 
