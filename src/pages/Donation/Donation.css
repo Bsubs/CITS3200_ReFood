@@ -34,10 +34,10 @@
   left: 0;
   right: 0;
 }
-#third-donation .top-row{
+#second-donation .top-row{
   height: 10vh;
 }
-#third-donation .bottom-row{
+#second-donation .bottom-row{
   height: 5vh;
 }
 #cancel-icon {
@@ -79,7 +79,7 @@
 
 }
 
-#third-donation .middle-row{
+#second-donation .middle-row{
   top: 10%;
   overflow-y: scroll;
   padding-bottom: 10vh;
@@ -132,10 +132,8 @@
 #first-donation{
   display: none;
 }
+
 #second-donation {
-    display: none;
-}
-#third-donation {
   display: visible;
   overflow: scroll;
 }
@@ -163,7 +161,7 @@ input:not(:placeholder-shown){
   opacity: 100%;
 }
 
-#third-donation .middle-row{
+#second-donation .middle-row{
  
   margin: 2vh;
 }
@@ -177,7 +175,7 @@ input:not(:placeholder-shown){
   width: 100%;
 }
 
-#third-donation .description-label{
+#second-donation .description-label{
   font-weight: bold;
   font-size: 1.8vh;
   
