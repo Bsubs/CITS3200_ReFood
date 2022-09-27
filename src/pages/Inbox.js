@@ -14,7 +14,7 @@ function Tabs(props) {
     const items = props.children.filter(item => item.type.name === TabItem.name);
   
     return (
-      <div className={styles["wrapper"]}>
+      <div id="inbox" className={styles["wrapper"]}>
         <div className={styles["tab-menu"]}>
           {items.map(({ props: { index, label } }) => (
             <button
