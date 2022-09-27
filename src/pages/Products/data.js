@@ -1,6 +1,6 @@
 const products = [
   {
-    id: 1,
+    id: '1',
     name: "Various Cans",
     image: "https://images.unsplash.com/photo-1626607007733-d09228471d9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80",
     type: "Seafood",
@@ -10,7 +10,7 @@ const products = [
     location: "Applecross",
   },
   {
-    id: 2,
+    id: '2',
     name: "Macaron",
     image:
       "https://images.unsplash.com/photo-1558326567-98ae2405596b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3159&q=80",
@@ -21,7 +21,7 @@ const products = [
     location: "Swan Valley",
   },
   {
-    id: 3,
+    id: '3',
     name: "Cheese",
     image:
       "https://images.unsplash.com/photo-1607127368565-0fc09ac36028?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
@@ -32,7 +32,7 @@ const products = [
     location: "Crawley",
   },
   {
-    id: 4,
+    id: '4',
     name: "Pizza",
     image:
       "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80",
@@ -43,7 +43,7 @@ const products = [
     location: "Booragoon",
   },
   {
-    id: 5,
+    id: '5',
     name: "Avocados",
     image:
       "https://images.unsplash.com/photo-1583029901628-8039767c7ad0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -53,7 +53,7 @@ const products = [
     quantity: "3kg",
     location: "Swan Valley",
   }, {
-    id: 1,
+    id: '6',
     name: "Various Cans",
     image: "https://images.unsplash.com/photo-1626607007733-d09228471d9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80",
     type: "Seafood",
@@ -63,7 +63,7 @@ const products = [
     location: "Applecross",
   },
   {
-    id: 2,
+    id: '7',
     name: "Macaron",
     image:
       "https://images.unsplash.com/photo-1558326567-98ae2405596b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3159&q=80",
@@ -74,7 +74,7 @@ const products = [
     location: "Swan Valley",
   },
   {
-    id: 3,
+    id: '8',
     name: "Cheese",
     image:
       "https://images.unsplash.com/photo-1607127368565-0fc09ac36028?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
@@ -85,7 +85,7 @@ const products = [
     location: "Crawley",
   },
   {
-    id: 4,
+    id: '9',
     name: "Pizza",
     image:
       "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80",
@@ -96,7 +96,7 @@ const products = [
     location: "Booragoon",
   },
   {
-    id: 5,
+    id: '10',
     name: "Avocados",
     image:
       "https://images.unsplash.com/photo-1583029901628-8039767c7ad0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",

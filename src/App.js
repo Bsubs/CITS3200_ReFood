@@ -10,7 +10,7 @@ import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import LoginForm from "./pages/LoginForm/LoginForm"
 import Donation from "./pages/Donation/Donation"
-import ListPage from "./pages/ListPage/ListPage"
+import Products from "./pages/Products/Products"
 import { useState } from 'react';
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
@@ -20,13 +20,13 @@ function App() {
     password: "admin123"
   }
 
-  const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
-  const [error, setError] = useState(""); 
+  const [user, setUser] = useState({ company_name: "", email: "", password: "", }) //save into user
+  const [error, setError] = useState("");
 
   let component
-  switch(window.location.pathname){
+  switch (window.location.pathname) {
     case "/":
-      return <ConsentForm/>
+      return <ConsentForm />
     case "/explore":
       component = <Explore />
       var showNav = "True";
@@ -40,7 +40,7 @@ function App() {
       var showNav = "True";
       break
     case "/consentform":
-      component = <ConsentForm/>
+      component = <ConsentForm />
       var showNav = "True";
       break
     case "/profile":
@@ -51,9 +51,9 @@ function App() {
       component = <Donation />
       var showNav = "False";
       break
-    case "/listpage":
-      component = <ListPage />
-      var showNav= "True";
+    case "/products":
+      component = <Products />
+      var showNav = "True";
       break
     case "/register":
       var showNav = "True";
@@ -70,15 +70,15 @@ function App() {
         } else {
           console.log("Details do not match!");
         }
-        
+
       }
       const Logout = () => {
-        setUser({company_name:"", email:"", password:""});
+        setUser({ company_name: "", email: "", password: "" });
       }
       component = <LoginForm Login={Login} error={error} />
       break
     default:
-      component = <Donation/>
+      component = <Donation />
       var showNav = "False";
       break
   }
@@ -86,10 +86,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <>
-      {component}
-      {showNav == "True" &&
-      <Navbar/> }
-      </>
+          {component}
+          {showNav == "True" &&
+            <Navbar />}
+        </>
       </header>
     </div>
   );

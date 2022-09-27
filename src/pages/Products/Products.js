@@ -1,13 +1,14 @@
 import React from 'react'
 //import { Products } from './SingleProduct';
 import products from './data';
-//import './ListPage.css'
+//import './Products.css'
 import { Link } from 'react-router-dom';
 
 const Products = () => {
   return (
-    <section className='section'>
+    <section className='products section'>
       <div className='products'>
+
         {products.map((product) => {
           return (
             <article key={product.id}>

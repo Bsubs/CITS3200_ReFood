@@ -7,8 +7,8 @@ import search from './search.png';
 
 function SearchPage({ placeholder, data }) {
   function clearText() {
-    let input1=document.getElementById("input1");
-    let input2=document.getElementById("input2");
+    let input1 = document.getElementById("input1");
+    let input2 = document.getElementById("input2");
 
     input1.value = '';
     input2.value = '';
@@ -20,12 +20,12 @@ function SearchPage({ placeholder, data }) {
       <div className="search">
         <div className="searchHeader">What Food</div>
         <div className="inputs">
-          <input id='input1' type="text" placeholder={placeholder} name='input1'/>
+          <input id='input1' type="text" placeholder={placeholder} name='input1' />
         </div>
         <div className="dataResult"></div>
       </div>
 
-  
+
 
       <div className="search">
         <div className="searchHeader">Where</div>
@@ -33,24 +33,24 @@ function SearchPage({ placeholder, data }) {
       </div>
 
 
-      
+
       <div id="buttonsContainer">
-        
+
         <button id="clearAll" className="button" onClick={clearText}>
           Clear all
         </button>
 
-        <a href='/listpage'><button id="search" className="button">
-           <img  src={search} alt="search icon"/>
+        <a href='/Products'><button id="search" className="button">
+          <img src={search} alt="search icon" />
           Search
         </button></a>
-      
+
       </div>
-      
+
 
     </div>
 
-  
+
   );
 }
 
