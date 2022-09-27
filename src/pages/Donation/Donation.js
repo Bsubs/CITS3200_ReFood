@@ -232,34 +232,34 @@ function Donation(props) {
                                 <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
 
                                 <PlacesAutocomplete
-                                searchOptions={{componentRestrictions: { country: ['au'] }}}
-        value={address}
-        onChange={setAddress}
-        onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
+                                    searchOptions={{componentRestrictions: { country: ['au'] }}}
+                                    value={address}
+                                    onChange={setAddress}
+                                    onSelect={handleSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div>
 
-            <input type="text" className="description-input" name="text" {...getInputProps({ placeholder: "Type address" })} />
+                                        <input type="text" className="description-input" name="text" {...getInputProps({ placeholder: "Type address" })} />
 
-            <div>
-              {loading ? <div>...loading</div> : null}
+                                        <div>
+                                        {loading ? <div>...loading</div> : null}
 
-              {suggestions.map(suggestion => {
-                const style = {
-                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
-                };
+                                        {suggestions.map(suggestion => {
+                                            const style = {
+                                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                                            };
 
-                return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}>
-                    {suggestion.description}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
+                                            return (
+                                            <div {...getSuggestionItemProps(suggestion, { style })}>
+                                                {suggestion.description}
+                                            </div>
+                                            );
+                                        })}
+                                        </div>
+                                    </div>
+                                    )}
+                                </PlacesAutocomplete>
 
 
 
