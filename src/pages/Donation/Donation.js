@@ -1,19 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
-
-
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng
+  } from "react-places-autocomplete";
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png';
-
-
-
 import DatePicker from "react-multi-date-picker";
 import "react-multi-date-picker/styles/layouts/mobile.css";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-datepicker";
 
 function Donation(props) {
+
+    const [address, setAddress] = React.useState("");
+  const [coordinates, setCoordinates] = React.useState({
+    lat: null,
+    lng: null
+  });
+
+  const handleSelect = async value => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    setAddress(value);
+    setCoordinates(latLng);
+  };
 
     useEffect(()=>{
         let delete_buttons=document.getElementsByClassName("delete_image");
@@ -218,7 +230,39 @@ function Donation(props) {
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
-                                <input type="text" className="description-input" name="text" placeholder="123 Apple Street"></input>
+
+                                <PlacesAutocomplete
+                                searchOptions={{componentRestrictions: { country: ['au'] }}}
+        value={address}
+        onChange={setAddress}
+        onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+
+            <input type="text" className="description-input" name="text" {...getInputProps({ placeholder: "Type address" })} />
+
+            <div>
+              {loading ? <div>...loading</div> : null}
+
+              {suggestions.map(suggestion => {
+                const style = {
+                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                };
+
+                return (
+                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                    {suggestion.description}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
+
+
+
                             </div> 
                             
 

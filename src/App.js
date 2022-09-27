@@ -11,6 +11,7 @@ import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import LoginForm from "./pages/LoginForm/LoginForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
+import Map from "./Map"
 import { useState } from 'react';
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
@@ -89,6 +90,8 @@ function App() {
       {component}
       {showNav == "True" &&
       <Navbar/> }
+      {showMap == "True" &&
+      <Map/> }
       </>
       </header>
     </div>
