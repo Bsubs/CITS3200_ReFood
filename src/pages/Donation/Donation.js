@@ -4,11 +4,12 @@ import './Donation.css';
 
 
 import '../../App.css';
-import Camera from '../../assets/icons/PNG/camera.png'
+import Camera from '../../assets/icons/PNG/camera.png';
+
 
 
 import DatePicker from "react-multi-date-picker";
-import "react-multi-date-picker/styles/layouts/mobile.css"
+import "react-multi-date-picker/styles/layouts/mobile.css";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-datepicker";
 
@@ -94,18 +95,12 @@ function Donation(props) {
 
         
     }
-    function next2() {
-        document.getElementById("second-donation").style.display = "none"
-        document.getElementById("third-donation").style.display = "initial"
-    }
+ 
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
-    function back2() {
-        document.getElementById("second-donation").style.display = "initial"
-        document.getElementById("third-donation").style.display = "none"
-    }
+  
     function selectType(event) {
         
       
@@ -162,22 +157,8 @@ function Donation(props) {
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
-            <div id="second-donation">
-       
-            <div className="top-row">
-                
            
-                <h1 id="donation-heading1">Where is your business located? </h1>
-                </div>
-                <div className="middle-row">
-                </div>
-                <div className="bottom-row">
-                
-                 <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" onClick={next2}>Next</button>
-                </div>
-            </div>
-            <div id="third-donation">
+            <div id="second-donation">
             <div className="top-row">
              
                 <h1 id="donation-heading1">Food Donation Details</h1>
@@ -299,7 +280,7 @@ function Donation(props) {
                     </div>
                 </div>
                 <div className="bottom-row">
-                <label className="back-button" onClick={back2}>Back</label>
+                <label className="back-button" onClick={back1}>Back</label>
                  <button className="next-button" >Submit</button>
                 </div>
             </div>
