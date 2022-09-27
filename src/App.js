@@ -13,6 +13,7 @@ import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import Map from "./Map"
 import { useState } from 'react';
+var showMap = "False";
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
   const adminUser = {
