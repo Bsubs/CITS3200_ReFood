@@ -24,11 +24,12 @@ function App() {
 
   const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
   const [error, setError] = useState(""); 
+  var isNFP="True";
 
   let component
   switch(window.location.pathname){
     case "/":
-      return <ConsentForm/>
+      return <ConsentForm isNFP={isNFP}/>
     case "/explore":
       component = <Explore />
       var showNav = "True";
@@ -90,9 +91,10 @@ function App() {
         <>
       {component}
       {showNav == "True" &&
-      <Navbar/> }
+      <Navbar isNFP={isNFP}/> }
       {showMap == "True" &&
       <Map/> }
+
       </>
       </header>
     </div>
