@@ -22,7 +22,7 @@ function App() {
 
   const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
   const [error, setError] = useState(""); 
-  const isNFP="True";
+  var isNFP="True";
 
   let component
   switch(window.location.pathname){

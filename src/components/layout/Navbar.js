@@ -8,6 +8,7 @@ import profile from '../../../src/assets/icons/PNG/profile-circle.png';
 import message from '../../../src/assets/icons/PNG/message.png';
 import food from '../../../src/assets/icons/PNG/food.png';
 
+
 function Navbar(props) {
   let page = window.location.pathname;
   let colour="blue";
@@ -76,7 +77,7 @@ function Navbar(props) {
               </a>
             </li>
             <li>
-            <a href="/home">
+            <a href="#" onclick="changeUser()">
             <img id="logo" src={logo} alt="ReFood logo"/>
             </a>  
             </li>

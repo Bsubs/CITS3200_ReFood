@@ -2,10 +2,12 @@
 #list_page{
   overflow: scroll;
 
+
 }
 #list_page .product_list{
  
   height: 92vh;
+  
 }
 
 
@@ -63,7 +65,8 @@
 #list_page .productLocation{
 
 }
-#list_page .bottom_info{  position: absolute;
+#list_page .bottom_info{  
+  position: absolute;
   bottom: 0;
   width: 95%;
 }
