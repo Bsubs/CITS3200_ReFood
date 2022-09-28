@@ -152,7 +152,7 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                 
-                <a href="/"><label className="back-button">Back</label></a>
+                <a href="/profile"><label className="back-button">Back</label></a>
                 
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
