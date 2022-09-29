@@ -14,7 +14,7 @@ function Tabs(props) {
     const items = props.children.filter(item => item.type.name === TabItem.name);
   
     return (
-      <div className={styles["wrapper"]}>
+      <div id="inbox" className={styles["wrapper"]}>
         <div className={styles["tab-menu"]}>
           {items.map(({ props: { index, label } }) => (
             <button
@@ -45,10 +45,12 @@ function Inbox(props) {
       <div>
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
+                <p></p>
                 <p class="thick">You have no unread Messages</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>
             </TabItem>
             <TabItem label="Notifications" index="2">
+                <p></p>
                 <p class="thick">You have no unread Notifications</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you Notifications here.</p>
             </TabItem>

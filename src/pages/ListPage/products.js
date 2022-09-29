@@ -11,11 +11,16 @@ export function Products(props) {
            
 
             <div className='product_content'>
-                <h3 className='productName'>{props.name}</h3>
-                <div className='displayStack__1'>
-                    <div className='productLocation'>Location: {props.location}</div>
-                    <div className='productType'>{props.type}</div>
+                <div className='productName'>{props.name}</div>
+                <div className='productDescription'>{props.description}</div>
+            <div className="bottom_info">
+                <div className='productQuantity'>{props.quantity}</div>
+                <div className="row">
+                    <div className='productLocation'>{props.location}</div>
+                    <div className='pickupDate'>{props.pickupDate}</div>
                 </div>
+            </div>
+            
             </div>
         </div>
         

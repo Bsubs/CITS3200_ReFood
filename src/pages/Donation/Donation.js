@@ -3,14 +3,13 @@ import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation } from 'aws
 import { type } from '@testing-library/user-event/dist/type';
 import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
-import "react-multi-date-picker/styles/layouts/mobile.css"
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
-import SingleImageUploadComponent from '../../components/layout/uploadImages/single-image-upload.component';
-import MultipleImageUploadComponent from "../../components/layout/uploadImages/multiple-image-upload.component"
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
 import DatePicker from "react-multi-date-picker";
 import * as mutations from '../../graphql/mutations';
+import "react-multi-date-picker/styles/layouts/mobile.css";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import TimePicker from "react-datepicker";
 
 function Donation(props) {
 
@@ -144,15 +143,20 @@ function Donation(props) {
     const minDate= new Date();
     const [value, setValue] = useState(new Date());
     const [state, setState] = useState({});
+    const [startTime, setStartTime] = useState(new Date());
+    const [startTime1, setStartTime1] = useState(new Date());
     let num_images=0;
  
     const [image, setImage]= useState(undefined);
     const handleChange = (event) => {
-        
+        if (num_images==2){
+            return
+        }
         let image_placement=document.getElementById("uploaded_image_"+num_images);
         image_placement.src= URL.createObjectURL(event.target.files[0]);
         image_placement.classList.add("make_image_visible");
         num_images=num_images+1;
+        
   }
 
     function delete_image(){
@@ -242,7 +246,7 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                 
-                <a href="/"><label className="back-button">Back</label></a>
+                <a href="/profile"><label className="back-button">Back</label></a>
                 
                 <button className="next-button" onClick={next1}>Next</button>
                 </div>
@@ -272,27 +276,12 @@ function Donation(props) {
                                 <textarea id="food-description-input" type="text" className="description-input" name="text" onChange={handleDescriptionChange}></textarea>
                                 
                             </div> 
-                            <div>
-                                <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
+                            <div className="form-row">
+                                <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
+                                <textarea id="food-requirements-input" type="text" className="description-input" name="text"></textarea>
                                 
-                               
-                                <DatePicker className="rmdp-mobile" multiple value={value} onChange={setValue} format="DD/MM/YYYY" 
-                                mobileButtons={[
-                                    {
-                                      label: "RESET",
-                                      type: "button",
-                                      className: "rmdp-button rmdp-action-button",
-                                      onClick: () => setValue({}),
-                                    },
-                                  ]}
-
-                                  onFocusedDateChange={(dateFocused, dateClicked) => {
-                                    setState({ dateFocused, dateClicked });
-                                  }}
-                                  onClose={() => setState({})}
-                                  plugins={[<DatePanel markFocused />]}
-                                />
-                            </div>
+                            </div> 
+                            
 
                             <div className="form-row upload-image">
                             <div className="description-label"> Images </div>
@@ -325,6 +314,61 @@ function Donation(props) {
                                 <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
                                 <input type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
+                            
+
+                            <div id="dates-input">
+                                <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
+                                
+                               
+                                <DatePicker className="rmdp-mobile" multiple value={value} onChange={setValue} format="DD/MM/YYYY" 
+                                mobileButtons={[
+                                    {
+                                      label: "RESET",
+                                      type: "button",
+                                      className: "rmdp-button rmdp-action-button",
+                                      onClick: () => setValue({}),
+                                    },
+                                  ]}
+
+                                  onFocusedDateChange={(dateFocused, dateClicked) => {
+                                    setState({ dateFocused, dateClicked });
+                                  }}
+                                  onClose={() => setState({})}
+                                  plugins={[<DatePanel markFocused />]}
+                                />
+                            </div>
+
+                            <div id="pick-up-input">
+                            <label htmlFor="description" className="description-label">Pick-up Times</label><br></br>
+                            <div className="timePicker">
+                                <div>
+                                <text>Start </text>
+                            <TimePicker
+                                selected={startTime}
+                                onChange={(date) => setStartTime(date)}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                popperPlacement="top-end"
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
+                            />
+                            </div>
+                            <div>
+                            <text>End: </text>
+                            <TimePicker
+                                selected={startTime1}
+                                onChange={(date) => setStartTime1(date)}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                popperPlacement="top-end"
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
+                            />
+                            </div>
+                            </div>
+                            </div>
                            
                         </form>
                     </div>

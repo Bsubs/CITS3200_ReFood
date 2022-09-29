@@ -1,11 +1,14 @@
 #SearchPage{
   height: 100vh;
+  overflow: hidden;
+  background-color: white;
+
 
 }
 .search {
   margin-top: 60px;
   margin-left: 15px;
-  margin-right: 15px;
+  margin-right: 1rem;
   border-radius: 20px;
   border: 2px solid gray;
 

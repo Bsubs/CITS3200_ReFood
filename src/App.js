@@ -23,10 +23,12 @@ Amplify.configure(awsExports);
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
 
+  var isNFP="True";
+
   let component
   switch(window.location.pathname){
     case "/":
-      return <ConsentForm/>
+      return <ConsentForm isNFP={isNFP}/>
     case "/explore":
       component = <Explore />
       var showNav = "True";
@@ -110,7 +112,7 @@ function App({ signOut, user }) {
         <>
       {component}
       {showNav == "True" &&
-      <Navbar/> }
+      <Navbar isNFP={isNFP}/> }
       </>
       </header>
       <button onClick={signOut}>Sign out</button>

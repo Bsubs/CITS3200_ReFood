@@ -3,7 +3,7 @@ import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation } from 'aws
 import "./SearchPage.css";
 import search from './search.png';
 import * as queries from '../../graphql/queries';
-
+import Explore from "./Explore"
 
 
 
@@ -40,7 +40,7 @@ function SearchPage({ placeholder, data }) {
 
   return (
     <div id="SearchPage">
-
+ 
       <div className="search">
         <div className="searchHeader">What Food</div>
         <div className="inputs">

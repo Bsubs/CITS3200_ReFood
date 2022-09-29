@@ -1,10 +1,11 @@
 
 #donation_page{
-  background-color: red;
+
   font-family: "arial","verdana";
-  overflow: scroll;
+
+  height: 100%;
 }
-#donation_page li{
+#food_category_selection li{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,10 +27,18 @@
   
   
 }
+
+
 .top-row, .middle-row, .bottom-row {
-  position: fixed;
+ 
   left: 0;
   right: 0;
+}
+#second-donation .top-row{
+  height: 10vh;
+}
+#second-donation .bottom-row{
+  height: 5vh;
 }
 #cancel-icon {
  margin-top: 5px;
@@ -50,6 +59,7 @@
   padding-right: 20px;
 }
 .top-row {
+  
   background-color: rgb(48, 154, 87);
   top: 0;
   height: 15vh;
@@ -64,10 +74,18 @@
   top: 15%;
   bottom: 10%;
 
-  overflow-y: auto;
+  
+ 
 
 }
+
+#second-donation .middle-row{
+  top: 10%;
+  overflow-y: scroll;
+  padding-bottom: 10vh;
+}
 .bottom-row {
+  position: fixed;
   z-index: 1;
   height: 10vh;
   padding: 2rem;
@@ -112,13 +130,12 @@
   border-radius: 1rem;
 }
 #first-donation{
-  display: none;
-}
-#second-donation {
-    display: none;
-}
-#third-donation {
   display: visible;
+}
+
+#second-donation {
+  display: none;
+  overflow: scroll;
 }
 .selected {
   border-color: red;
@@ -144,8 +161,8 @@ input:not(:placeholder-shown){
   opacity: 100%;
 }
 
-#third-donation .middle-row{
-  box-sizing: border-box;
+#second-donation .middle-row{
+ 
   margin: 2vh;
 }
 
@@ -154,15 +171,11 @@ input:not(:placeholder-shown){
   padding-bottom: 1rem;
 }
 
-#donation_page .upload-image{
-  padding-top: 1rem;
-}
-
 .react-DatePicker{
   width: 100%;
 }
 
-#third-donation .description-label{
+#second-donation .description-label{
   font-weight: bold;
   font-size: 1.8vh;
   
@@ -173,6 +186,12 @@ input:not(:placeholder-shown){
   min-width: 100%;
   min-height: 15vh;
   max-height: 15vh;
+}
+#food-requirements-input{
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 5vh;
+  max-height: 5vh;
 }
 
 .image_box{
@@ -185,6 +204,7 @@ input:not(:placeholder-shown){
   width: 35vw;
   height: 10vh;
   margin-right: 3vh;
+  overflow: hidden;
 }
 
 .image_upload_button{
@@ -229,4 +249,19 @@ input:not(:placeholder-shown){
   object-fit: "cover";
   opacity: 100%;
   border-radius: 0.5rem;
+}
+
+.timePicker{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.react-datepicker-wrapper{
+  width: 45%;
+}
+
+#dates-input{
+  margin-bottom: 1rem;
 }
