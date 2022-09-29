@@ -1,6 +1,51 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage {
+    onCreateMessage {
+      id
+      channelID
+      autho
+      body
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage {
+    onUpdateMessage {
+      id
+      channelID
+      autho
+      body
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage {
+    onDeleteMessage {
+      id
+      channelID
+      autho
+      body
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateFOODITEM = /* GraphQL */ `
   subscription OnCreateFOODITEM {
     onCreateFOODITEM {
@@ -15,6 +60,8 @@ export const onCreateFOODITEM = /* GraphQL */ `
       pickup_location
       quantity
       description
+      isCompleted
+      completionDate
       createdAt
       updatedAt
       _version
@@ -37,6 +84,8 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       pickup_location
       quantity
       description
+      isCompleted
+      completionDate
       createdAt
       updatedAt
       _version
@@ -59,6 +108,8 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       pickup_location
       quantity
       description
+      isCompleted
+      completionDate
       createdAt
       updatedAt
       _version

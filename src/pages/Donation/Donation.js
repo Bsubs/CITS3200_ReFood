@@ -37,7 +37,6 @@ function Donation(props) {
     // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
         title: "",
-        pickup_date:"",
         category:"",
         transport_reqs:"",
         donorID:"",
@@ -45,7 +44,8 @@ function Donation(props) {
         pickup_location:"",
         quantity:"",
         description:"",
-        picture:""
+        picture:"",
+        isCompleted:false
     });
 
     // Selects the category of food in the initial page
@@ -127,6 +127,7 @@ function Donation(props) {
     const addDonation = async() => {
         try{
             const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+            console.log(newFoodItem);
         } catch (error) {
             console.log('error in fetching posting to database', error);
         }

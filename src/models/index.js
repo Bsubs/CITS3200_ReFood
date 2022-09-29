@@ -4,8 +4,9 @@ import { schema } from './schema';
 
 
 
-const { FOODITEM } = initSchema(schema);
+const { Message, FOODITEM } = initSchema(schema);
 
 export {
+  Message,
   FOODITEM
 };
