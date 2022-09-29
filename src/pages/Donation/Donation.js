@@ -146,7 +146,7 @@ function Donation(props) {
             setDonatedItem (() => ({
                 ...donatedItem,
                 ['category']: event.target.innerHTML,
-                ['donorID']: attributes['sub']
+                ['donorID']: attributes['sub'],
             }));
 
         }

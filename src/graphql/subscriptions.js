@@ -61,6 +61,7 @@ export const onCreateFOODITEM = /* GraphQL */ `
       quantity
       description
       isCompleted
+      completionDate
       createdAt
       updatedAt
       _version
@@ -84,6 +85,7 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       quantity
       description
       isCompleted
+      completionDate
       createdAt
       updatedAt
       _version
@@ -107,6 +109,7 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       quantity
       description
       isCompleted
+      completionDate
       createdAt
       updatedAt
       _version

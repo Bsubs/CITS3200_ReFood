@@ -32,6 +32,7 @@ export declare class FOODITEM {
   readonly quantity?: string | null;
   readonly description?: string | null;
   readonly isCompleted?: boolean | null;
+  readonly completionDate?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<FOODITEM, FOODITEMMetaData>);

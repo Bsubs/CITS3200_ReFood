@@ -93,7 +93,7 @@ export const schema = {
                 "pickup_date": {
                     "name": "pickup_date",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -160,6 +160,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "completionDate": {
+                    "name": "completionDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -205,5 +212,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "3daaca9b7027f3cba89343780cde45ac"
+    "version": "8f1c0528be63aabfad89127c4f5265f1"
 };
