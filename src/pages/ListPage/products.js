@@ -5,9 +5,11 @@ import Hourglass from "../../assets/icons/PNG/hourglass.png"
 export function Products(props) {
     if (props.isCompleted=="True"){
         var isCompletedIcon=Check;
+        var pickupDescription="Picked-up On";
     }
     else{
         var isCompletedIcon=Hourglass;
+        var pickupDescription="Pick-up By";
     }
     return(
         
@@ -27,7 +29,7 @@ export function Products(props) {
             <div className="bottom_info">
                 <div className="row">
                     <div className='productQuantity'>{props.quantity}</div>
-                    <div className="dateDescriptor">Pick-up By</div>
+                    <div className="dateDescriptor">{pickupDescription}</div>
                 </div>
                 
                 <div className="row">
