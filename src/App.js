@@ -4,7 +4,7 @@ import './App.css';
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Explore from "./pages/Explore/Explore"
 import Inbox from "./pages/Inbox"
-import Orders from "./pages/Orders"
+import Orders from "./pages/Orders/Orders"
 import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
@@ -37,7 +37,7 @@ function App() {
       var showNav = "True";
       break
     case "/orders":
-      component = <Orders />
+      component = <Orders isNFP={isNFP}/>
       var showNav = "True";
       break
     case "/consentform":

@@ -1,0 +1,25 @@
+#orders_page{
+    background-color: lightgrey;
+}
+#orders_header{
+    background-color: rgb(48, 154, 87);
+    height: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    margin-bottom: 1rem;
+}
+#orders_list{
+
+    padding-bottom: 10vh;
+}
+
+#orders_page .image_box{
+    height: 10vh;
+    min-width: 10vh;
+}
+
+#orders_page .productDescription{
+    display: none;
+}

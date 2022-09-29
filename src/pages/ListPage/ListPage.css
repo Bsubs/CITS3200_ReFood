@@ -3,11 +3,17 @@
   overflow: scroll;
   background-color: lightgrey;
 }
+#list_page .image_box{
+  height: 15vh;
+  min-width: 15vh;
+}
+
+#list_page .isCompletedIcon{
+  display: none;
+}
 #list_page .product_list{
  
- 
   padding-bottom: 10vh;
-  
 }
 
 #search_modal{
@@ -39,71 +45,9 @@
 }
 
 
-#list_page .productCard{
-  display: flex;
-  background-color: white;
-  border-radius: 0.5rem;
-  height: 15vh;
 
-  margin-bottom: 1rem;
-  margin-left: 1vh;
-  margin-right: 1vh;
-  
-}
 
-#list_page .productImage{
-  
-  min-width: 100%;
-  min-height: 100%;
-  vertical-align: middle;
 
-  
-}
-
-#list_page .product_content{
-  position: relative;
-  width: 100%;
-  padding-left: 1vh;
-  margin: 0;
-  
-}
-
-#list_page .image_box{
-  height: 15vh;
-  min-width: 15vh;
-  border: 0;
-  display: flex;
-  margin: 0;
-  overflow: hidden;
-}
-
-#list_page .productName{
-  padding-top: 1vh;
-
-  font-size: 120%;
-}
-#list_page .productQuantity{
-  font-weight: bold;
-}
-
-#list_page .productDescription{
-  font-size: 80%;
-}
-#list_page .productLocation{
-
-}
-#list_page .bottom_info{  
-  position: absolute;
-  bottom: 0;
-  width: 95%;
-}
-
-#list_page .row{
-  display: flex;
-  
-  justify-content: space-between;
-
-}
 #list-page br{
   height: 100vh;
 }

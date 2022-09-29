@@ -42,7 +42,7 @@ function ListPage() {
         <input></input>
         
       </div>
-    <div className="product_list">
+      <div className="product_list">
               {contents.map(contents => (
                   <Products 
                       key={contents.id}
@@ -56,7 +56,7 @@ function ListPage() {
                   />
               ))}
                 
-    </div>
+      </div>
   
     </div>
     </>
