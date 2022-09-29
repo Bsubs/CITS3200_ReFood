@@ -1,11 +1,12 @@
 import React from "react";
 import "./SearchPage.css";
 import search from './search.png';
-
+import Explore from "./Explore"
 
 
 
 function SearchPage({ placeholder, data }) {
+
   function clearText() {
     let input1=document.getElementById("input1");
     let input2=document.getElementById("input2");
@@ -16,7 +17,7 @@ function SearchPage({ placeholder, data }) {
 
   return (
     <div id="SearchPage">
-
+ 
       <div className="search">
         <div className="searchHeader">What Food</div>
         <div className="inputs">

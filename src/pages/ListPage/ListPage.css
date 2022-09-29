@@ -1,20 +1,47 @@
 
 #list_page{
   overflow: scroll;
-
-
+  background-color: lightgrey;
 }
 #list_page .product_list{
  
-  height: 92vh;
+ 
+  padding-bottom: 10vh;
   
 }
 
+#search_modal{
+  display: none;
+  
+}
+
+#exit_search{
+  position: absolute;
+  right: 0;
+  margin: 1rem;
+  font-size: 2rem;
+}
+
+#search_bar{
+  display: flex;
+  background-color: white;
+  
+  margin-bottom: 1rem;
+  padding: 0.5rem 0 0.5rem 0.5rem ;
+
+}
+
+#search_bar input{
+  border: none;
+}
+#search_bar input:focus{
+  outline: none;
+}
 
 
 #list_page .productCard{
   display: flex;
-  background-color: lightgrey;
+  background-color: white;
   border-radius: 0.5rem;
   height: 15vh;
 
@@ -76,4 +103,7 @@
   
   justify-content: space-between;
 
+}
+#list-page br{
+  height: 100vh;
 }
