@@ -1,6 +1,73 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      channelID
+      autho
+      body
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        channelID
+        autho
+        body
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncMessages = /* GraphQL */ `
+  query SyncMessages(
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMessages(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        channelID
+        autho
+        body
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getFOODITEM = /* GraphQL */ `
   query GetFOODITEM($id: ID!) {
     getFOODITEM(id: $id) {
@@ -15,6 +82,7 @@ export const getFOODITEM = /* GraphQL */ `
       pickup_location
       quantity
       description
+      isCompleted
       createdAt
       updatedAt
       _version
@@ -42,6 +110,7 @@ export const listFOODITEMS = /* GraphQL */ `
         pickup_location
         quantity
         description
+        isCompleted
         createdAt
         updatedAt
         _version
@@ -78,6 +147,7 @@ export const syncFOODITEMS = /* GraphQL */ `
         pickup_location
         quantity
         description
+        isCompleted
         createdAt
         updatedAt
         _version

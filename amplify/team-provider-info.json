@@ -19,6 +19,19 @@
           "userPoolName": "CITS3200ReFood-Staging",
           "webClientId": "1gblfrb4jcbu3gpoberrj37rn6",
           "nativeClientId": "2v6dfgtifd58ena50cgneqd3rg"
+        },
+        "cits3200refoodaf75e72f": {
+          "userPoolId": "us-west-1_im2Y8lF6V",
+          "userPoolName": "CITS3200ReFood-Staging",
+          "webClientId": "1gblfrb4jcbu3gpoberrj37rn6",
+          "nativeClientId": "2v6dfgtifd58ena50cgneqd3rg",
+          "identityPoolId": "us-west-1:74549a76-75f7-4fa1-a6a8-5b1854f5c84d",
+          "identityPoolName": "CITS3200ReFood-Staging",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingAuth_Role",
+          "authRoleName": "Cognito_CITS3200ReFoodStagingAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingUnauth_Role",
+          "unauthRoleName": "Cognito_CITS3200ReFoodStagingUnauth_Role"
         }
       }
     }

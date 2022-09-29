@@ -1,14 +1,22 @@
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  channelID: ID
+  autho: String
+  body: String
+}
+
 type FOODITEM @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String
   pickup_date: String
   category: String
   transport_reqs: String
-  picture: AWSURL
+  picture: String
   donorID: String
   nfpID: String
   pickup_location: String
   quantity: String
   description: String
+  isCompleted: Boolean
 }
  
