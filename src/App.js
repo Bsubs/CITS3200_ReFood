@@ -41,7 +41,7 @@ function App() {
       var showNav = "True";
       break
     case "/consentform":
-      component = <ConsentForm/>
+      component = <ConsentForm isNFP={isNFP}/>
       var showNav = "True";
       break
     case "/profile":
