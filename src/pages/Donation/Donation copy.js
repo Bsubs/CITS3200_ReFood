@@ -8,8 +8,6 @@ import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
-import ReactImagePickerEditor, { ImagePickerConf } from 'react-image-picker-editor';
-import 'react-image-picker-editor/dist/index.css'
 
 function Donation(props) {
 
@@ -175,6 +173,49 @@ function Donation(props) {
         num_images=num_images+1;
         
   }
+
+    function delete_image(){
+        console.log(this.parentElement);
+        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
+        if (uploaded_image.classList.contains("make_image_visible")){
+            uploaded_image.src="";
+            uploaded_image.classList.remove("make_image_visible");
+            num_images=num_images-1;
+        }
+        if (num_images<0){
+            num_images=0;
+        }
+        cascade_images();
+       
+    }
+    function log_image_src(){
+        let images=document.getElementsByClassName("uploaded_image"); 
+        console.log(images);
+        for (let i=0;i<images.length;i++){
+            
+            console.log(images[i].getAttribute("src"));
+        }
+    }
+    function cascade_images(){
+        if (num_images>0){
+            let images=document.getElementsByClassName("uploaded_image"); 
+            while (images[0].getAttribute("src")==""){
+                for (let i=1; i<images.length;i++){
+                    images[i-1].setAttribute("src",images[i].getAttribute("src"));
+                    images[i-1].classList.add('make_image_visible');
+                }
+
+                log_image_src();
+            }
+            images[images.length-1].src="";
+            images[images.length-1].classList.remove("make_image_visible");
+        }
+    }
+    function onChangePicture(e){
+        let uploaded_image=URL.createObjectURL(e.target.files[0]);
+        console.log(e);
+        console.log(uploaded_image);     
+    }
     
     // Function for navigation buttons
     function next1() {
@@ -260,8 +301,24 @@ function Donation(props) {
                             <div className="form-row upload-image">
                             <div className="description-label"> Images </div>
                                 <label htmlFor="image" className="images description-label">
+                                    
+                                    <div id="image_box_0" className="image_box">
+                                        <img id="uploaded_image_0" className="uploaded_image" src="data:," alt></img>
+                                        <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
+                                        
+                                        <img src={Camera} alt="camera"/>
+                                        
+                                        <div className="delete_image">x</div>
+                                    
+                                    </div>
 
-
+                                    <div id="image_box_1" className="image_box">
+                                        <img id="uploaded_image_1" className="uploaded_image" src="data:," alt></img>
+                                        <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
+                                        <img src={Camera} alt="camera"/>
+                                        <div className="delete_image">x</div>
+                                    
+                                    </div>
                                     
                                 </label>
                                 
