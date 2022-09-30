@@ -19,5 +19,7 @@ type FOODITEM @model @auth(rules: [{allow: public}]) {
   description: String
   isCompleted: Boolean
   completionDate: AWSDate
+  start_time: AWSTime
+  end_time: AWSTime
 }
  

@@ -84,6 +84,8 @@ export const getFOODITEM = /* GraphQL */ `
       description
       isCompleted
       completionDate
+      start_time
+      end_time
       createdAt
       updatedAt
       _version
@@ -113,6 +115,8 @@ export const listFOODITEMS = /* GraphQL */ `
         description
         isCompleted
         completionDate
+        start_time
+        end_time
         createdAt
         updatedAt
         _version
@@ -151,6 +155,8 @@ export const syncFOODITEMS = /* GraphQL */ `
         description
         isCompleted
         completionDate
+        start_time
+        end_time
         createdAt
         updatedAt
         _version

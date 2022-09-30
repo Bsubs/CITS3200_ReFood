@@ -43,7 +43,9 @@ function Donation(props) {
         quantity:"",
         description:"",
         picture:"",
-        isCompleted:false
+        isCompleted:false,
+        start_time:startTime,
+        end_time:startTime1
     });
 
     // Selects the category of food in the initial page
@@ -114,11 +116,27 @@ function Donation(props) {
     }
 
     function handleDateChange(e) {
-        console.log(e);
-        console.log("hello testing");
         setDonatedItem (() => ({
             ...donatedItem,
             ['pickup_date']: e.toISOString().substring(0, 10)
+        }));
+    }
+
+    function handleTimeChange1(e) {
+        setStartTime(e)
+        console.log(startTime);
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['start_time']: e.toISOString().substring(11, 23)
+        }));
+    }
+
+    function handleTimeChange2(e) {
+        setStartTime1(e)
+        console.log(startTime);
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['end_time']: e.toISOString().substring(11, 23)
         }));
     }
 
@@ -333,7 +351,7 @@ function Donation(props) {
                                 <text>Start </text>
                             <TimePicker
                                 selected={startTime}
-                                onChange={(date) => setStartTime(date)}
+                                onChange={handleTimeChange1}
                                 showTimeSelect
                                 showTimeSelectOnly
                                 popperPlacement="top-end"
@@ -346,7 +364,7 @@ function Donation(props) {
                             <text>End: </text>
                             <TimePicker
                                 selected={startTime1}
-                                onChange={(date) => setStartTime1(date)}
+                                onChange={handleTimeChange2}
                                 showTimeSelect
                                 showTimeSelectOnly
                                 popperPlacement="top-end"
