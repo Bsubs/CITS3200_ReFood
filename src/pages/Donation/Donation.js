@@ -5,11 +5,9 @@ import cancel from "../../assets/icons/PNG/close.png"
 import './Donation.css';
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
-import DatePicker from "react-multi-date-picker";
 import * as mutations from '../../graphql/mutations';
-import "react-multi-date-picker/styles/layouts/mobile.css";
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-datepicker";
+import DatePicker from "react-datepicker";
 
 function Donation(props) {
 
@@ -36,6 +34,7 @@ function Donation(props) {
     // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
         title: "",
+        pickup_date:startDate,
         category:"",
         transport_reqs:"",
         donorID:"",
@@ -114,11 +113,12 @@ function Donation(props) {
         }));
     }
 
-    // WIP -> need to get date form datepicker
     function handleDateChange(e) {
+        console.log(e);
+        console.log("hello testing");
         setDonatedItem (() => ({
             ...donatedItem,
-            ['pickup_date']: e.target.value
+            ['pickup_date']: e.toISOString().substring(0, 10)
         }));
     }
 
@@ -133,16 +133,15 @@ function Donation(props) {
 
     };
 
-    useEffect(()=>{
-        let delete_buttons=document.getElementsByClassName("delete_image");
-        console.log(delete_buttons);
-        Array.from(delete_buttons).forEach(function(elem){
-            elem.addEventListener("click",delete_image);
-        })
-    })
-    const minDate= new Date();
-    const [value, setValue] = useState(new Date());
-    const [state, setState] = useState({});
+    // useEffect(()=>{
+    //     let delete_buttons=document.getElementsByClassName("delete_image");
+    //     console.log(delete_buttons);
+    //     Array.from(delete_buttons).forEach(function(elem){
+    //         elem.addEventListener("click",delete_image);
+    //     })
+    // })
+
+    const [startDate, setStartDate] = useState(new Date());
     const [startTime, setStartTime] = useState(new Date());
     const [startTime1, setStartTime1] = useState(new Date());
     let num_images=0;
@@ -317,25 +316,14 @@ function Donation(props) {
                             
 
                             <div id="dates-input">
-                                <label htmlFor="description" className="description-label">Pick-up Dates</label><br></br>
-                                
-                               
-                                <DatePicker className="rmdp-mobile" multiple value={value} onChange={setValue} format="DD/MM/YYYY" 
-                                mobileButtons={[
-                                    {
-                                      label: "RESET",
-                                      type: "button",
-                                      className: "rmdp-button rmdp-action-button",
-                                      onClick: () => setValue({}),
-                                    },
-                                  ]}
-
-                                  onFocusedDateChange={(dateFocused, dateClicked) => {
-                                    setState({ dateFocused, dateClicked });
-                                  }}
-                                  onClose={() => setState({})}
-                                  plugins={[<DatePanel markFocused />]}
+                                <label htmlFor="description" className="description-label">Pick-up By:</label><br></br>
+                                <DatePicker
+                                    selected={startDate}
+                                    onSelect={(date) => setStartDate(date)} //when day is clicked
+                                    onChange={handleDateChange} //only when value has changed
+                                    dateFormat="dd/MM/yy"
                                 />
+
                             </div>
 
                             <div id="pick-up-input">

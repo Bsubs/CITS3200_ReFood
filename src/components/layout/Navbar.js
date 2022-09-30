@@ -26,7 +26,7 @@ function Navbar(props) {
     var text_color="green";
     var color_filter="invert(44%) sepia(45%) saturate(636%) hue-rotate(89deg) brightness(102%) contrast(87%)"
     var icon_0_text="Give food"
-    var icon_0_link="/donate"
+    var icon_0_link="/donation"
     var icon_1_text="Donations"
 
   }

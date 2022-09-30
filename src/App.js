@@ -23,7 +23,7 @@ Amplify.configure(awsExports);
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
 
-  var isNFP="True";
+  var isNFP="False";
 
   let component
   switch(window.location.pathname){
