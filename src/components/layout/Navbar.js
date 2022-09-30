@@ -77,7 +77,7 @@ function Navbar(props) {
               </a>
             </li>
             <li>
-            <a href="#" onclick="changeUser()">
+            <a href="#" click="changeUser()">
             <img id="logo" src={logo} alt="ReFood logo"/>
             </a>  
             </li>
