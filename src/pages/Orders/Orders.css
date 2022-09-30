@@ -25,9 +25,17 @@
     justify-content: space-evenly;
     margin-bottom: 0.5rem;
     height: 2rem;
-    background-color: rgb(48, 154, 87);
+
     width: 100%;
     color: white;
+}
+#in_progress_orders_header{
+    background-color: rgb(48, 154, 87);
+    
+}
+
+#completed_orders_header{
+    background-color: rgb(48, 154, 87);
 }
 
 #orders_list .order_type

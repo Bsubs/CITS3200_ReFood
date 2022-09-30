@@ -4,14 +4,36 @@
 }
 #profile_page{
 
-    
+ 
     margin: 2rem;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+  
   
 }
 
+#profile_page #consent_form{
+    display: none;
+    margin: 0;
+    padding: 0;
+   
+}
+#profile_page #consent_form .buttonsContainer{
+    display: none;
+}
+
+.hidden{
+    display: none;
+}
+
+#return_to_profile_page{
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+}
 .user_image{
     width: 100%;
 }
@@ -20,6 +42,7 @@ h1 {
     padding: 0.5vh;
     margin: 0rem;
     font-size: 1.5rem;
+    
 }
 
 .profile_section{
