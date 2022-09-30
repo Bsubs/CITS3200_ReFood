@@ -19,7 +19,7 @@ function Orders(props) {
            
             <div id="orders_list">
                 <div id="uncompleted_orders_list">
-                    <div className="order_type">In Progress</div>
+                    <div id="in_progress_orders_header" className="order_type">In Progress</div>
                     {uncompleted_orders.map(contents => (
                         <Products
                             key={contents.id}
@@ -35,7 +35,7 @@ function Orders(props) {
                     ))}
                 </div>
                 <div id="completed_orders_list">
-                <div className="order_type">Completed</div>
+                <div id="completed_orders_header" className="order_type">Completed</div>
                     {completed_orders.map(contents => (
                         <Products
                             key={contents.id}
