@@ -15,12 +15,12 @@ function Tabs(props) {
   
     return (
       <div className={styles["wrapper"]}>
-        <div className={styles["tab-menu"]}>
+        <div className={"tab-menu"}>
           {items.map(({ props: { index, label } }) => (
             <button
               onClick={() => changeTab(index)}
               key={index}
-              className={bindIndex === index ? styles["focus"] : ""}
+              className={bindIndex === index ? styles["focus"] : "buttonTab"}
             >
               {label}
             </button>
@@ -43,6 +43,8 @@ function Tabs(props) {
 function Inbox(props) {
     return (
       <div>
+        <h1>Inbox</h1>
+      <div>
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
                 <p></p>
@@ -55,6 +57,7 @@ function Inbox(props) {
                 <p>When you contact the business to collect food or send a reservation request, you'll find you Notifications here.</p>
             </TabItem>
         </Tabs>
+      </div>
       </div>
     );
 }
