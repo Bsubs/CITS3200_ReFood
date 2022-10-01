@@ -152,13 +152,13 @@ function Donation(props) {
 
     };
 
-    // useEffect(()=>{
-    //     let delete_buttons=document.getElementsByClassName("delete_image");
-    //     console.log(delete_buttons);
-    //     Array.from(delete_buttons).forEach(function(elem){
-    //         elem.addEventListener("click",delete_image);
-    //     })
-    // })
+    useEffect(()=>{
+        let delete_buttons=document.getElementsByClassName("delete_image");
+        console.log(delete_buttons);
+        Array.from(delete_buttons).forEach(function(elem){
+            elem.addEventListener("click",delete_image);
+        })
+    })
 
     let num_images=0;
  

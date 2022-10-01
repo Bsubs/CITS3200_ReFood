@@ -8,8 +8,13 @@ import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
-import ReactImagePickerEditor, { ImagePickerConf } from 'react-image-picker-editor';
-import 'react-image-picker-editor/dist/index.css'
+import config from '../../aws-exports'
+import { v4 as uuid } from 'uuid'
+
+const {
+    aws_user_files_s3_bucket_region: region,
+    aws_user_files_s3_bucket: bucket
+  } = config
 
 function Donation(props) {
 
@@ -144,15 +149,61 @@ function Donation(props) {
     }
 
     // Creates a new FOODITEM and adds it to the database
-    const addDonation = async() => {
-        try{
+    async function addDonation() {
+        if (file) {
+          const extension = file.name.split(".")[1]
+          const { type: mimeType } = file
+          const key = `images/${uuid()}.${extension}`      
+          const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
+          setDonatedItem (() => ({
+                ...donatedItem,
+                ['picture']: url
+            }));
+    
+          try {
+            await Storage.put(key, file, {
+              contentType: mimeType
+            })
             const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
             console.log(newFoodItem);
-        } catch (error) {
-            console.log('error in fetching posting to database', error);
+          } catch (err) {
+            console.log('error: ', err)
+          }
         }
+      }
 
-    };
+    const [file, updateFile] = useState(null)
+    const [image, setImage]= useState(undefined);
+    let num_images=0;
+
+    function handleChange(event) {
+        // if (num_images==1){
+        //     return
+        // }
+        //Saves image details in preparation for upload to AWS S3
+        const { target: { value, files } } = event
+        const fileForUpload = files[0]
+        updateFile(fileForUpload || value)
+
+        //Makes image preview visible
+        let image_placement=document.getElementById("uploaded_image_"+num_images);
+        image_placement.src= URL.createObjectURL(event.target.files[0]);
+        image_placement.classList.add("make_image_visible");
+        num_images=num_images+1;
+    }
+
+    function delete_image(){
+        console.log(this.parentElement);
+        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
+        if (uploaded_image.classList.contains("make_image_visible")){
+            uploaded_image.src="";
+            uploaded_image.classList.remove("make_image_visible");
+            num_images=num_images-1;
+        }
+        if (num_images<0){
+            num_images=0;
+        }       
+    }
 
     // useEffect(()=>{
     //     let delete_buttons=document.getElementsByClassName("delete_image");
@@ -161,20 +212,6 @@ function Donation(props) {
     //         elem.addEventListener("click",delete_image);
     //     })
     // })
-
-    let num_images=0;
- 
-    const [image, setImage]= useState(undefined);
-    const handleChange = (event) => {
-        if (num_images==2){
-            return
-        }
-        let image_placement=document.getElementById("uploaded_image_"+num_images);
-        image_placement.src= URL.createObjectURL(event.target.files[0]);
-        image_placement.classList.add("make_image_visible");
-        num_images=num_images+1;
-        
-  }
     
     // Function for navigation buttons
     function next1() {
@@ -258,13 +295,20 @@ function Donation(props) {
                             
 
                             <div className="form-row upload-image">
-                            <div className="description-label"> Images </div>
+                                <div className="description-label"> Images </div>
                                 <label htmlFor="image" className="images description-label">
-
-
+                                    
+                                    <div id="image_box_0" className="image_box">
+                                        <img id="uploaded_image_0" className="uploaded_image" src="data:," alt></img>
+                                        <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
+                                        
+                                        <img src={Camera} alt="camera"/>
+                                        
+                                        <div className="delete_image">x</div>
+                                    
+                                    </div>
                                     
                                 </label>
-                                
                             </div>
                            
                             
@@ -281,6 +325,8 @@ function Donation(props) {
                                     onSelect={(date) => setStartDate(date)} //when day is clicked
                                     onChange={handleDateChange} //only when value has changed
                                     dateFormat="dd/MM/yy"
+                                    allowSameDay={true}
+                                    
                                 />
 
                             </div>

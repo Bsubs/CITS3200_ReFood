@@ -10,6 +10,7 @@ import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
+import DemoPage from "./pages/DemoPage"
 import { useState } from 'react';
 //Configuring AWS Amplify 
 import { Amplify } from 'aws-amplify';
@@ -23,7 +24,7 @@ Amplify.configure(awsExports);
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
 
-  var isNFP="False";
+  var isNFP="True";
 
   let component
   switch(window.location.pathname){
@@ -56,6 +57,10 @@ function App({ signOut, user }) {
     case "/listpage":
       component = <ListPage />
       var showNav= "True";
+      break
+    case "/demo":
+      component=<DemoPage/>
+      var showNav="True";
       break
   }
   return (
