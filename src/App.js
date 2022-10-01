@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/layout/Navbar';
 import './App.css';
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -11,9 +11,8 @@ import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import DemoPage from "./pages/DemoPage"
-import { useState } from 'react';
 //Configuring AWS Amplify 
-import { Amplify } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 import awsExports from './aws-exports';
 // Authentication Module
 import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
@@ -24,7 +23,35 @@ Amplify.configure(awsExports);
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
 
-  var isNFP="True";
+  //The attributes object stores the user attributes retrived from the AWS Cognito Database
+  const [attributes, setAttributes] = useState({});
+
+  //The fetch attribute function is called everytime the component is rendered
+  useEffect(() => {
+      fetchAttributes();
+    }, []);
+  
+  //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+  const fetchAttributes = async() => {
+      try{
+          const userData = await Auth.currentAuthenticatedUser();
+          console.log(userData);
+          const attributesList = userData.attributes;
+          setAttributes(attributesList);
+      } catch (error) {
+          console.log('error in fetching user data', error);
+      }
+
+  };
+
+  var isNFP;
+
+  if (attributes['custom:type'] == "Donor") {
+    isNFP="False";
+  }
+  else {
+    isNFP = "True";
+  }
 
   let component
   switch(window.location.pathname){
