@@ -20,14 +20,14 @@ function App() {
     password: "admin123"
   }
 
-  const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
-  const [error, setError] = useState(""); 
-  var isNFP="False";
+  const [user, setUser] = useState({ company_name: "", email: "", password: "", }) //save into user
+  const [error, setError] = useState("");
+  var isNFP = "True";
 
   let component
-  switch(window.location.pathname){
+  switch (window.location.pathname) {
     case "/":
-      return <ConsentForm isNFP={isNFP}/>
+      return <ConsentForm isNFP={isNFP} />
     case "/explore":
       component = <Explore />
       var showNav = "True";
@@ -37,11 +37,11 @@ function App() {
       var showNav = "True";
       break
     case "/orders":
-      component = <Orders isNFP={isNFP}/>
+      component = <Orders isNFP={isNFP} />
       var showNav = "True";
       break
     case "/consentform":
-      component = <ConsentForm isNFP={isNFP}/>
+      component = <ConsentForm isNFP={isNFP} />
       var showNav = "True";
       break
     case "/profile":
@@ -54,7 +54,7 @@ function App() {
       break
     case "/listpage":
       component = <ListPage />
-      var showNav= "True";
+      var showNav = "True";
       break
     case "/register":
       var showNav = "True";
@@ -71,15 +71,15 @@ function App() {
         } else {
           console.log("Details do not match!");
         }
-        
+
       }
       const Logout = () => {
-        setUser({company_name:"", email:"", password:""});
+        setUser({ company_name: "", email: "", password: "" });
       }
       component = <LoginForm Login={Login} error={error} />
       break
     default:
-      component = <Donation/>
+      component = <Donation />
       var showNav = "False";
       break
   }
@@ -87,10 +87,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <>
-      {component}
-      {showNav == "True" &&
-      <Navbar isNFP={isNFP}/> }
-      </>
+          {component}
+          {showNav == "True" &&
+            <Navbar isNFP={isNFP} />}
+        </>
       </header>
     </div>
   );
