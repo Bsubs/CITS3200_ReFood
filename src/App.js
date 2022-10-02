@@ -86,7 +86,7 @@ function App({ signOut, user }) {
       var showNav= "True";
       break
     case "/demo":
-      component=<DemoPage/>
+      component=<DemoPage />
       var showNav="True";
       break
   }

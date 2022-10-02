@@ -16,6 +16,8 @@ const {
     aws_user_files_s3_bucket: bucket
   } = config
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 function Donation(props) {
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
@@ -148,27 +150,33 @@ function Donation(props) {
         }));
     }
 
+    function updateDonatedItem(url) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['picture']: url
+        }));
+        console.log(donatedItem);
+    }
+
     // Creates a new FOODITEM and adds it to the database
     async function addDonation() {
         if (file) {
-          const extension = file.name.split(".")[1]
-          const { type: mimeType } = file
-          const key = `images/${uuid()}.${extension}`      
-          const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
-          setDonatedItem (() => ({
-                ...donatedItem,
-                ['picture']: url
-            }));
-    
-          try {
-            await Storage.put(key, file, {
-              contentType: mimeType
-            })
-            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-            console.log(newFoodItem);
-          } catch (err) {
-            console.log('error: ', err)
-          }
+            const extension = file.name.split(".")[1]
+            const { type: mimeType } = file
+            const key = `images/${uuid()}.${extension}`      
+            const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
+            sleep(3000);
+            updateDonatedItem(url);
+            sleep(5000);
+            try {
+                await Storage.put(key, file, {
+                contentType: mimeType
+                })
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                console.log(newFoodItem);
+            } catch (err) {
+                console.log('error: ', err)
+            }
         }
       }
 
