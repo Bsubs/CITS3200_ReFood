@@ -52,18 +52,9 @@ function Inbox(props) {
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
                 <div id="Unread_Messages_header" className="Unread_type">Unread Messages</div>
-                {Unread_Messages.map(content => (
-                        <Products
-                            key={content.id}
-                            SendDate={content.Date}
-                            name={content.Sender}
-                            content={content.Content}
-                            isCompleted={content.isRead}
-                        />
-                    ))}
-                <p></p>
                 <p class="thick">You have no unread Messages</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>
+                <div id="Unread_Messages_header" className="Unread_type">Unread Messages</div>
             </TabItem>
             <TabItem label="Notifications" index="2">
                 <p></p>

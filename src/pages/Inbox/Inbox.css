@@ -22,3 +22,10 @@
     border-bottom: 2px solid #f6f6f8;
   }
   p.thick{font-weight: bold;}
+
+  #Unread_Messages_header{
+    background-color: rgb(48, 154, 87);
+    }
+  #Read_Messages_header{
+    background-color: rgb(48, 154, 87);
+    }
