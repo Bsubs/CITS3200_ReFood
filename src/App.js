@@ -14,6 +14,12 @@ import ListPage from "./pages/ListPage/ListPage"
 import { useState } from 'react';
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
+  const myTimeout = setTimeout(function () {
+    let viewheight = window.screen.height;
+    let viewwidth = window.screen.width;
+    let viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute("content", "height=" + viewheight + "px, width=" + viewwidth + "px, initial-scale=1.0");
+}, 300);
   const adminUser = {
     company_name: "admin",
     email: "admin@admin.com",
@@ -85,6 +91,7 @@ function App() {
   }
   return (
     <div className="App">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
       <header className="App-header">
         <>
       {component}
