@@ -21,16 +21,17 @@
   padding: 0rem;
   height: 75vh;
   margin-bottom: 10vh;
+
 }
 #donation-heading1 {
 
   color: rgb(255, 255, 255);
-  
+  text-align: center;
   
 }
 
 
-.top-row, .middle-row, .bottom-row {
+#donation_page .top-row, .middle-row, .bottom-row {
  
   left: 0;
   right: 0;
@@ -49,7 +50,7 @@
  margin-right: 15px;
  float: left;
 }
-#help-button {
+#donation_page #help-button {
   margin-top: 5px;
   margin-left: 15px;
   float: right;
@@ -60,7 +61,7 @@
   padding-left: 20px;
   padding-right: 20px;
 }
-.top-row {
+#donation_page .top-row {
   
   background-color: rgb(48, 154, 87);
   top: 0;
@@ -70,7 +71,7 @@
   align-items: center;
   padding: 1rem;
 }
-.middle-row {
+#donation_page .middle-row {
   background-color: rgb(255, 255, 255);
   height: 100%;
   top: 15%;
@@ -81,12 +82,12 @@
 
 }
 
-#second-donation .middle-row{
+#donation_page #second-donation .middle-row{
   top: 10%;
   overflow-y: scroll;
   padding-bottom: 10vh;
 }
-.bottom-row {
+#donation_page .bottom-row {
   position: fixed;
   z-index: 1;
   height: 10vh;
@@ -99,7 +100,7 @@
   font-size: 100%;
   background-color: white;
 }
-.food-type {
+#donation_page .food-type {
   border-radius: 25px;
   padding: 10px;
   width: 350px;
@@ -109,17 +110,17 @@
   margin-right: auto;
   margin-top: 10px;
 }
-.Donation .navbar {
+#donation_page .Donation .navbar {
   display: none;
 }
 
-.back-button {
+#donation_page .back-button {
   text-decoration: underline;
   font-size: 2vh;
   float: left;
 
 }
-.next-button {
+#donation_page .next-button {
   
   font-size: 2vh;
   background-color: lightgray;
@@ -132,12 +133,12 @@
   border-radius: 1rem;
 }
 
-#second-donation {
+#donation_page #second-donation {
   display: none;
   overflow: scroll;
 }
-.selected {
-  border-color: red;
+#donation_page .selected {
+
   background-color: grey;
 }
 
@@ -155,11 +156,11 @@
 }
 
 
-.description-input{
+#donation_page .description-input{
 
   padding: 0.5rem;
 }
-.description-input:focus{
+#donation_page .description-input:focus{
   opacity: 100%;
 }
 
@@ -173,7 +174,7 @@
   padding-bottom: 1rem;
 }
 
-.react-DatePicker{
+#donation_page .react-DatePicker{
   width: 100%;
 }
 
@@ -196,7 +197,7 @@
   max-height: 5vh;
 }
 
-.image_box{
+ .image_box{
   position: relative;
   display:flex;
   align-items: center;
@@ -209,7 +210,7 @@
   overflow: hidden;
 }
 
-.image_upload_button{
+#donation_page .image_upload_button{
   height: 10vh;
   width: 35vw;
 	opacity: 0;
@@ -217,12 +218,12 @@
 	position: absolute;
 }
 
-.images{
+#donation_page .images{
   display: flex;
   
 }
 
-.delete_image{
+#donation_page .delete_image{
   position: absolute;
   display: flex;
   align-items:center;
@@ -239,13 +240,13 @@
 
 }
 
-.uploaded_image{
+#donation_page .uploaded_image{
   overflow: hidden;
 	position: absolute;
   opacity: 0;
 }
 
-.make_image_visible{
+#donation_page .make_image_visible{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -253,14 +254,14 @@
   border-radius: 0.5rem;
 }
 
-.timePicker{
+#donation_page .timePicker{
   display: flex;
   justify-content: space-between;
   align-items: center;
 
 }
 
-.react-datepicker-wrapper{
+#donation_page .react-datepicker-wrapper{
   width: 45%;
 }
 
