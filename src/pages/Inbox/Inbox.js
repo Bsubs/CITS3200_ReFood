@@ -52,14 +52,21 @@ function Inbox(props) {
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
                 <div id="Unread_Messages_header" className="Unread_type">Unread Messages</div>
+                
                 <p class="thick">You have no unread Messages</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>
-                <div id="Unread_Messages_header" className="Unread_type">Unread Messages</div>
+                
+                <div id="Read_Messages_header" className="read_type">Read Messages</div>
+            
             </TabItem>
             <TabItem label="Notifications" index="2">
-                <p></p>
+                <div id="Unread_Notifications_header" className="Unread_type">Unread Notifications</div>
+                
                 <p class="thick">You have no unread Notifications</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you Notifications here.</p>
+                
+                <div id="Read_Notifications_header" className="read_type">Read Notifications</div>
+            
             </TabItem>
         </Tabs>
       </div>
