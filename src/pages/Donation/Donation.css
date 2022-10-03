@@ -2,7 +2,7 @@
 #donation_page{
 
   font-family: "arial","verdana";
-
+  overflow-y: auto;
   height: 100%;
 }
 #food_category_selection li{

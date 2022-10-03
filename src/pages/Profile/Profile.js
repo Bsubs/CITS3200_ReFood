@@ -51,7 +51,7 @@ function Profile(props) {
                 <h1>Account Settings</h1>
                 <ul>
                     <li> 
-                        <a href="/">
+                        <a href="/profilesettings">
                             <div className="list_member">
                                 <img className="profile_section_icon" src={profile} alt="profile icon"/>
                                 <div className="profile_section_text"> Company Information</div>
