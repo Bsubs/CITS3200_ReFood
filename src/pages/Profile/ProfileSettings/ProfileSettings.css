@@ -5,10 +5,9 @@
 
 #profile_photo_container{
     aspect-ratio: 1/1;
-    max-height: 30vh;
-    max-width: 70vw;
-
-
+    width: 70vw;
+    align-items: center;
+    text-align: center;
     border-radius: 50%;
 }
 
@@ -31,6 +30,11 @@
     color: white;
     border: none;
     margin: 1rem 0 0 0;
+}
+
+
+#profile_photo_upload_button{
+    display: none;
 }
 
 #profile_settings_page .form-row{

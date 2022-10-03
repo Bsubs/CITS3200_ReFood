@@ -49,7 +49,8 @@ function Navbar(props) {
         document.getElementById("orders_icon_text").style.color=text_color;
         document.getElementById("orders_icon").style.filter=color_filter;
         break
-      case "/profile":
+      case "/profilesettings":
+      case "/profile" :
         document.getElementById("profile_icon_text").style.color=text_color;
         document.getElementById("profile_icon").style.filter=color_filter;
         break
