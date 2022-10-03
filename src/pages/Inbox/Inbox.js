@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "./Inbox.css";
+import contents from './content.js';
 
 function TabItem(props) {
     return <div {...props} />;
@@ -41,12 +42,25 @@ function Tabs(props) {
 }
 
 function Inbox(props) {
+    var Unread_Messages=contents.filter(content => content.isRead!="True");
+    var Read_Messages=contents.filter(content => content.isRead=="True");
+
     return (
       <div>
         <h1>Inbox</h1>
       <div>
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
+                <div id="Unread_Messages_header" className="Unread_type">Unread Messages</div>
+                {Unread_Messages.map(content => (
+                        <Products
+                            key={content.id}
+                            SendDate={content.Date}
+                            name={content.Sender}
+                            content={content.Content}
+                            isCompleted={content.isRead}
+                        />
+                    ))}
                 <p></p>
                 <p class="thick">You have no unread Messages</p>
                 <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>

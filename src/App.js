@@ -3,7 +3,7 @@ import Navbar from './components/layout/Navbar';
 import './App.css';
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Explore from "./pages/Explore"
-import Inbox from "./pages/Inbox"
+import Inbox from "./pages/Inbox/Inbox"
 import Orders from "./pages/Orders"
 import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
