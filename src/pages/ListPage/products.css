@@ -1,80 +1,80 @@
 #products_component{
-    display: flex;
-    background-color: white;
-    border-radius: 0.5rem;
+  display: flex;
+  background-color: white;
+  border-radius: 0.5rem;
 
-    position: relative;
-    margin-bottom: 1rem;
-    margin-left: 1vh;
-    margin-right: 1vh;
-    
-  }
+  position: relative;
+  margin-bottom: 1rem;
+  margin-left: 1vh;
+  margin-right: 1vh;
   
-  #products_component .productImage{
-    
-    min-width: 100%;
-    min-height: 100%;
-    vertical-align: middle;
-  
-    
-  }
+}
 
-  #products_component .dateDescriptor{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    font-size: 0.7rem;
-   
-  }
+#products_component .productImage{
+  
+  min-width: 100%;
+  min-height: 100%;
+  vertical-align: middle;
 
-  #products_component .isCompletedIcon{
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding-right: 0.5rem;
-    padding-top: 0.5rem;
-  }
   
-  #products_component .product_content{
-    position: relative;
-    width: 100%;
-    padding-left: 1vh;
-    margin: 0;
-    
-  }
-  
-  #products_component .image_box{
-    
-    border: 0;
-    display: flex;
-    margin: 0;
-    overflow: hidden;
-  }
-  
-  #products_component .productName{
-    padding-top: 1vh;
-  
-    font-size: 120%;
-  }
-  #products_component .productQuantity{
-    font-weight: bold;
-  }
-  
-  #products_component .productDescription{
-    font-size: 80%;
-  }
-  #products_component .productLocation{
-  
-  }
-  #products_component .bottom_info{  
-    position: absolute;
-    bottom: 0;
-    width: 95%;
-  }
+}
 
-  #products_component .row{
-    display: flex;
-    position: relative;
-    justify-content: space-between;
+#products_component .dateDescriptor{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 0.7rem;
+ 
+}
+
+#products_component .isCompletedIcon{
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+#products_component .product_content{
+  position: relative;
+  width: 100%;
+  padding-left: 1vh;
+  margin: 0;
   
-  }
+}
+
+#products_component .image_box{
+  
+  border: 0;
+  display: flex;
+  margin: 0;
+  overflow: hidden;
+}
+
+#products_component .productName{
+  padding-top: 1vh;
+
+  font-size: 120%;
+}
+#products_component .productQuantity{
+  font-weight: bold;
+}
+
+#products_component .productDescription{
+  font-size: 80%;
+}
+#products_component .productLocation{
+
+}
+#products_component .bottom_info{  
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+}
+
+#products_component .row{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+
+}
