@@ -2,8 +2,8 @@
 #donation_page{
 
   font-family: "arial","verdana";
-  overflow-y: scroll;
 
+  overflow-y: scroll;
 }
 #food_category_selection li{
   display: flex;

@@ -29,7 +29,7 @@ function Donation(props) {
     const [startTime1, setStartTime1] = useState(new Date());
     let num_images=0;
  
-    const [image, setImage]= useState(undefined);
+    
     const handleChange = (event) => {
         if (num_images==2){
             return
