@@ -150,38 +150,45 @@ function Donation(props) {
         }));
     }
 
-    function updateDonatedItem(url) {
-        setDonatedItem (() => ({
-            ...donatedItem,
-            ['picture']: url
-        }));
-        console.log(donatedItem);
+    // function updateDonatedItem(url) {
+    //     setDonatedItem (() => ({
+    //         ...donatedItem,
+    //         ['picture']:url
+    //     }));
+    //     console.log(donatedItem);
+    // }
+
+    async function updatePostDonation() {
+        try {
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+            console.log(newFoodItem);
+        } catch (err) {
+            console.log('error: ', err)
+        }
     }
 
     // Creates a new FOODITEM and adds it to the database
     async function addDonation() {
         if (file) {
-            const extension = file.name.split(".")[1]
             const { type: mimeType } = file
-            const key = `images/${uuid()}.${extension}`      
-            const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
-            sleep(3000);
-            updateDonatedItem(url);
-            sleep(5000);
             try {
                 await Storage.put(key, file, {
                 contentType: mimeType
                 })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
             } catch (err) {
                 console.log('error: ', err)
             }
+            sleep(3000);
+            // updateDonatedItem(url);
+            sleep(8000);
+            updatePostDonation();
         }
       }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
+    const [key, setKey] = useState(null);
+    const [url, setURL] = useState(null);
     let num_images=0;
 
     function handleChange(event) {
@@ -192,6 +199,21 @@ function Donation(props) {
         const { target: { value, files } } = event
         const fileForUpload = files[0]
         updateFile(fileForUpload || value)
+
+        const extension = fileForUpload.name.split(".")[1]
+        const { type: mimeType } = fileForUpload
+        const key1 = `images/${uuid()}.${extension}`      
+        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
+
+        setKey(key1);
+        setURL(url1);
+
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['picture']:url1
+        }));
+        console.log(donatedItem);
+
 
         //Makes image preview visible
         let image_placement=document.getElementById("uploaded_image_"+num_images);
