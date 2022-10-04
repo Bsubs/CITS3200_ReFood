@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import "./products.css";
 import Check from "../../assets/icons/PNG/check.png"
 import Hourglass from "../../assets/icons/PNG/hourglass.png"
+import SingleProduct from "./SingleProduct";
 export function Products(props) {
     if (props.isCompleted == "True") {
         var isCompletedIcon = Check;
@@ -11,39 +12,69 @@ export function Products(props) {
         var isCompletedIcon = Hourglass;
         var pickupDescription = "Pick-up By";
     }
+    useEffect(() => {
+        document.getElementById("more_info").addEventListener("click", showInfo);
+        document.getElementById("back").addEventListener("click", hideInfo);
+    });
+
+    function showInfo() {
+        let search = document.getElementById("more_info_modal");
+
+        search.style.display = "block";
+
+        let list_page = document.getElementById("products_component");
+        list_page.style.display = "none";
+
+    }
+
+    function hideInfo() {
+        let search = document.getElementById("more_info_modal");
+
+        search.style.display = "none";
+
+        let list_page = document.getElementById("products_component");
+        list_page.style.display = "block";
+    }
     return (
+        <>
 
-        <div id="products_component" key={props.id} className='productCard'>
-            <div className="isCompletedIcon">
-                <img src={isCompletedIcon} alt='product-img' className='productImage'></img>
-            </div>
-            <div className="image_box">
-                <img src={props.image} alt='product-img' className='productImage'></img>
-            </div>
-
-
-
-            <div className='product_content'>
-                <div className='productName'>{props.name}</div>
-                <div className='productDescription'>{props.description}</div>
-                <div className="bottom_info">
-                    <div className="row">
-                        <div className='productQuantity'>{props.quantity}</div>
-                        <div className="dateDescriptor">{pickupDescription}</div>
-                    </div>
-
-                    <div className="row">
-                        <div className='productLocation'>{props.location}</div>
-                        <div className='pickupDate'>{props.pickupDate}</div>
-                    </div>
+            <div id="products_component" key={props.id} className='productCard'>
+                <div className="isCompletedIcon">
+                    <img src={isCompletedIcon} alt='product-img' className='productImage'></img>
+                </div>
+                <div className="image_box">
+                    <img src={props.image} alt='product-img' className='productImage'></img>
                 </div>
 
-                <div className='add'>
-                    <button> Add </button>
+
+
+                <div className='product_content'>
+                    <div className='productName'>{props.name}</div>
+                    <div className='productDescription'>{props.description}</div>
+                    <div className="bottom_info">
+                        <div className="row">
+                            <div className='productQuantity'>{props.quantity}</div>
+                            <div className="dateDescriptor">{pickupDescription}</div>
+                        </div>
+
+                        <div className="row">
+                            <div className='productLocation'>{props.location}</div>
+                            <div className='pickupDate'>{props.pickupDate}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="more_info">
+                    <button>More Info</button>
                 </div>
 
             </div>
-        </div>
+
+            <div id='more_info_modal' className='info_modal'>
+                <button id='back'>Back</button>
+                <SingleProduct />
+            </div>
+        </>
 
     )
 }
