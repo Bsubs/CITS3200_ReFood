@@ -16,8 +16,6 @@ const {
     aws_user_files_s3_bucket: bucket
   } = config
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-
 function Donation(props) {
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
@@ -158,15 +156,6 @@ function Donation(props) {
     //     console.log(donatedItem);
     // }
 
-    async function updatePostDonation() {
-        try {
-            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-            console.log(newFoodItem);
-        } catch (err) {
-            console.log('error: ', err)
-        }
-    }
-
     // Creates a new FOODITEM and adds it to the database
     async function addDonation() {
         if (file) {
@@ -175,13 +164,11 @@ function Donation(props) {
                 await Storage.put(key, file, {
                 contentType: mimeType
                 })
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                console.log(newFoodItem);
             } catch (err) {
                 console.log('error: ', err)
             }
-            sleep(3000);
-            // updateDonatedItem(url);
-            sleep(8000);
-            updatePostDonation();
         }
       }
 
@@ -203,7 +190,7 @@ function Donation(props) {
         const extension = fileForUpload.name.split(".")[1]
         const { type: mimeType } = fileForUpload
         const key1 = `images/${uuid()}.${extension}`      
-        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
+        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
 
         setKey(key1);
         setURL(url1);

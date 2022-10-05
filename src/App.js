@@ -10,7 +10,6 @@ import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
-import DemoPage from "./pages/DemoPage"
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
 import awsExports from './aws-exports';
@@ -84,10 +83,6 @@ function App({ signOut, user }) {
     case "/listpage":
       component = <ListPage />
       var showNav= "True";
-      break
-    case "/demo":
-      component=<DemoPage />
-      var showNav="True";
       break
   }
   return (
