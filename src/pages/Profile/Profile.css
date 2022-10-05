@@ -120,5 +120,5 @@ h1 {
 }
 
 #notifications_modal{
-    display: block;
+    display: none;
 }

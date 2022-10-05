@@ -95,21 +95,13 @@ function Profile(props) {
                             </div>
                         </a> 
                     </li>
-                    <li>
-                        <a href="/">
-                            <div className="list_member">
-                                <img className="profile_section_icon" src={lock} alt="lock icon"/>
-                                <div className="profile_section_text">  Privacy and Sharing</div>
-                                <img className="arrow" src={chevrons} alt="select icon"/>
-                            </div>
-                        </a>
-                    </li>
+                   
 
                     <li>
                         <a href="#">
                             <div id="notifications_button" className="list_member">
                                 <img className="profile_section_icon" src={notification} alt="bell icon"/>
-                                <div className="profile_section_text">Notifications </div>
+                                <div className="profile_section_text">Notifications and Privacy</div>
                                 <img className="arrow" src={chevrons} alt="select icon"/>
                             </div>
                         </a> 
