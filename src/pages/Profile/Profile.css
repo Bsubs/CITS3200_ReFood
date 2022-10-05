@@ -8,6 +8,7 @@
     margin: 2rem;
     display: flex;
     flex-direction: column;
+    
   
 }
 
@@ -52,6 +53,7 @@ h1 {
 
 .profile_section{
     flex-grow: 55;
+  
    
 }
 .profile_section_text{
@@ -118,5 +120,5 @@ h1 {
 }
 
 #notifications_modal{
-    display: none;
+    display: block;
 }
