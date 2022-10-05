@@ -43,7 +43,11 @@ function Profile(props) {
             <div id="return_to_profile_page">X </div>
             <div id="profile">
             <div className="profile_header">
+                <div id="profile_page_photo_container">
+                 
                 <img className="user_image" src={banner} alt="profile icon"/>
+                   
+                </div>
 
             </div>
 
