@@ -48,3 +48,8 @@
     color: black;
  
 }
+
+#profile_settings_page .description-input{
+    width: 100%;
+    padding: 0.5rem;
+}
