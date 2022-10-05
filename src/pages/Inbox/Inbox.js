@@ -52,9 +52,10 @@ function Inbox(props) {
         <Tabs defaultIndex="1" onTabClick={console.log}>
             <TabItem label="Messages" index="1">
                 <div id="Unread_Messages_header" className="Unread_type">Unread Messages</div>
-                
-                <p class="thick">You have no unread Messages</p>
-                <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>
+                <div id="No_Unread_Message">
+                  <p class="thick">You have no unread Messages</p>
+                  <p>When you contact the business to collect food or send a reservation request, you'll find you messages here.</p>
+                </div>
                 
                 <div id="Read_Messages_header" className="read_type">Read Messages</div>
             
