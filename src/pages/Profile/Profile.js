@@ -7,6 +7,7 @@ import chevrons from './chevrons-right.png'
 import book from './book.png'
 import banner from "./bakers-delight.jpg"
 import TermsOfService from "../../components/forms/ConsentForm/ConsentForm";
+import ProfileSettings from"./ProfileSettings/ProfileSettings";
 function Profile(props) {
     useEffect(()=>{
         
@@ -15,30 +16,43 @@ function Profile(props) {
         ToS=document.getElementById("consent_form");
         return_button=document.getElementById("return_to_profile_page");
         profile_page=document.getElementById("profile");
+        profile_settings=document.getElementById("profile_settings");
 
         document.getElementById("terms_of_service_button").addEventListener("click",showToS);
         return_button.addEventListener("click",returnToProfilePage);
+        document.getElementById("profile_settings_button").addEventListener("click",showProfileSettings);
       });
       
-    var ToS, return_button, profile_page;
+    var ToS, return_button, profile_page, profile_settings;
     
     function showToS(){
         profile_page.style.display="none";
         ToS.style.display="block";
+        profile_settings.style.display="none";
+        return_button.style.display="block";
+    }
+
+    function showProfileSettings(){
+        profile_page.style.display="none";
+        ToS.style.display="none";
+        profile_settings.style.display="block";
         return_button.style.display="block";
     }
 
     function returnToProfilePage(){
         profile_page.style.display="block";
         ToS.style.display="none";
+        profile_settings.style.display="none";
         return_button.style.display="none";
     }
     return (
 
         <div id="profile_page">
             <div id="tos_modal">
-                
                 <TermsOfService/>
+            </div>
+            <div id="profile_settings">
+                <ProfileSettings/>
             </div>
             <div id="return_to_profile_page">X </div>
             <div id="profile">
@@ -55,8 +69,8 @@ function Profile(props) {
                 <h1>Account Settings</h1>
                 <ul>
                     <li> 
-                        <a href="/profilesettings">
-                            <div className="list_member">
+                        <a href="#">
+                            <div id="profile_settings_button" className="list_member">
                                 <img className="profile_section_icon" src={profile} alt="profile icon"/>
                                 <div className="profile_section_text"> Company Information</div>
                                 <img className="arrow" src={chevrons} alt="select icon"/>

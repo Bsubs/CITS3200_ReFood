@@ -12,6 +12,10 @@
 }
 
 
+#profile_page #profile_settings{
+    display: none;
+}
+
 
 #profile_page #consent_form{
     display: none;
