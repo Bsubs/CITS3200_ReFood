@@ -116,3 +116,7 @@ h1 {
     height: 100%;
     border-radius: 50%;
 }
+
+#notifications_modal{
+    display: none;
+}

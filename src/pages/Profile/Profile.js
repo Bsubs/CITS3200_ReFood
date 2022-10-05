@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'; //, { useState } 
 import './Profile.css';
-import profile from './profile-circle.png'
-import lock from './lock.png'
-import notification from './notification.png'
-import chevrons from './chevrons-right.png'
-import book from './book.png'
-import banner from "./bakers-delight.jpg"
+import profile from './profile-circle.png';
+import lock from './lock.png';
+import notification from './notification.png';
+import chevrons from './chevrons-right.png';
+import book from './book.png';
+import banner from "./bakers-delight.jpg";
 import TermsOfService from "../../components/forms/ConsentForm/ConsentForm";
 import ProfileSettings from"./ProfileSettings/ProfileSettings";
+import Notifications from "./Notifications/Notifications";
 function Profile(props) {
     useEffect(()=>{
         
@@ -17,25 +18,37 @@ function Profile(props) {
         return_button=document.getElementById("return_to_profile_page");
         profile_page=document.getElementById("profile");
         profile_settings=document.getElementById("profile_settings");
+        notifications=document.getElementById("notifications_modal");
 
         document.getElementById("terms_of_service_button").addEventListener("click",showToS);
         return_button.addEventListener("click",returnToProfilePage);
         document.getElementById("profile_settings_button").addEventListener("click",showProfileSettings);
+        document.getElementById("notifications_button").addEventListener("click",showNotifications);
       });
       
-    var ToS, return_button, profile_page, profile_settings;
+    var ToS, return_button, profile_page, profile_settings, notifications;
     
     function showToS(){
         profile_page.style.display="none";
         ToS.style.display="block";
         profile_settings.style.display="none";
         return_button.style.display="block";
+        notifications.style.display="none";
     }
 
     function showProfileSettings(){
         profile_page.style.display="none";
         ToS.style.display="none";
         profile_settings.style.display="block";
+        return_button.style.display="block";
+        notifications.style.display="none";
+    }
+
+    function showNotifications(){
+        profile_page.style.display="none";
+        ToS.style.display="none";
+        profile_settings.style.display="none";
+        notifications.style.display="block";
         return_button.style.display="block";
     }
 
@@ -44,6 +57,7 @@ function Profile(props) {
         ToS.style.display="none";
         profile_settings.style.display="none";
         return_button.style.display="none";
+        notifications.style.display="none";
     }
     return (
 
@@ -53,6 +67,10 @@ function Profile(props) {
             </div>
             <div id="profile_settings">
                 <ProfileSettings/>
+            </div>
+
+            <div id="notifications_modal">
+                <Notifications/>
             </div>
             <div id="return_to_profile_page">X </div>
             <div id="profile">
@@ -88,8 +106,8 @@ function Profile(props) {
                     </li>
 
                     <li>
-                        <a href="/">
-                            <div className="list_member">
+                        <a href="#">
+                            <div id="notifications_button" className="list_member">
                                 <img className="profile_section_icon" src={notification} alt="bell icon"/>
                                 <div className="profile_section_text">Notifications </div>
                                 <img className="arrow" src={chevrons} alt="select icon"/>
