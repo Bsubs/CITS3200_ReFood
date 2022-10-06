@@ -26,3 +26,17 @@
 #individual_product_description{
     margin-top: 0.5rem;
 }
+
+#individual_product_page .row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#individual_product_metadata{
+    margin: 1rem;
+}
+
+#individual_product_seller_information{
+    margin: 1rem;
+}
