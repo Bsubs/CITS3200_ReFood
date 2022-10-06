@@ -1,0 +1,28 @@
+#individual_product_page{
+ overflow-y: scroll;
+}
+
+#multiple_image_wheel{
+    height: 40vh;
+}
+
+#multiple_image_wheel img{
+    width: auto;
+    height: 100%;
+    margin-top: 1rem;
+}
+
+#individual_product_page .header{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#individual_product_text{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+#individual_product_description{
+    margin-top: 0.5rem;
+}

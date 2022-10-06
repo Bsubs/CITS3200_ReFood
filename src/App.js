@@ -12,6 +12,7 @@ import LoginForm from "./pages/LoginForm/LoginForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
+import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
 import { useState } from 'react';
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App() {
@@ -29,10 +30,11 @@ function App() {
 
   const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
   const [error, setError] = useState(""); 
-  var isNFP="False";
+  var isNFP="True";
 
   let component
   switch(window.location.pathname){
+
     case "/":
       return <ConsentForm isNFP={isNFP}/>
     case "/explore":
@@ -66,6 +68,10 @@ function App() {
     case "/listpage":
       component = <ListPage />
       var showNav= "True";
+      break
+    case "/individualproduct":
+      component=<IndividualProduct />
+      var showNav="True";
       break
     case "/register":
       var showNav = "True";

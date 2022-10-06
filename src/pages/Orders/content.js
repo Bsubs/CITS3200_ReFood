@@ -1,7 +1,7 @@
 const productData = [
   {
     id: 1,
-    name: "Various Cans",
+    name: "Various Canned Goods",
     image:"https://images.unsplash.com/photo-1626607007733-d09228471d9f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80",
     type: "Seafood",
     description: "Over 5 dozen cans of tuna, beans and soup.",
