@@ -1,6 +1,15 @@
 #profile_settings_page{
-    margin: 1rem;
+ 
    
+}
+
+
+#profile_photo_display{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+
 }
 
 #profile_photo_container{
@@ -11,13 +20,6 @@
     border-radius: 50%;
 }
 
-#profile_photo_display{
-    display:flex;
-    align-items: center;
-    justify-content: space-evenly;
-    position: relative;
-    padding-bottom: 2rem;
-}
 
 #profile_photo_container img{
     width: 100%;
@@ -47,4 +49,9 @@
     bottom: 0rem;
     color: black;
  
+}
+
+#profile_settings_page .description-input{
+    width: 100%;
+    padding: 0.5rem;
 }

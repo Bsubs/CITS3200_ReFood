@@ -13,15 +13,20 @@ function ProfileSettings() {
     }
     const handleChange = (event) =>{
         let image_placement=document.getElementById("profile_photo");
-        console.log(image_placement.src);
+       
         image_placement.src=URL.createObjectURL(event.target.files[0]);
-        console.log(image_placement.src);
+   
     }
     function changeProfilePhoto(event){
         let image_placement=document.getElementById("profile_photo");
-        console.log(image_placement.src);
-        image_placement.src=URL.createObjectURL(event.target.files[0]);
-        console.log(image_placement.src);
+        try{
+            image_placement.src=URL.createObjectURL(event.target.files[0]);
+        }
+        catch{
+            
+        }
+        
+    
     }
   return (
     <div id="profile_settings_page">
