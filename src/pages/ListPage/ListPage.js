@@ -87,7 +87,7 @@ function ListPage() {
                   />
               ))}
                 
-    </div>
+      </div>
   
     </div>
     </>

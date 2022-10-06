@@ -303,7 +303,7 @@ function Donation(props) {
                                 <label htmlFor="image" className="images description-label">
                                     
                                     <div id="image_box_0" className="image_box">
-                                        <img id="uploaded_image_0" className="uploaded_image" src="data:," alt></img>
+                                        <img id="uploaded_image_0" className="uploaded_image" src="data:,"></img>
                                         <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
                                         
                                         <img src={Camera} alt="camera"/>
@@ -349,10 +349,11 @@ function Donation(props) {
                                 timeIntervals={15}
                                 timeCaption="Time"
                                 dateFormat="h:mm aa"
+                                onFocus={e => e.target.blur()}
                             />
                             </div>
                             <div>
-                            <text>End: </text>
+                            <text>End </text>
                             <TimePicker
                                 selected={startTime1}
                                 onChange={handleTimeChange2}
@@ -362,6 +363,8 @@ function Donation(props) {
                                 timeIntervals={15}
                                 timeCaption="Time"
                                 dateFormat="h:mm aa"
+                               
+                                onFocus={e => e.target.blur()}
                             />
                             </div>
                             </div>

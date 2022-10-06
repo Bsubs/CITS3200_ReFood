@@ -4,12 +4,13 @@ import './App.css';
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Explore from "./pages/Explore/Explore"
 import Inbox from "./pages/Inbox"
-import Orders from "./pages/Orders"
+import Orders from "./pages/Orders/Orders"
 import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
+import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
 import awsExports from './aws-exports';
@@ -21,6 +22,12 @@ Amplify.configure(awsExports);
 
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
+  const myTimeout = setTimeout(function () {
+    let viewheight = window.screen.height;
+    let viewwidth = window.screen.width;
+    let viewport = document.querySelector("meta[name=viewport]");
+    viewport.setAttribute("content", "height=" + viewheight + "px, width=" + viewwidth + "px, initial-scale=1.0");
+}, 300);
 
   //The attributes object stores the user attributes retrived from the AWS Cognito Database
   const [attributes, setAttributes] = useState({});
@@ -60,16 +67,20 @@ function App({ signOut, user }) {
       component = <Explore />
       var showNav = "True";
       break
+    case "/profilesettings":
+      component = <ProfileSettings />
+      var showNav = "True";
+      break
     case "/inbox":
       component = <Inbox />
       var showNav = "True";
       break
     case "/orders":
-      component = <Orders />
+      component = <Orders isNFP={isNFP}/>
       var showNav = "True";
       break
     case "/consentform":
-      component = <ConsentForm/>
+      component = <ConsentForm isNFP={isNFP}/>
       var showNav = "True";
       break
     case "/profile":
@@ -135,6 +146,7 @@ function App({ signOut, user }) {
   >
     {({ signOut, user }) => (
       <div className="App">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
       <header className="App-header">
         <>
       {component}

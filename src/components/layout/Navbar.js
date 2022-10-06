@@ -18,7 +18,7 @@ function Navbar(props) {
     var text_color="red";
     var color_filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)"
     var icon_0_text="Find food"
-    var icon_0_link="/explore"
+    var icon_0_link="/listpage"
     var icon_1_text="Orders"
   }
   else{
@@ -49,7 +49,8 @@ function Navbar(props) {
         document.getElementById("orders_icon_text").style.color=text_color;
         document.getElementById("orders_icon").style.filter=color_filter;
         break
-      case "/profile":
+      case "/profilesettings":
+      case "/profile" :
         document.getElementById("profile_icon_text").style.color=text_color;
         document.getElementById("profile_icon").style.filter=color_filter;
         break
@@ -77,7 +78,7 @@ function Navbar(props) {
               </a>
             </li>
             <li>
-            <a href="#" onclick="changeUser()">
+            <a href="#" click="changeUser()">
             <img id="logo" src={logo} alt="ReFood logo"/>
             </a>  
             </li>
