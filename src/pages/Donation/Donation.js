@@ -21,10 +21,10 @@ function Donation(props) {
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
 
-    // Date and time objects for date and time pickers 
-    const [startDate, setStartDate] = useState(new Date());
-    const [startTime, setStartTime] = useState(new Date());
-    const [startTime1, setStartTime1] = useState(new Date());
+    // Date and time objects for date and time pickers
+    const [startDate, setStartDate] = useState(null);
+    const [startTime, setStartTime] = useState(null);
+    const [startTime1, setStartTime1] = useState(null);
 
     // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
@@ -116,7 +116,15 @@ function Donation(props) {
     function handleAddressChange(e) {
         setDonatedItem (() => ({
             ...donatedItem,
-            ['custom:address']: e.target.value
+            ['pickup_location']: e.target.value
+        }));
+    }
+
+    // Updates Transport Requirements Field upon user input
+    function handleTransportChange(e) {
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['transport_reqs']: e.target.value
         }));
     }
 
@@ -208,27 +216,6 @@ function Donation(props) {
         image_placement.classList.add("make_image_visible");
         num_images=num_images+1;
     }
-
-    function delete_image(){
-        console.log(this.parentElement);
-        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
-        if (uploaded_image.classList.contains("make_image_visible")){
-            uploaded_image.src="";
-            uploaded_image.classList.remove("make_image_visible");
-            num_images=num_images-1;
-        }
-        if (num_images<0){
-            num_images=0;
-        }       
-    }
-
-    // useEffect(()=>{
-    //     let delete_buttons=document.getElementsByClassName("delete_image");
-    //     console.log(delete_buttons);
-    //     Array.from(delete_buttons).forEach(function(elem){
-    //         elem.addEventListener("click",delete_image);
-    //     })
-    // })
     
     // Function for navigation buttons
     function next1() {
@@ -306,7 +293,7 @@ function Donation(props) {
                             </div> 
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
-                                <textarea id="food-requirements-input" type="text" className="description-input" name="text"></textarea>
+                                <textarea id="food-requirements-input" type="text" className="description-input" name="text" onChange={handleTransportChange}></textarea>
                                 
                             </div> 
                             
@@ -343,7 +330,7 @@ function Donation(props) {
                                     onChange={handleDateChange} //only when value has changed
                                     dateFormat="dd/MM/yy"
                                     allowSameDay={true}
-                                    
+                                    required={true}
                                 />
 
                             </div>

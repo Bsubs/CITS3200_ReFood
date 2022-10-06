@@ -11,7 +11,7 @@ type FOODITEMMetaData = {
 export declare class Message {
   readonly id: string;
   readonly channelID?: string | null;
-  readonly autho?: string | null;
+  readonly author?: string | null;
   readonly body?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

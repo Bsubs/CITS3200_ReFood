@@ -17,8 +17,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "autho": {
-                    "name": "autho",
+                "author": {
+                    "name": "author",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -226,5 +226,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "95997078d94b8b1bf2d1752f6358af33"
+    "version": "2ebd759dd7f50f52187a0a5b15cd0e03"
 };

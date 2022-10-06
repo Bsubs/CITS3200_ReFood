@@ -6,7 +6,7 @@ export const getMessage = /* GraphQL */ `
     getMessage(id: $id) {
       id
       channelID
-      autho
+      author
       body
       createdAt
       updatedAt
@@ -26,7 +26,7 @@ export const listMessages = /* GraphQL */ `
       items {
         id
         channelID
-        autho
+        author
         body
         createdAt
         updatedAt
@@ -55,7 +55,7 @@ export const syncMessages = /* GraphQL */ `
       items {
         id
         channelID
-        autho
+        author
         body
         createdAt
         updatedAt

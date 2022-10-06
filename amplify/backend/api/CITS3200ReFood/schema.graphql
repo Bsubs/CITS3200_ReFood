@@ -1,7 +1,7 @@
 type Message @model @auth(rules: [{allow: public}]) {
   id: ID!
   channelID: ID
-  autho: String
+  author: String
   body: String
 }
 

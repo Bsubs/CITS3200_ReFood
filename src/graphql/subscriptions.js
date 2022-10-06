@@ -6,7 +6,7 @@ export const onCreateMessage = /* GraphQL */ `
     onCreateMessage {
       id
       channelID
-      autho
+      author
       body
       createdAt
       updatedAt
@@ -21,7 +21,7 @@ export const onUpdateMessage = /* GraphQL */ `
     onUpdateMessage {
       id
       channelID
-      autho
+      author
       body
       createdAt
       updatedAt
@@ -36,7 +36,7 @@ export const onDeleteMessage = /* GraphQL */ `
     onDeleteMessage {
       id
       channelID
-      autho
+      author
       body
       createdAt
       updatedAt
