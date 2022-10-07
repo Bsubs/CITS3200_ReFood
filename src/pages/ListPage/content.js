@@ -7,7 +7,7 @@ const productData = [
     description: "Over 5 dozen cans of tuna, beans and soup.",
     pickupDate:"24/09/2022",
     quantity: "63 cans",
-    location: "Applecross",
+    location: "20/591 Hay Street, Applecross",
   },
   {
     id: 2,

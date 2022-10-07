@@ -4,6 +4,7 @@ import contents from './content';
 import './ListPage.css';
 import Search from "../../assets/icons/PNG/search.png";
 import SearchPage from "../Explore/SearchPage";
+import IndividualProduct from "../IndividualProduct/IndividualProduct";
 function ListPage() {
   useEffect(()=>{
     document.getElementById("search_bar").addEventListener("click",showSearch);
@@ -34,7 +35,11 @@ function ListPage() {
     <div id="search_modal" className="modal">
       <div id="exit_search">X</div>
        <SearchPage />
-      </div>
+    </div>
+    <div id="individual_product_modal">
+      <div id="exit_search">X</div>
+      <IndividualProduct/>
+    </div>
     <div id="list_page">
       
       <div id="search_bar">

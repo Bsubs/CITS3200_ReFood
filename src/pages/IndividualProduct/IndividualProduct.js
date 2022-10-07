@@ -1,7 +1,9 @@
 import React from 'react'
 import './IndividualProduct.css';
 import ProductContent from "../ListPage/content"
-export default function IndividualProduct() {
+import Location from "../../assets/icons/PNG/location.png"
+import MessageIcon from "../../assets/icons/PNG/message-text.png"
+export default function IndividualProduct(props) {
     let product=ProductContent[0];
     console.log(product);
     var image_src=product.image;
@@ -25,13 +27,17 @@ export default function IndividualProduct() {
        
         </div>
 
-        <div id="individual_product_text">
-            <div id="individual_product_title" className="header">{product.name}</div>
+        <div className="description_block">
+            <div id="individual_product_title" className="main_header">{product.name}</div>
+            <div id="map_link">
+                <img src={Location}></img>
+                <div id="individual_product_location"> {product.location}</div>
+            </div>
             <div id="individual_product_description"> {product.description}</div>
             
         </div>
-        <div id="individual_product_metadata">
-            <div className="header"> Pickup Information</div>
+        <div className="description_block">
+            <div className="header"> Pickup Details</div>
             <div className="row">
                 <div>Pick-up By</div>
                 <div id="individual_product_pickupby">  {product.pickupDate}</div>
@@ -40,19 +46,26 @@ export default function IndividualProduct() {
                 <div>Pick-up Between</div>
                 <div id="individual_product_pickuptime"> {pickup_times}</div>
             </div>
-            
-            
 
-            <div id="individual_product_pickuptime"> Pick-up Instructions: {pickup_instructions}</div>
-            <div id="individual_product_pickuptime"> Transport Requirements {transport_requirements}</div>
+            
+            
+            </div>   
+        <div className="description_block">
+            <div className="header"> Additional Notes</div>
+            <div > {pickup_instructions}</div>
+            <div>{transport_requirements}</div>
         
         </div>
-        <div id="individual_product_seller_information">
+        <div className="description_block">
             <div className="header">Donor Information</div>
             <div id="individual_product_seller_name">{business_name}</div>
             <div id="individual_product_seller_name">{business_number}</div>
+            <div id="message_icon">
+                <img src={MessageIcon}></img>
+            </div>
         </div>
-
+        <div id="claim_donation_button"> Claim Donation</div>
+        
     </div>
   )
 }
