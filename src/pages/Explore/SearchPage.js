@@ -26,7 +26,7 @@ function SearchPage({ placeholder, data }) {
         const allDonations = await API.graphql({query:queries.listFOODITEMS});
         const itemList = allDonations.data.listFOODITEMS.items;
         setFoodItems(itemList);
-        console.log(itemList);
+        
     } catch (error) {
         console.log('error in fetching FoodItems', error);
     }
