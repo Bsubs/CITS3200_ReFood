@@ -2,7 +2,9 @@ import React, { Component }  from 'react';
 import "./products.css"; 
 import Check from "../../assets/icons/PNG/check.png"
 import Hourglass from "../../assets/icons/PNG/hourglass.png"
+
 export function Products(props) {
+    console.log(props);
     if (props.isCompleted=="True"){
         var isCompletedIcon=Check;
         var pickupDescription="Picked-up On";
@@ -33,11 +35,19 @@ export function Products(props) {
                 </div>
                 
                 <div className="row">
-                    <div className='productLocation'>{props.pickup_location}</div>
+                    <div className='productLocation'>{props.location}</div>
                     <div className='pickupDate'>{props.pickup_date}</div>
                 </div>
             </div>
             
+            <div className="hidden">
+                <div className="startTime">{props.startTime}</div>
+                <div className="endTime">{props.endTime}</div>
+                <div className="donorID">{props.donorID}</div>
+                <div className="transportReqs">{props.transportReqs}</div>
+
+              
+            </div>
             </div>
         </div>
         
