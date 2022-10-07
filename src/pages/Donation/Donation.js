@@ -53,6 +53,7 @@ function Donation(props) {
             console.log('error in fetching user data', error);
         }
 
+
     };
 
     //The fetch attribute function is called everytime the component is rendered. Retrives user details from Cognito
@@ -80,6 +81,7 @@ function Donation(props) {
                 ['pickup_location']: attributes['custom:address']
             }));
             console.log(donatedItem);
+
         }
         for (let elem of document.getElementsByClassName("next-button")){
             if (!(getComputedStyle(elem).display ==="hidden")){
@@ -216,8 +218,7 @@ function Donation(props) {
         image_placement.classList.add("make_image_visible");
         num_images=num_images+1;
     }
-    
-    // Function for navigation buttons
+
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {

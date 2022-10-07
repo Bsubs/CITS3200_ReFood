@@ -13,31 +13,76 @@ import './ListPage.css';
 import Search from "../../assets/icons/PNG/search.png";
 import SearchPage from "../Explore/SearchPage";
 
+import IndividualProduct from "../IndividualProduct/IndividualProduct";
 
 function ListPage() {
+  var search;
+  var individual_product;
+  var list_page;
+  var exit_button;
   useEffect(()=>{
     document.getElementById("search_bar").addEventListener("click",showSearch);
-    document.getElementById("exit_search").addEventListener("click", hideSearch);
+    document.getElementById("exit_modal").addEventListener("click", hideModals);
+    search=document.getElementById("search_modal");
+    individual_product=document.getElementById("individual_product_modal");
+    list_page=document.getElementById("list_page");
+    exit_button=document.getElementById("exit_modal");
+
+
+    /**
+     * 
+     */
+
+    var products=document.getElementsByClassName("products_component");
+
+    for (var i=0;i<products.length;i++){
+      products[i].addEventListener("click",openIndividualProductModal);
+    }
+
   });
   
 
   function showSearch(){
-    let search=document.getElementById("search_modal");
-
     search.style.display="block";
- 
-    let list_page=document.getElementById("list_page");
+    individual_product.style.display="none";
     list_page.style.display="none";
+    exit_button.style.display="block";
     
   }
 
-  function hideSearch(){
-    let search=document.getElementById("search_modal");
+  function showIndividualProduct(){
+    search.style.display="none";
+    individual_product.style.display="block";
+    list_page.style.display="none";
+    exit_button.style.display="block";
+  }
+
+  function openIndividualProductModal(){
+    
+    
+    let productImage=this.querySelector(".productImage").src;
+    let productName=this.querySelector(".productName").innerHTML;
+    let productDescription=this.querySelector(".productDescription").innerHTML;
+    let productQuantity=this.querySelector(".productQuantity").innerHTML;
+    let productLocation=this.querySelector(".productLocation").innerHTML;
+    let productPickupDate=this.querySelector(".pickupDate").innerHTML;
+
+    individual_product.querySelector("#display_image").src=productImage;
+    individual_product.querySelector("#individual_product_title").innerHTML=productName;
+    individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
+    individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
+    individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
+
+
+    showIndividualProduct();
+  }
+
+  function hideModals(){
 
     search.style.display="none";
- 
-    let list_page=document.getElementById("list_page");
+    individual_product.style.display="none";
     list_page.style.display="block";
+    exit_button.style.display="none";
   }
 
     // Array to store FoodItems
@@ -62,10 +107,15 @@ function ListPage() {
 
   return (
     <>
+    <div id="exit_modal">X</div>
     <div id="search_modal" className="modal">
-      <div id="exit_search">X</div>
+      
        <SearchPage />
-      </div>
+    </div>
+    <div id="individual_product_modal">
+     
+      <IndividualProduct/>
+    </div>
     <div id="list_page">
       
       <div id="search_bar">
@@ -74,7 +124,9 @@ function ListPage() {
         
       </div>
       <div className="product_list">
+
               {foodItems.map(contents => (
+
                   <Products 
                       key={contents.id}
                       image={contents.picture}
@@ -85,6 +137,7 @@ function ListPage() {
                       type={contents.type}
                       location={contents.location}
                   />
+                
               ))}
                 
       </div>

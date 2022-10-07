@@ -11,6 +11,7 @@ import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
+
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
 import awsExports from './aws-exports';
@@ -19,6 +20,9 @@ import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withA
 import '@aws-amplify/ui-react/styles.css';
 Amplify.configure(awsExports);
 
+
+
+import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
 
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
@@ -59,8 +63,10 @@ function App({ signOut, user }) {
     isNFP = "True";
   }
 
+
   let component
   switch(window.location.pathname){
+
     case "/":
       return <ConsentForm isNFP={isNFP}/>
     case "/explore":
@@ -95,6 +101,16 @@ function App({ signOut, user }) {
       component = <ListPage />
       var showNav= "True";
       break
+
+    case "/individualproduct":
+      component=<IndividualProduct />
+      var showNav="True";
+      break
+   
+    default:
+      component = <Donation/>
+      var showNav = "False";
+
   }
   return (
     <Authenticator
