@@ -90,7 +90,9 @@ function Profile(props) {
                 <TermsOfService/>
             </div>
             <div id="profile_settings">
-                <ProfileSettings/>
+                <ProfileSettings name={attributes.name} phoneNumber={attributes.phone_number} email={attributes.email} 
+                businessName={attributes['custom:business_name']} address={attributes['custom:address']} ABN={attributes['custom:abn']}
+                userType={attributes['custom:type']}/>
             </div>
 
             <div id="notifications_modal">
@@ -175,30 +177,7 @@ function Profile(props) {
                         </a> 
                     </li>
                 </ul>
-                <h1>User Details</h1>
-                <ul>
-                    <li>
-                        <div className='list_member'>{attributes.name}</div>
-                    </li>
-                    <li>
-                        <div className='list_member'>{attributes.email}</div>
-                    </li>
-                    <li>
-                        <div className='list_member'>{attributes.phone_number}</div>
-                    </li>
-                    <li>
-                        <div className='list_member'>{attributes['custom:business_name']}</div>
-                    </li>
-                    <li>
-                        <div className='list_member'>{attributes['custom:address']}</div>
-                    </li>
-                    <li>
-                        <div className='list_member'>{attributes['custom:abn']}</div>
-                    </li>
-                    <li>
-                        <div className='list_member'>{attributes['custom:type']}</div>
-                    </li>
-                </ul>
+                
             </div>
            
         </div>
