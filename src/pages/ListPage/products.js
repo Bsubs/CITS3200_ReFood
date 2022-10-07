@@ -34,8 +34,8 @@ export function Products(props) {
 
         moreInfo.style.display = "none";
 
-        let list_page = document.getElementById("products_component");
-        list_page.style.display = "block";
+        //let list_page = document.getElementById("products_component");
+        //list_page.style.display = "block";
     }
     return (
         <>
@@ -73,11 +73,11 @@ export function Products(props) {
 
             </div>
 
-            <div id='more_info_modal' className='info_modal'>
+            <div id='more_info_modal' key={props.id} className='info_modal' style={{ display: "none" }}>
 
                 <div>
                     <button id='back'>Back</button>
-                    <SingleProduct />
+                    <SingleProduct key={props.id} />
                 </div>
             </div>
 
