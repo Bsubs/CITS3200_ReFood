@@ -13,9 +13,9 @@ export function Products(props) {
     }
     return(
         
-        <div id="products_component" key={props.id} className='productCard'>
+        <div key={props.id} className='products_component'>
             <div className="isCompletedIcon">
-                <img src={isCompletedIcon} alt='product-img' className='productImage'></img>
+                <img src={isCompletedIcon} alt='product-img' ></img>
             </div>
             <div className="image_box">
                 <img src={props.image} alt='product-img' className='productImage'></img>

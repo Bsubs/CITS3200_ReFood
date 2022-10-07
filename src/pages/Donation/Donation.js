@@ -17,7 +17,7 @@ function Donation(props) {
 
     useEffect(()=>{
         let delete_buttons=document.getElementsByClassName("delete_image");
-        console.log(delete_buttons);
+
         Array.from(delete_buttons).forEach(function(elem){
             elem.addEventListener("click",delete_image);
         })
@@ -42,7 +42,7 @@ function Donation(props) {
   }
 
     function delete_image(){
-        console.log(this.parentElement);
+      
         let uploaded_image=this.parentElement.querySelector('.uploaded_image')
         if (uploaded_image.classList.contains("make_image_visible")){
             uploaded_image.src="";
@@ -80,8 +80,8 @@ function Donation(props) {
     }
     function onChangePicture(e){
         let uploaded_image=URL.createObjectURL(e.target.files[0]);
-        console.log(e);
-        console.log(uploaded_image);     
+  
+
     }
     function next1() {
         var i = document.getElementsByClassName("selected")
