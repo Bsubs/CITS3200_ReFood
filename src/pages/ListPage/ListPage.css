@@ -21,7 +21,7 @@
   
 }
 
-#exit_search{
+#exit_modal{
   position: absolute;
   right: 0;
   margin: 1rem;
@@ -51,4 +51,8 @@
 
 #list-page br{
   height: 100vh;
+}
+
+#individual_product_modal{
+  display: none;
 }

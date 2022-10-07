@@ -6,38 +6,40 @@ import Search from "../../assets/icons/PNG/search.png";
 import SearchPage from "../Explore/SearchPage";
 import IndividualProduct from "../IndividualProduct/IndividualProduct";
 function ListPage() {
+  var search;
+  var individual_product;
+  var list_page;
   useEffect(()=>{
     document.getElementById("search_bar").addEventListener("click",showSearch);
-    document.getElementById("exit_search").addEventListener("click", hideSearch);
+    document.getElementById("exit_modal").addEventListener("click", hideModals);
+    search=document.getElementById("search_modal");
+    individual_product=document.getElementById("individual_product_modal");
+    list_page=document.getElementById("list_page");
+
   });
   
 
   function showSearch(){
-    let search=document.getElementById("search_modal");
-
     search.style.display="block";
- 
-    let list_page=document.getElementById("list_page");
+    individual_product.style.display="none";
     list_page.style.display="none";
     
   }
 
-  function hideSearch(){
-    let search=document.getElementById("search_modal");
+  function hideModals(){
 
     search.style.display="none";
- 
-    let list_page=document.getElementById("list_page");
+    individual_product.style.display="none";
     list_page.style.display="block";
   }
   return (
     <>
     <div id="search_modal" className="modal">
-      <div id="exit_search">X</div>
+      <div id="exit_modal">X</div>
        <SearchPage />
     </div>
     <div id="individual_product_modal">
-      <div id="exit_search">X</div>
+      <div id="exit_modal"></div>
       <IndividualProduct/>
     </div>
     <div id="list_page">
