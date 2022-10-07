@@ -11,6 +11,7 @@ import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
+import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
 
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
@@ -22,7 +23,6 @@ Amplify.configure(awsExports);
 
 
 
-import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
 
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
