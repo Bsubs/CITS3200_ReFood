@@ -144,7 +144,7 @@ function Donation(props) {
         console.log(startTime);
         setDonatedItem (() => ({
             ...donatedItem,
-            ['start_time']: e.toTimeString().substring(0,8)
+            ['start_time']: e.toTimeString().substring(0,5)
             
         }));
     }
@@ -155,7 +155,7 @@ function Donation(props) {
         console.log(startTime);
         setDonatedItem (() => ({
             ...donatedItem,
-            ['end_time']: e.toTimeString().substring(0,8)
+            ['end_time']: e.toTimeString().substring(0,5)
         }));
     }
 
