@@ -144,7 +144,8 @@ function Donation(props) {
         console.log(startTime);
         setDonatedItem (() => ({
             ...donatedItem,
-            ['start_time']: e.toISOString().substring(11, 23)
+            ['start_time']: e.toTimeString().substring(0,8)
+            
         }));
     }
 
@@ -154,7 +155,7 @@ function Donation(props) {
         console.log(startTime);
         setDonatedItem (() => ({
             ...donatedItem,
-            ['end_time']: e.toISOString().substring(11, 23)
+            ['end_time']: e.toTimeString().substring(0,8)
         }));
     }
 
@@ -223,7 +224,7 @@ function Donation(props) {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
-            document.getElementById("third-donation").style.display = "initial"
+            document.getElementById("second-donation").style.display = "initial"
         }
         else {
             window.alert("Please select a food type");
@@ -235,7 +236,7 @@ function Donation(props) {
     // Function for navigation buttons
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
-        document.getElementById("third-donation").style.display = "none"
+        document.getElementById("second-donation").style.display = "none"
     }
     
     return (
@@ -261,14 +262,12 @@ function Donation(props) {
                    
                 </div>
                 <div className="bottom-row">
-                
-                <a href="/profile"><label className="back-button">Back</label></a>
-                
-                <button className="next-button" onClick={next1}>Next</button>
+                    <a href="/profile"><label className="back-button">Back</label></a>
+                    <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
 
-            <div id="third-donation">
+            <div id="second-donation">
             <div className="top-row">
              
                 <h1 id="donation-heading1">Food Donation Details</h1>
