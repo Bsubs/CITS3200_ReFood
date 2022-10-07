@@ -18,19 +18,21 @@ export function Products(props) {
     });
 
     function showInfo() {
-        let search = document.getElementById("more_info_modal");
-
-        search.style.display = "block";
+        let moreInfo = document.getElementById("more_info_modal");
 
         let list_page = document.getElementById("products_component");
-        list_page.style.display = "none";
 
+        moreInfo.style.display = "block"
+        list_page.style.display = "none";
     }
 
-    function hideInfo() {
-        let search = document.getElementById("more_info_modal");
 
-        search.style.display = "none";
+
+
+    function hideInfo() {
+        let moreInfo = document.getElementById("more_info_modal");
+
+        moreInfo.style.display = "none";
 
         let list_page = document.getElementById("products_component");
         list_page.style.display = "block";
@@ -64,6 +66,7 @@ export function Products(props) {
                     </div>
 
                 </div>
+
                 <div id="more_info">
                     <button>More Info</button>
                 </div>
@@ -71,9 +74,15 @@ export function Products(props) {
             </div>
 
             <div id='more_info_modal' className='info_modal'>
-                <button id='back'>Back</button>
-                <SingleProduct />
+
+                <div>
+                    <button id='back'>Back</button>
+                    <SingleProduct />
+                </div>
             </div>
+
+
+
         </>
 
     )
