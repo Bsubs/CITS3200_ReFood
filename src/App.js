@@ -11,6 +11,7 @@ import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
+import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
 
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
@@ -18,11 +19,11 @@ import awsExports from './aws-exports';
 // Authentication Module
 import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
+//DO NOT import anything below this line 
 Amplify.configure(awsExports);
 
 
 
-import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
 
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
