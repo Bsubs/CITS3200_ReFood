@@ -22,6 +22,7 @@
 }
 
 #exit_modal{
+  display: none;
   position: absolute;
   right: 0;
   margin: 1rem;
