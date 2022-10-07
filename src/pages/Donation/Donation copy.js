@@ -8,23 +8,16 @@ import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
-import config from '../../aws-exports'
-import { v4 as uuid } from 'uuid'
-
-const {
-    aws_user_files_s3_bucket_region: region,
-    aws_user_files_s3_bucket: bucket
-  } = config
 
 function Donation(props) {
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
 
-    // Date and time objects for date and time pickers
-    const [startDate, setStartDate] = useState(null);
-    const [startTime, setStartTime] = useState(null);
-    const [startTime1, setStartTime1] = useState(null);
+    // Date and time objects for date and time pickers 
+    const [startDate, setStartDate] = useState(new Date());
+    const [startTime, setStartTime] = useState(new Date());
+    const [startTime1, setStartTime1] = useState(new Date());
 
     // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
@@ -53,7 +46,6 @@ function Donation(props) {
             console.log('error in fetching user data', error);
         }
 
-
     };
 
     //The fetch attribute function is called everytime the component is rendered. Retrives user details from Cognito
@@ -81,7 +73,6 @@ function Donation(props) {
                 ['pickup_location']: attributes['custom:address']
             }));
             console.log(donatedItem);
-
         }
         for (let elem of document.getElementsByClassName("next-button")){
             if (!(getComputedStyle(elem).display ==="hidden")){
@@ -118,15 +109,7 @@ function Donation(props) {
     function handleAddressChange(e) {
         setDonatedItem (() => ({
             ...donatedItem,
-            ['pickup_location']: e.target.value
-        }));
-    }
-
-    // Updates Transport Requirements Field upon user input
-    function handleTransportChange(e) {
-        setDonatedItem (() => ({
-            ...donatedItem,
-            ['transport_reqs']: e.target.value
+            ['custom:address']: e.target.value
         }));
     }
 
@@ -158,67 +141,83 @@ function Donation(props) {
         }));
     }
 
-    // function updateDonatedItem(url) {
-    //     setDonatedItem (() => ({
-    //         ...donatedItem,
-    //         ['picture']:url
-    //     }));
-    //     console.log(donatedItem);
-    // }
-
     // Creates a new FOODITEM and adds it to the database
-    async function addDonation() {
-        if (file) {
-            const { type: mimeType } = file
-            try {
-                await Storage.put(key, file, {
-                contentType: mimeType
-                })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
-            } catch (err) {
-                console.log('error: ', err)
-            }
+    const addDonation = async() => {
+        try{
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+            console.log(newFoodItem);
+        } catch (error) {
+            console.log('error in fetching posting to database', error);
         }
-      }
 
-    const [file, updateFile] = useState(null)
-    const [image, setImage]= useState(undefined);
-    const [key, setKey] = useState(null);
-    const [url, setURL] = useState(null);
+    };
+
+    useEffect(()=>{
+        let delete_buttons=document.getElementsByClassName("delete_image");
+        console.log(delete_buttons);
+        Array.from(delete_buttons).forEach(function(elem){
+            elem.addEventListener("click",delete_image);
+        })
+    })
+
     let num_images=0;
-
-    function handleChange(event) {
-        // if (num_images==1){
-        //     return
-        // }
-        //Saves image details in preparation for upload to AWS S3
-        const { target: { value, files } } = event
-        const fileForUpload = files[0]
-        updateFile(fileForUpload || value)
-
-        const extension = fileForUpload.name.split(".")[1]
-        const { type: mimeType } = fileForUpload
-        const key1 = `images/${uuid()}.${extension}`      
-        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
-
-        setKey(key1);
-        setURL(url1);
-
-        setDonatedItem (() => ({
-            ...donatedItem,
-            ['picture']:url1
-        }));
-        console.log(donatedItem);
-
-
-        //Makes image preview visible
+ 
+    const [image, setImage]= useState(undefined);
+    const handleChange = (event) => {
+        if (num_images==2){
+            return
+        }
         let image_placement=document.getElementById("uploaded_image_"+num_images);
         image_placement.src= URL.createObjectURL(event.target.files[0]);
         image_placement.classList.add("make_image_visible");
         num_images=num_images+1;
-    }
+        
+  }
 
+    function delete_image(){
+        console.log(this.parentElement);
+        let uploaded_image=this.parentElement.querySelector('.uploaded_image')
+        if (uploaded_image.classList.contains("make_image_visible")){
+            uploaded_image.src="";
+            uploaded_image.classList.remove("make_image_visible");
+            num_images=num_images-1;
+        }
+        if (num_images<0){
+            num_images=0;
+        }
+        cascade_images();
+       
+    }
+    function log_image_src(){
+        let images=document.getElementsByClassName("uploaded_image"); 
+        console.log(images);
+        for (let i=0;i<images.length;i++){
+            
+            console.log(images[i].getAttribute("src"));
+        }
+    }
+    function cascade_images(){
+        if (num_images>0){
+            let images=document.getElementsByClassName("uploaded_image"); 
+            while (images[0].getAttribute("src")==""){
+                for (let i=1; i<images.length;i++){
+                    images[i-1].setAttribute("src",images[i].getAttribute("src"));
+                    images[i-1].classList.add('make_image_visible');
+                }
+
+                log_image_src();
+            }
+            images[images.length-1].src="";
+            images[images.length-1].classList.remove("make_image_visible");
+        }
+    }
+    function onChangePicture(e){
+        let uploaded_image=URL.createObjectURL(e.target.files[0]);
+        console.log(e);
+        console.log(uploaded_image);     
+    }
+    
+    // Function for navigation buttons
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
@@ -294,17 +293,17 @@ function Donation(props) {
                             </div> 
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
-                                <textarea id="food-requirements-input" type="text" className="description-input" name="text" onChange={handleTransportChange}></textarea>
+                                <textarea id="food-requirements-input" type="text" className="description-input" name="text"></textarea>
                                 
                             </div> 
                             
 
                             <div className="form-row upload-image">
-                                <div className="description-label"> Images </div>
+                            <div className="description-label"> Images </div>
                                 <label htmlFor="image" className="images description-label">
                                     
                                     <div id="image_box_0" className="image_box">
-                                        <img id="uploaded_image_0" className="uploaded_image" src="data:,"></img>
+                                        <img id="uploaded_image_0" className="uploaded_image" src="data:," alt></img>
                                         <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
                                         
                                         <img src={Camera} alt="camera"/>
@@ -312,8 +311,17 @@ function Donation(props) {
                                         <div className="delete_image">x</div>
                                     
                                     </div>
+
+                                    <div id="image_box_1" className="image_box">
+                                        <img id="uploaded_image_1" className="uploaded_image" src="data:," alt></img>
+                                        <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
+                                        <img src={Camera} alt="camera"/>
+                                        <div className="delete_image">x</div>
+                                    
+                                    </div>
                                     
                                 </label>
+                                
                             </div>
                            
                             
@@ -330,8 +338,6 @@ function Donation(props) {
                                     onSelect={(date) => setStartDate(date)} //when day is clicked
                                     onChange={handleDateChange} //only when value has changed
                                     dateFormat="dd/MM/yy"
-                                    allowSameDay={true}
-                                    required={true}
                                 />
 
                             </div>
@@ -350,11 +356,10 @@ function Donation(props) {
                                 timeIntervals={15}
                                 timeCaption="Time"
                                 dateFormat="h:mm aa"
-                                onFocus={e => e.target.blur()}
                             />
                             </div>
                             <div>
-                            <text>End </text>
+                            <text>End: </text>
                             <TimePicker
                                 selected={startTime1}
                                 onChange={handleTimeChange2}
@@ -364,8 +369,6 @@ function Donation(props) {
                                 timeIntervals={15}
                                 timeCaption="Time"
                                 dateFormat="h:mm aa"
-                               
-                                onFocus={e => e.target.blur()}
                             />
                             </div>
                             </div>

@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation } from 'aws-amplify';
 import "./SearchPage.css";
 import search from './search.png';
+import * as queries from '../../graphql/queries';
 import Explore from "./Explore"
 
 
 
 function SearchPage({ placeholder, data }) {
+
+  // Array to store FoodItems
+  const[foodItems, setFoodItems] = useState([]);
 
   function clearText() {
     let input1=document.getElementById("input1");
@@ -14,6 +19,24 @@ function SearchPage({ placeholder, data }) {
     input1.value = '';
     input2.value = '';
   }
+
+  // Fetches donations from database
+  const fetchDonations = async() => {
+    try{
+        const allDonations = await API.graphql({query:queries.listFOODITEMS});
+        const itemList = allDonations.data.listFOODITEMS.items;
+        setFoodItems(itemList);
+        console.log(itemList);
+    } catch (error) {
+        console.log('error in fetching FoodItems', error);
+    }
+
+  };
+
+  useEffect(() => {
+    fetchDonations();
+  }, []);
+
 
   return (
     <div id="SearchPage">
@@ -48,8 +71,20 @@ function SearchPage({ placeholder, data }) {
       
       </div>
       
-
+      <div className='foodItemList'>
+        {foodItems.map((foodItem, idx)=> {
+          return (
+            <div className='foodItemCard'>
+              <div>{foodItem.title}</div>
+              <div>{foodItem.quantity}</div>
+              <div>{foodItem.description}</div>
+              <div>{foodItem.category}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
+
 
   
   );

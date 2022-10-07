@@ -24,7 +24,7 @@ export function Products(props) {
            
 
             <div className='product_content'>
-                <div className='productName'>{props.name}</div>
+                <div className='productName'>{props.title}</div>
                 <div className='productDescription'>{props.description}</div>
             <div className="bottom_info">
                 <div className="row">
@@ -33,8 +33,8 @@ export function Products(props) {
                 </div>
                 
                 <div className="row">
-                    <div className='productLocation'>{props.location}</div>
-                    <div className='pickupDate'>{props.pickupDate}</div>
+                    <div className='productLocation'>{props.pickup_location}</div>
+                    <div className='pickupDate'>{props.pickup_date}</div>
                 </div>
             </div>
             

@@ -1,10 +1,20 @@
-import React, {useEffect, useState} from 'react'; //, { useState } 
+import React, { useEffect, useState } from 'react';
+import { Amplify, Auth } from 'aws-amplify';
+import { type } from '@testing-library/user-event/dist/type';
+import { Storage, API, graphqlOperation } from 'aws-amplify'
+import { v4 as uuid } from 'uuid'
+import { withAuthenticator } from '@aws-amplify/ui-react'
+import * as mutations from '../../graphql/mutations';
+import { listFOODITEMS } from '../../graphql/queries';
+import * as queries from '../../graphql/queries';
 import { Products } from './products';
 import contents from './content';
 import './ListPage.css';
 import Search from "../../assets/icons/PNG/search.png";
 import SearchPage from "../Explore/SearchPage";
+
 import IndividualProduct from "../IndividualProduct/IndividualProduct";
+
 function ListPage() {
   var search;
   var individual_product;
@@ -74,6 +84,27 @@ function ListPage() {
     list_page.style.display="block";
     exit_button.style.display="none";
   }
+
+    // Array to store FoodItems
+    const[foodItems, setFoodItems] = useState([]);
+
+    // Fetches donations from database
+    const fetchDonations = async() => {
+     try{
+         const allDonations = await API.graphql({query:queries.listFOODITEMS});
+         const itemList = allDonations.data.listFOODITEMS.items;
+         setFoodItems(itemList);
+         console.log(itemList);
+     } catch (error) {
+         console.log('error in fetching FoodItems', error);
+     }
+ 
+   };
+ 
+   useEffect(() => {
+     fetchDonations();
+   }, []);
+
   return (
     <>
     <div id="exit_modal">X</div>
@@ -93,11 +124,12 @@ function ListPage() {
         
       </div>
       <div className="product_list">
-              {contents.map(contents => (
-                
+
+              {foodItems.map(contents => (
+
                   <Products 
                       key={contents.id}
-                      image={contents.image}
+                      image={contents.picture}
                       description={contents.description}
                       quantity={contents.quantity}
                       pickupDate={contents.pickupDate}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/layout/Navbar';
 import './App.css';
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -8,29 +8,61 @@ import Orders from "./pages/Orders/Orders"
 import Profile from "./pages/Profile/Profile"
 import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
-import LoginForm from "./pages/LoginForm/LoginForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
+
+//Configuring AWS Amplify 
+import { Amplify, Auth } from 'aws-amplify';
+import awsExports from './aws-exports';
+// Authentication Module
+import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
+import '@aws-amplify/ui-react/styles.css';
+Amplify.configure(awsExports);
+
+
+
 import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
-import { useState } from 'react';
+
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
-function App() {
+function App({ signOut, user }) {
   const myTimeout = setTimeout(function () {
     let viewheight = window.screen.height;
     let viewwidth = window.screen.width;
     let viewport = document.querySelector("meta[name=viewport]");
     viewport.setAttribute("content", "height=" + viewheight + "px, width=" + viewwidth + "px, initial-scale=1.0");
 }, 300);
-  const adminUser = {
-    company_name: "admin",
-    email: "admin@admin.com",
-    password: "admin123"
+
+  //The attributes object stores the user attributes retrived from the AWS Cognito Database
+  const [attributes, setAttributes] = useState({});
+
+  //The fetch attribute function is called everytime the component is rendered
+  useEffect(() => {
+      fetchAttributes();
+    }, []);
+  
+  //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+  const fetchAttributes = async() => {
+      try{
+          const userData = await Auth.currentAuthenticatedUser();
+          console.log(userData);
+          const attributesList = userData.attributes;
+          setAttributes(attributesList);
+      } catch (error) {
+          console.log('error in fetching user data', error);
+      }
+
+  };
+
+  var isNFP;
+
+  if (attributes['custom:type'] == "Donor") {
+    isNFP="False";
+  }
+  else {
+    isNFP = "True";
   }
 
-  const [user, setUser] = useState({company_name:"", email:"", password:"", }) //save into user
-  const [error, setError] = useState(""); 
-  var isNFP="True";
 
   let component
   switch(window.location.pathname){
@@ -69,39 +101,67 @@ function App() {
       component = <ListPage />
       var showNav= "True";
       break
+
     case "/individualproduct":
       component=<IndividualProduct />
       var showNav="True";
       break
-    case "/register":
-      var showNav = "True";
-      const Login = details => { //passing details to method called "Login"
-      
-
-        if (details.company_name == adminUser.company_name && details.email == adminUser.email && details.password == adminUser.password) {
-          console.log("Logged in");
-          setUser({
-            company_name: details.company_name, //This should direct to create Create Log in Details
-            email: details.email,
-            password: details.password
-          });
-        } else {
-          console.log("Details do not match!");
-        }
-        
-      }
-      const Logout = () => {
-        setUser({company_name:"", email:"", password:""});
-      }
-      component = <LoginForm Login={Login} error={error} />
-      break
+   
     default:
       component = <Donation/>
       var showNav = "False";
-      break
+
   }
   return (
-    <div className="App">
+    <Authenticator
+    // Default to Sign Up screen
+    initialState="signUp"
+    // Customize `Authenticator.SignUp.FormFields`
+    signUpAttributes={[
+      'email',
+      'name',
+      'phone_number',
+      'custom:address',
+      'custom:business_name',
+      'custom:type',
+      'custom:abn',
+    ]}
+    components={{
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+
+          return (
+            <>
+              {/* Re-use default `Authenticator.SignUp.FormFields` */}
+              <Authenticator.SignUp.FormFields />
+              <TextField
+                name="custom:business_name"
+                placeholder='Business Name'
+              />
+              <TextField
+                name="custom:address"
+                placeholder='Address of Business'
+              />
+              <TextField
+                name='custom:abn'
+                placeholder='ABN'
+              />
+              <SelectField
+                name='custom:type'
+                placeholder='Select Type of Business'
+              >
+                <option value="Donor">Donor</option>
+                <option value="Collector">Collector</option>
+              </SelectField>
+            </>
+          );
+        },
+      },
+    }}
+  >
+    {({ signOut, user }) => (
+      <div className="App">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
       <header className="App-header">
         <>
@@ -110,7 +170,10 @@ function App() {
       <Navbar isNFP={isNFP}/> }
       </>
       </header>
+      <button onClick={signOut}>Sign out</button>
     </div>
+    )}
+  </Authenticator>
   );
 }
 export default App;

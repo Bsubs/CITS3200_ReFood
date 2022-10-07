@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from 'react'; //, { useState } 
+import React, { useEffect, useState } from 'react';
+import { Amplify, Auth } from 'aws-amplify';
+import { type } from '@testing-library/user-event/dist/type';
 import './Profile.css';
 import profile from './profile-circle.png';
 import lock from './lock.png';
@@ -59,6 +61,28 @@ function Profile(props) {
         return_button.style.display="none";
         notifications.style.display="none";
     }
+
+    //The attributes object stores the user attributes retrived from the AWS Cognito Database
+    const [attributes, setAttributes] = useState({});
+
+    //The fetch attribute function is called everytime the component is rendered
+    useEffect(() => {
+        fetchAttributes();
+      }, []);
+    
+    //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+    const fetchAttributes = async() => {
+        try{
+            const userData = await Auth.currentAuthenticatedUser();
+            console.log(userData);
+            const attributesList = userData.attributes;
+            setAttributes(attributesList);
+        } catch (error) {
+            console.log('error in fetching user data', error);
+        }
+
+    };
+
     return (
 
         <div id="profile_page">
@@ -149,6 +173,30 @@ function Profile(props) {
                                 <img className="arrow" src={chevrons} alt="select icon"/>
                             </div>
                         </a> 
+                    </li>
+                </ul>
+                <h1>User Details</h1>
+                <ul>
+                    <li>
+                        <div className='list_member'>{attributes.name}</div>
+                    </li>
+                    <li>
+                        <div className='list_member'>{attributes.email}</div>
+                    </li>
+                    <li>
+                        <div className='list_member'>{attributes.phone_number}</div>
+                    </li>
+                    <li>
+                        <div className='list_member'>{attributes['custom:business_name']}</div>
+                    </li>
+                    <li>
+                        <div className='list_member'>{attributes['custom:address']}</div>
+                    </li>
+                    <li>
+                        <div className='list_member'>{attributes['custom:abn']}</div>
+                    </li>
+                    <li>
+                        <div className='list_member'>{attributes['custom:type']}</div>
                     </li>
                 </ul>
             </div>
