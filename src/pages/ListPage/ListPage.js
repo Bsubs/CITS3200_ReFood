@@ -62,7 +62,7 @@ function ListPage() {
     individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
     individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
     individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
-    console.log(this);
+
 
     showIndividualProduct();
   }

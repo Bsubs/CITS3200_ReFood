@@ -8,8 +8,7 @@ function ProfileSettings() {
     let location="2 Park Rd, Wembley";
     function onChangePicture(e){
         let uploaded_image=URL.createObjectURL(e.target.files[0]);
-        console.log(e);
-        console.log(uploaded_image);     
+  
     }
     const handleChange = (event) =>{
         let image_placement=document.getElementById("profile_photo");

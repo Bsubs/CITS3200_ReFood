@@ -76,7 +76,7 @@ function App() {
     case "/register":
       var showNav = "True";
       const Login = details => { //passing details to method called "Login"
-        console.log(details)
+      
 
         if (details.company_name == adminUser.company_name && details.email == adminUser.email && details.password == adminUser.password) {
           console.log("Logged in");

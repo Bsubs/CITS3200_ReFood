@@ -5,7 +5,7 @@ import Location from "../../assets/icons/PNG/location.png"
 import MessageIcon from "../../assets/icons/PNG/message-text.png"
 export default function IndividualProduct(props) {
     let product=ProductContent[0];
-    console.log(product);
+  
     var image_src=product.image;
     var product_name=product.name;
     var product_type=product.type;
