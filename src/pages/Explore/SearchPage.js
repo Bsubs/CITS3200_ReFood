@@ -1,7 +1,7 @@
 import React from "react";
 import "./SearchPage.css";
 import search from './search.png';
-import Explore from "./Explore"
+import Explore from "./Explore";
 
 
 
@@ -45,6 +45,14 @@ function SearchPage({ placeholder, data }) {
           <img src={search} alt="search icon" />
           Search
         </button></a>
+
+        <a href='/mapview'>
+          <button id="map" className="button">
+            <img src={search} alt="map view" />
+            Map View
+          </button>
+
+        </a>
 
       </div>
 
