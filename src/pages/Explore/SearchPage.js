@@ -71,7 +71,7 @@ function SearchPage({ placeholder, data }) {
       
       </div>
       
-      <div className='foodItemList'>
+      <div className='foodItemList hidden'>
         {foodItems.map((foodItem, idx)=> {
           return (
             <div className='foodItemCard'>
