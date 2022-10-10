@@ -37,7 +37,7 @@ function Donation(props) {
         pickup_location:"",
         quantity:"",
         description:"",
-        picture:"",
+        picture:"test",
         isCompleted:false,
         start_time:startTime,
         end_time:startTime1
@@ -167,20 +167,30 @@ function Donation(props) {
     // }
 
     // Creates a new FOODITEM and adds it to the database
+    // async function addDonation() {
+    //     if (file) {
+    //         const { type: mimeType } = file
+    //         try {
+    //             await Storage.put(key, file, {
+    //             contentType: mimeType
+    //             })
+    //             const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+    //             console.log(newFoodItem);
+    //         } catch (err) {
+    //             console.log('error: ', err)
+    //         }
+    //     }
+    // }
+
     async function addDonation() {
-        if (file) {
-            const { type: mimeType } = file
-            try {
-                await Storage.put(key, file, {
-                contentType: mimeType
-                })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
-            } catch (err) {
-                console.log('error: ', err)
-            }
+        try {
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+            console.log(newFoodItem);
+        } catch (err) {
+            console.log('error: ', err)
         }
-      }
+    }
+
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
@@ -189,27 +199,24 @@ function Donation(props) {
     let num_images=0;
 
     function handleChange(event) {
-        // if (num_images==1){
-        //     return
-        // }
         //Saves image details in preparation for upload to AWS S3
-        const { target: { value, files } } = event
-        const fileForUpload = files[0]
-        updateFile(fileForUpload || value)
+        // const { target: { value, files } } = event
+        // const fileForUpload = files[0]
+        // updateFile(fileForUpload || value)
 
-        const extension = fileForUpload.name.split(".")[1]
-        const { type: mimeType } = fileForUpload
-        const key1 = `images/${uuid()}.${extension}`      
-        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
+        // const extension = fileForUpload.name.split(".")[1]
+        // const { type: mimeType } = fileForUpload
+        // const key1 = `images/${uuid()}.${extension}`      
+        // const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
 
-        setKey(key1);
-        setURL(url1);
+        // setKey(key1);
+        // setURL(url1);
 
-        setDonatedItem (() => ({
-            ...donatedItem,
-            ['picture']:url1
-        }));
-        console.log(donatedItem);
+        // setDonatedItem (() => ({
+        //     ...donatedItem,
+        //     ['picture']:url1
+        // }));
+        // console.log(donatedItem);
 
 
         //Makes image preview visible
