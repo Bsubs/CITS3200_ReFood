@@ -18,7 +18,7 @@ export default function IndividualProduct(props) {
     var product_location=product.location;
     var transport_requirements="Bring 5 tupperware containers"
     var pickup_instructions="Come by the back of the store";
-    var pickup_times="5:00pm-9:00pm";
+    var pickup_times;
 
   return (
     <div id="individual_product_page">
@@ -52,8 +52,8 @@ export default function IndividualProduct(props) {
             </div>   
         <div className="description_block">
             <div className="header"> Additional Notes</div>
-            <div > {pickup_instructions}</div>
-            <div>{transport_requirements}</div>
+            
+            <div id="individual_product_transport_requirements">{transport_requirements}</div>
         
         </div>
         <div className="description_block">

@@ -66,13 +66,18 @@ function ListPage() {
     let productQuantity=this.querySelector(".productQuantity").innerHTML;
     let productLocation=this.querySelector(".productLocation").innerHTML;
     let productPickupDate=this.querySelector(".pickupDate").innerHTML;
+    let productStartTime=this.querySelector(".startTime").innerHTML;
+    let productEndTime=this.querySelector(".endTime").innerHTML;
+    let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
+    //let productStartTime=this.querySelector(".")
 
     individual_product.querySelector("#display_image").src=productImage;
     individual_product.querySelector("#individual_product_title").innerHTML=productName;
     individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
     individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
     individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
-
+    individual_product.querySelector("#individual_product_pickuptime").innerHTML=productStartTime+"-"+productEndTime;
+    individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
 
     showIndividualProduct();
   }
@@ -132,10 +137,15 @@ function ListPage() {
                       image={contents.picture}
                       description={contents.description}
                       quantity={contents.quantity}
-                      pickupDate={contents.pickupDate}
-                      name={contents.name}
+                      pickup_date={contents.pickup_date}
+                      title={contents.title}
                       type={contents.type}
-                      location={contents.location}
+                      startTime={contents.start_time}
+                      endTime={contents.end_time}
+                      location={contents.pickup_location}
+
+                      donorID={contents.donorID}
+                      transportReqs={contents.transport_reqs}
                   />
                 
               ))}

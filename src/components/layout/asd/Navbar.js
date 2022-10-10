@@ -14,6 +14,7 @@ function Navbar() {
     switch(page){
       case "/":
         break
+      case "/listpage":
       case "/explore":
         document.getElementById("explore_icon_text").style.color='red'
         document.getElementById("explore_icon").style.filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)";

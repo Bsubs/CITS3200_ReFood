@@ -2,10 +2,14 @@ import React, {useEffect, useState} from 'react';
 import './ProfileSettings.css';
 import Profile from "./bakers-delight.jpg";
 
-function ProfileSettings() {
-    let contactName="Baker's Delight";
-    let phoneNumber="0411232124";
-    let location="2 Park Rd, Wembley";
+function ProfileSettings(props) {
+    let contactName=props.name;
+    let phoneNumber=props.phoneNumber;
+    let location=props.address;
+    let businessName=props.businessName;
+    let emailAddress=props.email;
+    let ABN=props.ABN;
+    let userType=props.userType;
     function onChangePicture(e){
         let uploaded_image=URL.createObjectURL(e.target.files[0]);
   
@@ -49,6 +53,11 @@ function ProfileSettings() {
                     <input type="text" className="description-input" name="text" defaultValue={contactName}></input>
                 </div> 
                 
+                <div className="form-row">
+                    <label htmlFor="description" className="description-label">Business Name</label><br></br>
+                    <input type="text" className="description-input" name="text" defaultValue={businessName}></input>
+                    
+                </div> 
                 
                 <div className="form-row">
                     <label htmlFor="quantity" className="description-label">Phone Number</label><br></br>
@@ -60,6 +69,25 @@ function ProfileSettings() {
                     <input type="text" className="description-input" name="text" defaultValue={location}></input>
                     
                 </div> 
+
+                <div className="form-row">
+                    <label htmlFor="description" className="description-label">E-mail Address</label><br></br>
+                    <input type="text" className="description-input" name="text" defaultValue={emailAddress}></input>
+                    
+                </div> 
+
+                <div className="form-row">
+                    <label htmlFor="description" className="description-label">ABN</label><br></br>
+                    <input type="text" className="description-input" name="text" defaultValue={ABN}></input>
+                    
+                </div> 
+
+                <div className="form-row">
+                    <label htmlFor="description" className="description-label">Donor/Collector</label><br></br>
+                    <input type="text" className="description-input" name="text" defaultValue={userType}></input>
+                    
+                </div> 
+                
             </form>
 
       

@@ -36,6 +36,7 @@ function Navbar(props) {
     switch(page){
       case "/":
         break
+      case "/listpage":
       case "/explore":
         document.getElementById("explore_icon_text").style.color=text_color;
         document.getElementById("explore_icon").style.filter=color_filter;
