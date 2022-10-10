@@ -12,7 +12,7 @@ describe('Authenticator:', function() {
           );
           cy.get(selectors.signInSignInButton).contains('Sign In').click();
           cy.wait(3000)
-          cy.get(selectors.root).contains('Global');
+          cy.get(selectors.root).contains('Profile');
       });
   });
 });
