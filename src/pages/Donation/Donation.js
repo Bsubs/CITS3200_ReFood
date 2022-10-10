@@ -24,7 +24,7 @@ function Donation(props) {
     // Date and time objects for date and time pickers
     const [startDate, setStartDate] = useState(null);
     const [startTime, setStartTime] = useState(null);
-    const [startTime1, setStartTime1] = useState(null);
+    const [endTime, setStartTime1] = useState(null);
 
     // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
@@ -40,7 +40,10 @@ function Donation(props) {
         picture:"",
         isCompleted:false,
         start_time:startTime,
-        end_time:startTime1
+        end_time:endTime,
+        donorName:"",
+        donorPhone:""
+        
     });
 
     //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
@@ -72,15 +75,17 @@ function Donation(props) {
         }
         else {
             event.target.classList.add("selected");
-            console.log(event.target.innerHTML);
+         
             // Updates the donated Item object with the selected parameters 
             setDonatedItem (() => ({
                 ...donatedItem,
                 ['category']: event.target.innerHTML,
                 ['donorID']: attributes['sub'],
-                ['pickup_location']: attributes['custom:address']
+                ['pickup_location']: attributes['custom:address'],
+                ['donorName']: attributes["custom:business_name"],
+                ['donorPhone']:attributes["phone_number"]
             }));
-            console.log(donatedItem);
+            
 
         }
         for (let elem of document.getElementsByClassName("next-button")){
@@ -141,7 +146,8 @@ function Donation(props) {
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-        console.log(startTime);
+
+        
         setDonatedItem (() => ({
             ...donatedItem,
             ['start_time']: e.toISOString().substring(11, 23)
@@ -152,7 +158,7 @@ function Donation(props) {
     // Updates the end time upon user input
     function handleTimeChange2(e) {
         setStartTime1(e)
-        console.log(startTime);
+   
         setDonatedItem (() => ({
             ...donatedItem,
             ['end_time']: e.toISOString().substring(11, 23)
@@ -168,14 +174,15 @@ function Donation(props) {
     // }
 
     // Creates a new FOODITEM and adds it to the database
-    async function addDonation() {
+    /**async function addDonation() {
+        console.log("add donation worked");
         if (file) {
             const { type: mimeType } = file
             try {
-                //TEMP COMMENT: AVOID IMAGE UPLOAD
-                //await Storage.put(key, file, {
-                //contentType: mimeType
-                //})
+                
+                await Storage.put(key, file, {
+                contentType: mimeType
+                })
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
             } catch (err) {
@@ -183,6 +190,15 @@ function Donation(props) {
             }
         }
       }
+      **/
+     async function addDonation(){
+        try {
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+            console.log(newFoodItem);
+        } catch (err) {
+            console.log('error: ', err)
+        }
+     }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
@@ -359,7 +375,7 @@ END OF TEMP COMMENT**/
                             <div>
                             <text>End </text>
                             <TimePicker
-                                selected={startTime1}
+                                selected={endTime}
                                 onChange={handleTimeChange2}
                                 showTimeSelect
                                 showTimeSelectOnly
