@@ -47,3 +47,8 @@
 #orders_page .productDescription{
     display: none;
 }
+
+#orders_page .productName{
+    padding-top:0;
+ 
+}

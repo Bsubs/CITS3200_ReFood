@@ -42,7 +42,7 @@ function ListPage() {
     }
 
 
-    var product_images=document.getElementsByClassName("productImage");
+    let product_images=document.getElementsByClassName("productImage");
     for (let i=0;i<product_images.length;i++){
    
       product_images[i].addEventListener("error",defaultImageReplace);
@@ -59,6 +59,7 @@ function ListPage() {
     
   }
 
+  //Makes individual_product modal visible
   function showIndividualProduct(){
     search.style.display="none";
     individual_product.style.display="block";
@@ -66,9 +67,8 @@ function ListPage() {
     exit_button.style.display="block";
   }
 
+  //Replaces buggy images with ReFood logo
   function defaultImageReplace(){
-    console.log(this);
-    console.log(this.src);
     this.src=Logo;
   }
 
