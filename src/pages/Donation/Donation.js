@@ -144,7 +144,7 @@ function Donation(props) {
         console.log(startTime);
         setDonatedItem (() => ({
             ...donatedItem,
-            ['start_time']: e.toTimeString().substring(0,5)
+            ['start_time']: e.toISOString().substring(11, 23)
             
         }));
     }
@@ -155,7 +155,7 @@ function Donation(props) {
         console.log(startTime);
         setDonatedItem (() => ({
             ...donatedItem,
-            ['end_time']: e.toTimeString().substring(0,5)
+            ['end_time']: e.toISOString().substring(11, 23)
         }));
     }
 
@@ -172,9 +172,10 @@ function Donation(props) {
         if (file) {
             const { type: mimeType } = file
             try {
-                await Storage.put(key, file, {
-                contentType: mimeType
-                })
+                //TEMP COMMENT: AVOID IMAGE UPLOAD
+                //await Storage.put(key, file, {
+                //contentType: mimeType
+                //})
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
             } catch (err) {
@@ -194,7 +195,9 @@ function Donation(props) {
         //     return
         // }
         //Saves image details in preparation for upload to AWS S3
-        const { target: { value, files } } = event
+        
+        /*TEMP COMMENT: AVOID IMAGE UPLOAD
+        *const { target: { value, files } } = event
         const fileForUpload = files[0]
         updateFile(fileForUpload || value)
 
@@ -205,7 +208,8 @@ function Donation(props) {
 
         setKey(key1);
         setURL(url1);
-
+END OF TEMP COMMENT**/
+        let url1="empty_image"
         setDonatedItem (() => ({
             ...donatedItem,
             ['picture']:url1
