@@ -12,7 +12,6 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^4.3.35",
-    "cypress": "^10.9.0",
     "moment": "^2.29.4",
     "node-pre-gyp": "^0.17.0",
     "react": "^18.2.0",
@@ -68,5 +67,11 @@
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"
+  },
+  "devDependencies": {
+    "cypress": "^6.3.0",
+    "mocha": "^10.0.0",
+    "mochawesome": "^4.1.0",
+    "start-server-and-test": "^1.14.0"
   }
 }
