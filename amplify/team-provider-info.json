@@ -44,6 +44,65 @@
       "StackName": "amplify-cits3200refood-dev-150317",
       "StackId": "arn:aws:cloudformation:us-west-1:305585051215:stack/amplify-cits3200refood-dev-150317/2865d1d0-2e7b-11ed-8b9f-02333ab2fdc9",
       "AmplifyAppId": "dgqsr13a5546i"
+    },
+    "categories": {
+      "auth": {
+        "cits3200refoodaf75e72f": {
+          "userPoolId": "us-west-1_IoFieRxlC",
+          "userPoolName": "amplify_backend_manager_d3hacpjxvx71jp",
+          "webClientId": "1gblfrb4jcbu3gpoberrj37rn6",
+          "nativeClientId": "2v6dfgtifd58ena50cgneqd3rg",
+          "identityPoolId": "us-west-1:74549a76-75f7-4fa1-a6a8-5b1854f5c84d",
+          "identityPoolName": "CITS3200ReFood-Staging",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingAuth_Role",
+          "authRoleName": "Cognito_CITS3200ReFoodStagingAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingUnauth_Role",
+          "unauthRoleName": "Cognito_CITS3200ReFoodStagingUnauth_Role"
+        }
+      },
+      "api": {
+        "CITS3200ReFood": {}
+      },
+      "storage": {
+        "s3b57aa867": {}
+      }
+    }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cits3200refood-test-175818-authRole",
+      "UnauthRoleArn": "arn:aws:iam::305585051215:role/amplify-cits3200refood-test-175818-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::305585051215:role/amplify-cits3200refood-test-175818-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-cits3200refood-test-175818-deployment",
+      "UnauthRoleName": "amplify-cits3200refood-test-175818-unauthRole",
+      "StackName": "amplify-cits3200refood-test-175818",
+      "StackId": "arn:aws:cloudformation:us-west-1:305585051215:stack/amplify-cits3200refood-test-175818/4101b840-494b-11ed-9e00-06076f96d1a1",
+      "AmplifyAppId": "d3hacpjxvx71jp"
+    },
+    "categories": {
+      "auth": {
+        "cits3200refoodaf75e72f": {
+          "userPoolId": "us-west-1_IoFieRxlC",
+          "userPoolName": "amplify_backend_manager_d3hacpjxvx71jp",
+          "webClientId": "1gblfrb4jcbu3gpoberrj37rn6",
+          "nativeClientId": "2v6dfgtifd58ena50cgneqd3rg",
+          "identityPoolId": "us-west-1:74549a76-75f7-4fa1-a6a8-5b1854f5c84d",
+          "identityPoolName": "CITS3200ReFood-Staging",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingAuth_Role",
+          "authRoleName": "Cognito_CITS3200ReFoodStagingAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingUnauth_Role",
+          "unauthRoleName": "Cognito_CITS3200ReFoodStagingUnauth_Role"
+        }
+      },
+      "api": {
+        "CITS3200ReFood": {}
+      },
+      "storage": {
+        "s3b57aa867": {}
+      }
     }
   }
 }

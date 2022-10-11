@@ -12,6 +12,7 @@ import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
 import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
+import Chat from "./Chat"
 
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
@@ -100,6 +101,10 @@ function App({ signOut, user }) {
       break
     case "/listpage":
       component = <ListPage />
+      var showNav= "True";
+      break
+    case "/chat":
+      component = <Chat />
       var showNav= "True";
       break
 

@@ -28,7 +28,7 @@
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "customAuth": false
+      "customAuth": true
     }
   },
   "storage": {

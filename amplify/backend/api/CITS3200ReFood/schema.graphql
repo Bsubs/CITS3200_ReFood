@@ -1,8 +1,10 @@
 type Message @model @auth(rules: [{allow: public}]) {
   id: ID!
-  channelID: ID
-  author: String
-  body: String
+  channelID: ID! @index(name: "byChannelID", sortKeyFields: ["createdAt"], queryField: "messagesByChannelID")
+  author: String!
+  body: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 type FOODITEM @model @auth(rules: [{allow: public}]) {

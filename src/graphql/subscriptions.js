@@ -64,6 +64,8 @@ export const onCreateFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
       _version
@@ -90,6 +92,8 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
       _version
@@ -116,6 +120,8 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
       _version
