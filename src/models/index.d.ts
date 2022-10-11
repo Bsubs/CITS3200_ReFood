@@ -1,8 +1,6 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
-type MessageMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
+
 
 type FOODITEMMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -10,13 +8,13 @@ type FOODITEMMetaData = {
 
 export declare class Message {
   readonly id: string;
-  readonly channelID?: string | null;
-  readonly author?: string | null;
-  readonly body?: string | null;
+  readonly channelID: string;
+  readonly author: string;
+  readonly body: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Message, MessageMetaData>);
-  static copyOf(source: Message, mutator: (draft: MutableModel<Message, MessageMetaData>) => MutableModel<Message, MessageMetaData> | void): Message;
+  constructor(init: ModelInit<Message>);
+  static copyOf(source: Message, mutator: (draft: MutableModel<Message>) => MutableModel<Message> | void): Message;
 }
 
 export declare class FOODITEM {

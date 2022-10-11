@@ -13,6 +13,17 @@ projects:
         region: us-west-1
         apiId: lw4hkeooefas3chdpzz6nce7ka
         maxDepth: 2
+  CITS3200ReFood:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
 extensions:
   amplify:
     version: 3
