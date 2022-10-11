@@ -53,7 +53,8 @@ export default function IndividualProduct(props) {
                 <img src={MessageIcon}></img>
             </div>
         </div>
-        <div id="claim_donation_button"> Claim Donation</div>
+        <div id="claim_donation_button" className="button"> Claim Donation</div>
+        <div id="remove_donation_button" className="button"> Remove Donation</div>
         
     </div>
   )

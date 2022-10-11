@@ -9,11 +9,17 @@ import { listFOODITEMS } from '../../graphql/queries';
 import * as queries from '../../graphql/queries';
 import './Orders.css';
 import Logo from "../../assets/images/logo.png";
+import IndividualProduct from '../IndividualProduct/IndividualProduct';
 
 import {Products} from '../ListPage/products';
 
 function Orders(props) {
     var order_header;
+    var donation_button_text;
+
+    var individual_product;
+    var exit_button;
+    var orders_list;
 
 
      // Array to store FoodItems
@@ -33,10 +39,15 @@ function Orders(props) {
     };
   
     useEffect(() => {
+        
       fetchDonations();
     }, []);
 
+    
     useEffect(()=>{
+        exit_button=document.getElementById("exit_modal");
+        orders_list=document.getElementById("orders_list");
+        exit_button.addEventListener("click",hideModals);
         let product_images=document.getElementsByClassName("productImage");
         for (let i=0;i<product_images.length;i++){
           product_images[i].addEventListener("error",defaultImageReplace);
@@ -48,24 +59,88 @@ function Orders(props) {
 
     
     if (props.isNFP=="True"){
-        order_header="My Orders"
+        order_header="My Orders";
+        donation_button_text="Claim Donation";
     }
     else{
-        order_header="My Donations"
+        order_header="My Donations";
+        donation_button_text="Edit Donation";
     }
     var uncompleted_orders=foodItems.filter(content => content.isCompleted!="True");
     var completed_orders=foodItems.filter(content => content.isCompleted=="True");
 
 
     
-
+    //Replace faulty images with ReFood Logo
     function defaultImageReplace(){
         this.src=Logo;
       }
 
+
+      var products=document.getElementsByClassName("products_component");
+    for (let i=0;i<products.length;i++){
+    products[i].addEventListener("click",openIndividualProductModal);
+    }
+
+    function openIndividualProductModal(){
+      
+        individual_product= document.getElementById("individual_product_modal");
+        exit_button=document.getElementById("exit_modal");
+        orders_list=document.getElementById("orders_list");
+
+        let productImage=this.querySelector(".productImage").src;
+        let productName=this.querySelector(".productName").innerHTML;
+        let productDescription=this.querySelector(".productDescription").innerHTML;
+        let productQuantity=this.querySelector(".productQuantity").innerHTML;
+        let productLocation=this.querySelector(".productLocation").innerHTML;
+        let productPickupDate=this.querySelector(".pickupDate").innerHTML;
+        let productStartTime=this.querySelector(".startTime").innerHTML;
+        console.log(this.querySelector(".startTime").innerHTML);
+        
+        let productEndTime=this.querySelector(".endTime").innerHTML;
+        let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
+        let donorName=this.querySelector(".donorName").innerHTML;
+        let donorPhone=this.querySelector(".donorPhone").innerHTML;
+        //let productStartTime=this.querySelector(".")
+        if (productTransportRequirements==""){
+            productTransportRequirements="No requirements listed by donor."
+        }
+        individual_product.querySelector("#display_image").src=productImage;
+        individual_product.querySelector("#individual_product_title").innerHTML=productName;
+        individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
+        individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
+        individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=productStartTime+"-"+productEndTime;
+        individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
+        individual_product.querySelector("#individual_product_seller_name").innerHTML=donorName;
+        individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
+        individual_product.querySelector("#claim_donation_button").innerHTML=donation_button_text;
+        showIndividualProduct();
+      }
+
+      function showIndividualProduct(){
+        exit_button.style.display="flex";
+        individual_product.style.display="block";
+        orders_list.style.display="none";
+      }
+
+      function hideModals(){
+        individual_product= document.getElementById("individual_product_modal");
+        exit_button=document.getElementById("exit_modal");
+        orders_list=document.getElementById("orders_list");
+
+        individual_product.style.display="none";
+        orders_list.style.display="block";
+        exit_button.style.display="none";
+      }
+    
     return (
         <div id="orders_page">
-           
+            <div id="individual_product_modal">
+                <IndividualProduct/>
+            </div>
+            <div id="exit_modal"><div>x</div></div>
             <div id="orders_list">
                 <div id="uncompleted_orders_list">
                     <div id="in_progress_orders_header" className="order_type">In Progress</div>

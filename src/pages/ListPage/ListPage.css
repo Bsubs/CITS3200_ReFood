@@ -23,10 +23,20 @@
 
 #exit_modal{
   display: none;
+  align-items: center;
+  justify-content: center;
+
+  
   position: absolute;
   right: 0;
-  margin: 1rem;
+  top: 0;
   font-size: 2rem;
+
+  background-color: white;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  opacity: 70%;
 }
 
 #search_bar{

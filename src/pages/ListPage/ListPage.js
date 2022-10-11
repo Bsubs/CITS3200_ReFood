@@ -55,7 +55,7 @@ function ListPage() {
     search.style.display="block";
     individual_product.style.display="none";
     list_page.style.display="none";
-    exit_button.style.display="block";
+    exit_button.style.display="flex";
     
   }
 
@@ -64,7 +64,7 @@ function ListPage() {
     search.style.display="none";
     individual_product.style.display="block";
     list_page.style.display="none";
-    exit_button.style.display="block";
+    exit_button.style.display="flex";
   }
 
   //Replaces buggy images with ReFood logo
@@ -90,13 +90,9 @@ function ListPage() {
     let donorName=this.querySelector(".donorName").innerHTML;
     let donorPhone=this.querySelector(".donorPhone").innerHTML;
     //let productStartTime=this.querySelector(".")
-
-
     if (productTransportRequirements==""){
         productTransportRequirements="No requirements listed by donor."
     }
-  
-  
     individual_product.querySelector("#display_image").src=productImage;
     individual_product.querySelector("#individual_product_title").innerHTML=productName;
     individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
@@ -107,9 +103,6 @@ function ListPage() {
     individual_product.querySelector("#individual_product_seller_name").innerHTML=donorName;
     individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
     individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
-
-
-    
     showIndividualProduct();
   }
 
@@ -143,15 +136,17 @@ function ListPage() {
 
   return (
     <>
-    <div id="exit_modal">X</div>
+  
     <div id="search_modal" className="modal">
       
        <SearchPage />
     </div>
+
+    
     <div id="individual_product_modal">
-     
       <IndividualProduct/>
     </div>
+    <div id="exit_modal"><div>x</div></div>
     <div id="list_page">
       
       <div id="search_bar">
