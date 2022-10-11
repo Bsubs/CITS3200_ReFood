@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl';
 import geoJson from "./chicago-parks.json";
 import "./mapView.css"
 
+//public token key
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
 const Mapp = () => {
@@ -13,7 +14,7 @@ const Mapp = () => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/streets-v11", //public style key
       center: [-87.65, 41.84],
       zoom: 10,
     });
