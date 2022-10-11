@@ -86,6 +86,8 @@ export const getFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
       _version
@@ -117,6 +119,8 @@ export const listFOODITEMS = /* GraphQL */ `
         completionDate
         start_time
         end_time
+        donorName
+        donorPhone
         createdAt
         updatedAt
         _version
@@ -157,6 +161,8 @@ export const syncFOODITEMS = /* GraphQL */ `
         completionDate
         start_time
         end_time
+        donorName
+        donorPhone
         createdAt
         updatedAt
         _version

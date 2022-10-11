@@ -46,7 +46,7 @@ function App({ signOut, user }) {
   const fetchAttributes = async() => {
       try{
           const userData = await Auth.currentAuthenticatedUser();
-          console.log(userData);
+      
           const attributesList = userData.attributes;
           setAttributes(attributesList);
       } catch (error) {
