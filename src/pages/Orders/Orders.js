@@ -41,6 +41,7 @@ function Orders(props) {
         for (let i=0;i<product_images.length;i++){
           product_images[i].addEventListener("error",defaultImageReplace);
         }
+
       });
 
    

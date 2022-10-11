@@ -146,7 +146,7 @@ function Donation(props) {
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-
+        console.log(e.toISOString());
         
         setDonatedItem (() => ({
             ...donatedItem,

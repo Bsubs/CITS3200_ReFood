@@ -83,6 +83,8 @@ function ListPage() {
     let productLocation=this.querySelector(".productLocation").innerHTML;
     let productPickupDate=this.querySelector(".pickupDate").innerHTML;
     let productStartTime=this.querySelector(".startTime").innerHTML;
+    console.log(this.querySelector(".startTime").innerHTML);
+    
     let productEndTime=this.querySelector(".endTime").innerHTML;
     let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
     let donorName=this.querySelector(".donorName").innerHTML;
