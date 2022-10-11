@@ -46,7 +46,7 @@ function App({ signOut, user }) {
   const fetchAttributes = async() => {
       try{
           const userData = await Auth.currentAuthenticatedUser();
-          console.log(userData);
+      
           const attributesList = userData.attributes;
           setAttributes(attributesList);
       } catch (error) {
@@ -65,7 +65,7 @@ function App({ signOut, user }) {
   }
 
 
-  let component
+  let component;
   switch(window.location.pathname){
 
     case "/":
@@ -171,7 +171,7 @@ function App({ signOut, user }) {
       <Navbar isNFP={isNFP}/> }
       </>
       </header>
-      <button onClick={signOut}>Sign out</button>
+      <button id="signOut" onClick={signOut}>Sign out</button>
     </div>
     )}
   </Authenticator>

@@ -24,7 +24,7 @@ function Donation(props) {
     // Date and time objects for date and time pickers
     const [startDate, setStartDate] = useState(null);
     const [startTime, setStartTime] = useState(null);
-    const [startTime1, setStartTime1] = useState(null);
+    const [endTime, setStartTime1] = useState(null);
 
     // The donatedItem object that stores the information which will be posted to the database
     const [donatedItem, setDonatedItem] = useState({
@@ -40,7 +40,10 @@ function Donation(props) {
         picture:"test",
         isCompleted:false,
         start_time:startTime,
-        end_time:startTime1
+        end_time:endTime,
+        donorName:"",
+        donorPhone:""
+        
     });
 
     //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
@@ -72,15 +75,17 @@ function Donation(props) {
         }
         else {
             event.target.classList.add("selected");
-            console.log(event.target.innerHTML);
+         
             // Updates the donated Item object with the selected parameters 
             setDonatedItem (() => ({
                 ...donatedItem,
                 ['category']: event.target.innerHTML,
                 ['donorID']: attributes['sub'],
-                ['pickup_location']: attributes['custom:address']
+                ['pickup_location']: attributes['custom:address'],
+                ['donorName']: attributes["custom:business_name"],
+                ['donorPhone']:attributes["phone_number"]
             }));
-            console.log(donatedItem);
+            
 
         }
         for (let elem of document.getElementsByClassName("next-button")){
@@ -141,17 +146,19 @@ function Donation(props) {
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-        console.log(startTime);
+        console.log(e.toISOString());
+        
         setDonatedItem (() => ({
             ...donatedItem,
             ['start_time']: e.toISOString().substring(11, 23)
+            
         }));
     }
 
     // Updates the end time upon user input
     function handleTimeChange2(e) {
         setStartTime1(e)
-        console.log(startTime);
+   
         setDonatedItem (() => ({
             ...donatedItem,
             ['end_time']: e.toISOString().substring(11, 23)
@@ -167,30 +174,20 @@ function Donation(props) {
     // }
 
     // Creates a new FOODITEM and adds it to the database
-    // async function addDonation() {
-    //     if (file) {
-    //         const { type: mimeType } = file
-    //         try {
-    //             await Storage.put(key, file, {
-    //             contentType: mimeType
-    //             })
-    //             const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-    //             console.log(newFoodItem);
-    //         } catch (err) {
-    //             console.log('error: ', err)
-    //         }
-    //     }
-    // }
-
     async function addDonation() {
-        try {
-            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-            console.log(newFoodItem);
-        } catch (err) {
-            console.log('error: ', err)
+        if (file) {
+            const { type: mimeType } = file
+            try {
+                await Storage.put(key, file, {
+                contentType: mimeType
+                })
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                console.log(newFoodItem);
+            } catch (err) {
+                console.log('error: ', err)
+            }
         }
-    }
-
+      }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
@@ -200,23 +197,23 @@ function Donation(props) {
 
     function handleChange(event) {
         //Saves image details in preparation for upload to AWS S3
-        // const { target: { value, files } } = event
-        // const fileForUpload = files[0]
-        // updateFile(fileForUpload || value)
+        const { target: { value, files } } = event
+        const fileForUpload = files[0]
+        updateFile(fileForUpload || value)
 
         // const extension = fileForUpload.name.split(".")[1]
         // const { type: mimeType } = fileForUpload
         // const key1 = `images/${uuid()}.${extension}`      
         // const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
 
-        // setKey(key1);
-        // setURL(url1);
+        setKey(key1);
+        setURL(url1);
 
-        // setDonatedItem (() => ({
-        //     ...donatedItem,
-        //     ['picture']:url1
-        // }));
-        // console.log(donatedItem);
+        setDonatedItem (() => ({
+            ...donatedItem,
+            ['picture']:url1
+        }));
+        console.log(donatedItem);
 
 
         //Makes image preview visible
@@ -230,7 +227,7 @@ function Donation(props) {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
-            document.getElementById("third-donation").style.display = "initial"
+            document.getElementById("second-donation").style.display = "initial"
         }
         else {
             window.alert("Please select a food type");
@@ -242,7 +239,7 @@ function Donation(props) {
     // Function for navigation buttons
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
-        document.getElementById("third-donation").style.display = "none"
+        document.getElementById("second-donation").style.display = "none"
     }
     
     return (
@@ -268,14 +265,12 @@ function Donation(props) {
                    
                 </div>
                 <div className="bottom-row">
-                
-                <a href="/profile"><label className="back-button">Back</label></a>
-                
-                <button className="next-button" onClick={next1}>Next</button>
+                    <a href="/profile"><label className="back-button">Back</label></a>
+                    <button className="next-button" onClick={next1}>Next</button>
                 </div>
             </div>
 
-            <div id="third-donation">
+            <div id="second-donation">
             <div className="top-row">
              
                 <h1 id="donation-heading1">Food Donation Details</h1>
@@ -363,7 +358,7 @@ function Donation(props) {
                             <div>
                             <text>End </text>
                             <TimePicker
-                                selected={startTime1}
+                                selected={endTime}
                                 onChange={handleTimeChange2}
                                 showTimeSelect
                                 showTimeSelectOnly

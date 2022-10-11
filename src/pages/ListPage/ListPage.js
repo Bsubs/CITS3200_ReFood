@@ -8,7 +8,9 @@ import * as mutations from '../../graphql/mutations';
 import { listFOODITEMS } from '../../graphql/queries';
 import * as queries from '../../graphql/queries';
 import { Products } from './products';
-import contents from './content';
+import Logo1 from '../../assets/images/logo.png';
+import Logo from "../../assets/images/logo.png";
+
 import './ListPage.css';
 import Search from "../../assets/icons/PNG/search.png";
 import SearchPage from "../Explore/SearchPage";
@@ -35,8 +37,15 @@ function ListPage() {
 
     var products=document.getElementsByClassName("products_component");
 
-    for (var i=0;i<products.length;i++){
+    for (let i=0;i<products.length;i++){
       products[i].addEventListener("click",openIndividualProductModal);
+    }
+
+
+    let product_images=document.getElementsByClassName("productImage");
+    for (let i=0;i<product_images.length;i++){
+   
+      product_images[i].addEventListener("error",defaultImageReplace);
     }
 
   });
@@ -50,12 +59,19 @@ function ListPage() {
     
   }
 
+  //Makes individual_product modal visible
   function showIndividualProduct(){
     search.style.display="none";
     individual_product.style.display="block";
     list_page.style.display="none";
     exit_button.style.display="block";
   }
+
+  //Replaces buggy images with ReFood logo
+  function defaultImageReplace(){
+    this.src=Logo;
+  }
+
 
   function openIndividualProductModal(){
     
@@ -66,14 +82,34 @@ function ListPage() {
     let productQuantity=this.querySelector(".productQuantity").innerHTML;
     let productLocation=this.querySelector(".productLocation").innerHTML;
     let productPickupDate=this.querySelector(".pickupDate").innerHTML;
+    let productStartTime=this.querySelector(".startTime").innerHTML;
+    console.log(this.querySelector(".startTime").innerHTML);
+    
+    let productEndTime=this.querySelector(".endTime").innerHTML;
+    let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
+    let donorName=this.querySelector(".donorName").innerHTML;
+    let donorPhone=this.querySelector(".donorPhone").innerHTML;
+    //let productStartTime=this.querySelector(".")
 
+
+    if (productTransportRequirements==""){
+        productTransportRequirements="No requirements listed by donor."
+    }
+  
+  
     individual_product.querySelector("#display_image").src=productImage;
     individual_product.querySelector("#individual_product_title").innerHTML=productName;
     individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
     individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
     individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
+    individual_product.querySelector("#individual_product_pickuptime").innerHTML=productStartTime+"-"+productEndTime;
+    individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
+    individual_product.querySelector("#individual_product_seller_name").innerHTML=donorName;
+    individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
+    individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
 
 
+    
     showIndividualProduct();
   }
 
@@ -132,10 +168,17 @@ function ListPage() {
                       image={contents.picture}
                       description={contents.description}
                       quantity={contents.quantity}
-                      pickupDate={contents.pickupDate}
-                      name={contents.name}
+                      pickup_date={contents.pickup_date}
+                      title={contents.title}
                       type={contents.type}
-                      location={contents.location}
+                      startTime={contents.start_time}
+                      endTime={contents.end_time}
+                      location={contents.pickup_location}
+                      donorName={contents.donorName}
+                      donorPhone={contents.donorPhone}
+
+                      donorID={contents.donorID}
+                      transportReqs={contents.transport_reqs}
                   />
                 
               ))}

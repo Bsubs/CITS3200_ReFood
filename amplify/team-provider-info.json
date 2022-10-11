@@ -27,6 +27,9 @@
           "unauthRoleArn": "arn:aws:iam::305585051215:role/Cognito_CITS3200ReFoodStagingUnauth_Role",
           "unauthRoleName": "Cognito_CITS3200ReFoodStagingUnauth_Role"
         }
+      },
+      "storage": {
+        "s3b57aa867": {}
       }
     }
   },

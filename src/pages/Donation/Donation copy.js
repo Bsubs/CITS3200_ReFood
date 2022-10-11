@@ -190,7 +190,7 @@ function Donation(props) {
     }
     function log_image_src(){
         let images=document.getElementsByClassName("uploaded_image"); 
-        console.log(images);
+   
         for (let i=0;i<images.length;i++){
             
             console.log(images[i].getAttribute("src"));
