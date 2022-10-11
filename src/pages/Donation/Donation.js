@@ -8,7 +8,8 @@ import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
-import config from '../../aws-exports'
+import config from '../../aws-exports';
+import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import { v4 as uuid } from 'uuid'
 
 const {
@@ -192,12 +193,14 @@ function Donation(props) {
       }
       **/
      async function addDonation(){
+        
         try {
             const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
             console.log(newFoodItem);
         } catch (err) {
             console.log('error: ', err)
         }
+        window.location="/orders";
      }
 
     const [file, updateFile] = useState(null)
@@ -240,33 +243,66 @@ END OF TEMP COMMENT**/
         num_images=num_images+1;
     }
 
+  
+
+    // Functions for navigation buttons
+
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
             document.getElementById("second-donation").style.display = "initial"
+            
         }
         else {
             window.alert("Please select a food type");
         }
-
-        
     }
-
-    // Function for navigation buttons
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
+    function next2(){
+        document.getElementById("second-donation").style.display="none";
+        document.getElementById("third-donation").style.display="block";
+        
+        let individual_product=document.getElementById("individual_product_page");
+        individual_product.querySelector("#display_image").src=donatedItem.picture;
+        console.log(donatedItem);
+
+        let productTransportRequirements=donatedItem.transport_reqs;
+        if (productTransportRequirements==""){
+            productTransportRequirements="No requirements listed by donor."
+        }
+    
+    
+        individual_product.querySelector("#display_image").src=donatedItem.picture;
+        individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
+        individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
+        individual_product.querySelector("#individual_product_location").innerHTML=donatedItem.pickup_location;
+        individual_product.querySelector("#individual_product_pickupby").innerHTML=donatedItem.pickup_date;
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=donatedItem.start_time+"-"+donatedItem.end_time;
+        individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
+        individual_product.querySelector("#individual_product_seller_name").innerHTML=donatedItem.donorName;
+        individual_product.querySelector("#individual_product_seller_number").innerHTML=donatedItem.donorPhone;
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;
+      
+    }
+
+    function back2(){
+        document.getElementById("second-donation").style.display="block";
+        document.getElementById("third-donation").style.display="none";
+    }
     return (
         <div id="donation_page">
              <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.css" />
+             
             <div id="first-donation">
                 <div className="top-row">
         
                
-                <h1 id="donation-heading1">What kind of food do you want to donate?</h1>
+                <h1 className="donation-heading">What kind of food do you want to donate?</h1>
                 </div>
                 <div className="middle-row">
                     <ul id="food_category_selection">
@@ -288,9 +324,9 @@ END OF TEMP COMMENT**/
             </div>
 
             <div id="second-donation">
-            <div className="top-row">
+                <div className="top-row">
              
-                <h1 id="donation-heading1">Food Donation Details</h1>
+                <h1 className="donation-heading">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
@@ -395,10 +431,24 @@ END OF TEMP COMMENT**/
                 </div>
                 <div className="bottom-row">
                 <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" onClick={addDonation} >Submit</button>
+                 <button className="next-button" onClick={next2} >Preview</button>
                 </div>
             </div>
+
+            <div id="third-donation">
+                <div className="top-row donation-heading"><h1>Donation Preview</h1></div>
+                <div className="middle-row">
+                    <IndividualProduct/>
+                </div>
+                <div className="bottom-row">
+                    <label className="back-button" onClick={back2}>Back</label>
+                    <button className="next-button" onClick={addDonation} >Submit</button>
+                </div>
+
+            </div>
         </div>
+
+       
     );
 }
 

@@ -3,7 +3,7 @@ import './IndividualProduct.css';
 import ProductContent from "../ListPage/content"
 import Location from "../../assets/icons/PNG/location.png"
 import MessageIcon from "../../assets/icons/PNG/message-text.png"
-export default function IndividualProduct() {
+export default function IndividualProduct(props) {
     
     function invertDate(date){
         console.log(date);
@@ -17,7 +17,7 @@ export default function IndividualProduct() {
         </div>
 
         <div className="description_block">
-            <div id="individual_product_title" className="main_header"></div>
+            <div id="individual_product_title" className="main_header">{props.title}</div>
             <div id="map_link">
                 <img src={Location}></img>
                 <div id="individual_product_location"></div>
