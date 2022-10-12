@@ -21,6 +21,11 @@ function Orders(props) {
     var exit_button;
     var orders_list;
 
+    var event_listeners_added=false;
+
+
+    var currently_selected_donation;
+
 
      // Array to store FoodItems
      const[foodItems, setFoodItems] = useState([]);
@@ -45,16 +50,33 @@ function Orders(props) {
 
     
     useEffect(()=>{
+     
         exit_button=document.getElementById("exit_modal");
         orders_list=document.getElementById("orders_list");
+        
+  
+      
         exit_button.addEventListener("click",hideModals);
         let product_images=document.getElementsByClassName("productImage");
         for (let i=0;i<product_images.length;i++){
           product_images[i].addEventListener("error",defaultImageReplace);
         }
-
+  
       });
 
+      useEffect(() => {
+        
+        document.getElementById("remove_donation_button").addEventListener("click",markDonationAsCompleted)
+      },[]);
+
+      useEffect(() => {
+        let products=document.getElementsByClassName("products_component");
+          console.log(products);
+          for (let i=0;i<products.length;i++){
+            products[i].addEventListener("click",openIndividualProductModal);
+            console.log("ASDASD");
+          }
+      });
    
 
     
@@ -77,13 +99,12 @@ function Orders(props) {
       }
 
 
-      var products=document.getElementsByClassName("products_component");
-    for (let i=0;i<products.length;i++){
-    products[i].addEventListener("click",openIndividualProductModal);
+    
+    function markDonationAsCompleted(){
+      console.log(1);
     }
-
     function openIndividualProductModal(){
-      
+
         individual_product= document.getElementById("individual_product_modal");
         exit_button=document.getElementById("exit_modal");
         orders_list=document.getElementById("orders_list");
@@ -160,6 +181,8 @@ function Orders(props) {
                         donorPhone={contents.donorPhone}
                         donorID={contents.donorID}
                         transportReqs={contents.transport_reqs}
+
+                        donation={contents}
                         />
                     ))}
                 </div>
@@ -167,15 +190,22 @@ function Orders(props) {
                 <div id="completed_orders_header" className="order_type">Completed</div>
                     {completed_orders.map(contents => (
                         <Products
-                            key={contents.id}
-                            image={contents.image}
-                            description={contents.description}
-                            quantity={contents.quantity}
-                            pickupDate={contents.pickupDate}
-                            name={contents.name}
-                            type={contents.type}
-                            location={contents.location}
-                            isCompleted={contents.isCompleted}
+                        key={contents.id}
+                        image={contents.picture}
+                        description={contents.description}
+                        quantity={contents.quantity}
+                        pickup_date={contents.pickup_date}
+                        title={contents.title}
+                        type={contents.type}
+                        startTime={contents.start_time}
+                        endTime={contents.end_time}
+                        location={contents.pickup_location}
+                        donorName={contents.donorName}
+                        donorPhone={contents.donorPhone}
+                        donorID={contents.donorID}
+                        transportReqs={contents.transport_reqs}
+
+                        donation={contents}
                         />
                     ))}
               </div>
