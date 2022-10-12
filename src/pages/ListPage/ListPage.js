@@ -23,6 +23,8 @@ function ListPage() {
   var list_page;
   var exit_button;
   useEffect(()=>{
+    
+
     document.getElementById("search_bar").addEventListener("click",showSearch);
     document.getElementById("exit_modal").addEventListener("click", hideModals);
     search=document.getElementById("search_modal");
@@ -35,7 +37,7 @@ function ListPage() {
      * 
      */
 
-    var products=document.getElementsByClassName("products_component");
+    let products=document.getElementsByClassName("products_component");
 
     for (let i=0;i<products.length;i++){
       products[i].addEventListener("click",openIndividualProductModal);
@@ -65,6 +67,8 @@ function ListPage() {
     individual_product.style.display="block";
     list_page.style.display="none";
     exit_button.style.display="flex";
+    document.getElementById("remove_donation_button").style.display="none";
+   
   }
 
   //Replaces buggy images with ReFood logo
@@ -73,6 +77,7 @@ function ListPage() {
   }
 
 
+  //Fills individual product modal with product-specific information
   function openIndividualProductModal(){
     
     
@@ -174,6 +179,10 @@ function ListPage() {
 
                       donorID={contents.donorID}
                       transportReqs={contents.transport_reqs}
+
+                      donationID={contents.id}
+
+                      donation={contents}
                   />
                 
               ))}

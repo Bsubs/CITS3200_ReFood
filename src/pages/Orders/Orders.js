@@ -36,7 +36,7 @@ function Orders(props) {
           const allDonations = await API.graphql({query:queries.listFOODITEMS});
           const itemList = allDonations.data.listFOODITEMS.items;
           setFoodItems(itemList);
-          console.log(itemList);
+   
       } catch (error) {
           console.log('error in fetching FoodItems', error);
       }
@@ -71,14 +71,14 @@ function Orders(props) {
 
       useEffect(() => {
         let products=document.getElementsByClassName("products_component");
-          console.log(products);
+  
           for (let i=0;i<products.length;i++){
             products[i].addEventListener("click",openIndividualProductModal);
-            console.log("ASDASD");
+           
           }
       });
    
-
+   
     
     if (props.isNFP=="True"){
         order_header="My Orders";
@@ -98,12 +98,16 @@ function Orders(props) {
         this.src=Logo;
       }
 
-
+      console.log(foodItems);
     
     function markDonationAsCompleted(){
-      console.log(1);
+      console.log(currently_selected_donation);
+      console.log(foodItems[currently_selected_donation]);
+      console.log(foodItems);
     }
     function openIndividualProductModal(){
+        currently_selected_donation=parseInt(this.querySelector(".donationIndex").innerHTML);
+        console.log(currently_selected_donation);
 
         individual_product= document.getElementById("individual_product_modal");
         exit_button=document.getElementById("exit_modal");
@@ -165,7 +169,7 @@ function Orders(props) {
             <div id="orders_list">
                 <div id="uncompleted_orders_list">
                     <div id="in_progress_orders_header" className="order_type">In Progress</div>
-                    {uncompleted_orders.map(contents => (
+                    {uncompleted_orders.map((contents,index) => (
                         <Products
                         key={contents.id}
                         image={contents.picture}
@@ -179,8 +183,13 @@ function Orders(props) {
                         location={contents.pickup_location}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
+
+
                         donorID={contents.donorID}
                         transportReqs={contents.transport_reqs}
+
+                        donationID={contents.id}
+                        donationIndex={index}
 
                         donation={contents}
                         />

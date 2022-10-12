@@ -219,7 +219,7 @@ function Donation(props) {
     
     // Function for navigation buttons
     function next1() {
-        var i = document.getElementsByClassName("selected")
+        let i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
             document.getElementById("third-donation").style.display = "initial"
