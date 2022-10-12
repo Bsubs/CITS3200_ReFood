@@ -10,6 +10,10 @@ import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import config from '../../aws-exports'
 import { v4 as uuid } from 'uuid'
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng
+  } from "react-places-autocomplete";
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -17,6 +21,19 @@ const {
   } = config
 
 function Donation(props) {
+
+    const [address, setAddress] = React.useState("");
+    const [coordinates, setCoordinates] = React.useState({
+      lat: null,
+      lng: null
+    });
+  
+    const handleSelect = async value => {
+      const results = await geocodeByAddress(value);
+      const latLng = await getLatLng(results[0]);
+      setAddress(value);
+      setCoordinates(latLng);
+    };
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
@@ -338,7 +355,35 @@ END OF TEMP COMMENT**/
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
-                                <input type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
+                                <PlacesAutocomplete
+                                    searchOptions={{componentRestrictions: { country: ['au'] }}}
+                                    value={address}
+                                    onChange={setAddress}
+                                    onSelect={handleSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div>
+
+                                        <input type="text" className="description-input" name="text" {...getInputProps({ placeholder: "Type address" })} />
+
+                                        <div>
+                                        {loading ? <div>...loading</div> : null}
+
+                                        {suggestions.map(suggestion => {
+                                            const style = {
+                                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                                            };
+
+                                            return (
+                                            <div {...getSuggestionItemProps(suggestion, { style })}>
+                                                {suggestion.description}
+                                            </div>
+                                            );
+                                        })}
+                                        </div>
+                                    </div>
+                                    )}
+                                </PlacesAutocomplete>
                             </div> 
                             
 
