@@ -14,6 +14,7 @@ import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import {Products} from '../ListPage/products';
 
 function Orders(props) {
+  
     var order_header;
     var donation_button_text;
 
@@ -26,6 +27,27 @@ function Orders(props) {
 
     var currently_selected_donation;
 
+
+    //The attributes object stores the user attributes retrived from the AWS Cognito Database
+    const [attributes, setAttributes] = useState({});
+
+    //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+    const fetchAttributes = async() => {
+      try{
+          const userData = await Auth.currentAuthenticatedUser();
+          const attributesList = userData.attributes;
+          setAttributes(attributesList);
+      } catch (error) {
+          console.log('error in fetching user data', error);
+      }
+
+
+  };
+
+    //The fetch attribute function is called everytime the component is rendered. Retrives user details from Cognito
+    useEffect(() => {
+      fetchAttributes();
+    }, []);
 
      // Array to store FoodItems
      const[foodItems, setFoodItems] = useState([]);
@@ -48,7 +70,7 @@ function Orders(props) {
       fetchDonations();
     }, []);
 
-    
+    console.log(foodItems);
     useEffect(()=>{
      
         exit_button=document.getElementById("exit_modal");
@@ -98,13 +120,35 @@ function Orders(props) {
         this.src=Logo;
       }
 
-      console.log(foodItems);
+   
+
+      const [startDate, setStartDate] = useState(null);
+      const [startTime, setStartTime] = useState(null);
+    const [endTime, setStartTime1] = useState(null);
+
+    // The donatedItem object that stores the information which will be posted to the database
+    const [donatedItem, setDonatedItem] = useState({
+      id:"7dc93162-dc20-4e68-869b-ccac2ca48b97",
+      title: "Test Replace Food Item",
+      _version: "1",
+      
+      
+  });
     
-    function markDonationAsCompleted(){
-      console.log(currently_selected_donation);
-      console.log(foodItems[currently_selected_donation]);
-      console.log(foodItems);
+    async function markDonationAsCompleted(){
+      
+
+      try {
+        const updatedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:donatedItem}});
+        console.log("AAAA");
+        console.log(updatedFoodItem);
+        console.log(donatedItem);
+    } catch (err) {
+        console.log('error: ', err)
     }
+    }
+
+ 
     function openIndividualProductModal(){
         currently_selected_donation=parseInt(this.querySelector(".donationIndex").innerHTML);
         console.log(currently_selected_donation);
