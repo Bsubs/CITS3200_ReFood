@@ -13,47 +13,7 @@ import { v4 as uuid } from 'uuid'
 
 export default function IndividualProduct(props) {
 
-    //The attributes object stores the user attributes retrived from the AWS Cognito Database
-    const [attributes, setAttributes] = useState({});
-
-    // The donatedItem object that stores the information which will be posted to the database
-    const [donatedItem, setDonatedItem] = useState({
-        id:"",
-        title: "",
-        pickup_date:"",
-        category:"",
-        transport_reqs:"",
-        donorID:"",
-        nfpID:"",
-        pickup_location:"",
-        quantity:"",
-        description:"",
-        picture:"",
-        isCompleted:false,
-        start_time:"",
-        end_time:"",
-        donorName:"",
-        donorPhone:""
-        
-    });
-
-    //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
-    const fetchAttributes = async() => {
-        try{
-            const userData = await Auth.currentAuthenticatedUser();
-            const attributesList = userData.attributes;
-            setAttributes(attributesList);
-        } catch (error) {
-            console.log('error in fetching user data', error);
-        }
-
-
-    };
     
-    //The fetch attribute function is called everytime the component is rendered. Retrives user details from Cognito
-    useEffect(() => {
-        fetchAttributes();
-      }, []);
 
     function invertDate(date){
         console.log(date);
@@ -107,6 +67,11 @@ export default function IndividualProduct(props) {
         </div>
         <div id="claim_donation_button" className="button"> Message Donor</div>
         <div id="remove_donation_button" className="button" > Remove Donation</div>
+
+        <div className="hidden">
+            <div className="_version"></div>
+            <div className="donationID"></div>
+        </div>
         
         
     </div>

@@ -3,7 +3,7 @@ import { Amplify, Auth } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
 import { Storage, API, graphqlOperation } from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { ComponentPropsToStylePropsMap, withAuthenticator } from '@aws-amplify/ui-react';
 import * as mutations from '../../graphql/mutations';
 import { listFOODITEMS } from '../../graphql/queries';
 import * as queries from '../../graphql/queries';
@@ -22,10 +22,7 @@ function Orders(props) {
     var exit_button;
     var orders_list;
 
-    var event_listeners_added=false;
 
-
-    var currently_selected_donation;
 
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
@@ -110,8 +107,8 @@ function Orders(props) {
         order_header="My Donations";
         donation_button_text="Edit Donation";
     }
-    var uncompleted_orders=foodItems.filter(content => content.isCompleted!="True");
-    var completed_orders=foodItems.filter(content => content.isCompleted=="True");
+    var uncompleted_orders=foodItems.filter(content => content.isCompleted!=true);
+    var completed_orders=foodItems.filter(content => content.isCompleted==true);
 
 
     
@@ -127,53 +124,70 @@ function Orders(props) {
     const [endTime, setStartTime1] = useState(null);
 
     // The donatedItem object that stores the information which will be posted to the database
-    const [donatedItem, setDonatedItem] = useState({
-      id:"7dc93162-dc20-4e68-869b-ccac2ca48b97",
-      title: "Test Replace Food Item",
-      _version: "1",
+    const donatedItem ={
+      id:"",
+      _version: "",
+      isCompleted:true,
       
-      
-  });
+  };
+
+
+ 
     
     async function markDonationAsCompleted(){
-      
+      individual_product= document.getElementById("individual_product_modal");
+      let donation_version=parseInt(individual_product.querySelector("._version").innerHTML);
+      let donation_id=individual_product.querySelector(".donationID").innerHTML;
 
+      donatedItem.id=donation_id;
+      donatedItem._version=donation_version;
+
+      
       try {
-        const updatedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:donatedItem}});
         console.log("AAAA");
-        console.log(updatedFoodItem);
         console.log(donatedItem);
+        const updatedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:donatedItem}});
+        
     } catch (err) {
         console.log('error: ', err)
     }
     }
 
- 
+
+    //triggered when clicking a product card
+    //inserts product information into the individual product modal
     function openIndividualProductModal(){
-        currently_selected_donation=parseInt(this.querySelector(".donationIndex").innerHTML);
-        console.log(currently_selected_donation);
 
         individual_product= document.getElementById("individual_product_modal");
+
+      
+      let donation_id=this.querySelector(".donationID").innerHTML;
+
+
         exit_button=document.getElementById("exit_modal");
         orders_list=document.getElementById("orders_list");
 
+        //Grabbing product data from page
         let productImage=this.querySelector(".productImage").src;
         let productName=this.querySelector(".productName").innerHTML;
         let productDescription=this.querySelector(".productDescription").innerHTML;
         let productQuantity=this.querySelector(".productQuantity").innerHTML;
         let productLocation=this.querySelector(".productLocation").innerHTML;
         let productPickupDate=this.querySelector(".pickupDate").innerHTML;
-        let productStartTime=this.querySelector(".startTime").innerHTML;
-        console.log(this.querySelector(".startTime").innerHTML);
-        
+        let productStartTime=this.querySelector(".startTime").innerHTML;        
         let productEndTime=this.querySelector(".endTime").innerHTML;
         let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
         let donorName=this.querySelector(".donorName").innerHTML;
         let donorPhone=this.querySelector(".donorPhone").innerHTML;
+        let donorVersion=this.querySelector("._version").innerHTML;
+     
+
         //let productStartTime=this.querySelector(".")
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
+
+        //stylising individual modal
         individual_product.querySelector("#display_image").src=productImage;
         individual_product.querySelector("#individual_product_title").innerHTML=productName;
         individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
@@ -185,7 +199,22 @@ function Orders(props) {
         individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
         individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
         individual_product.querySelector("#claim_donation_button").innerHTML=donation_button_text;
+
+        individual_product.querySelector("._version").innerHTML=donorVersion;
+        individual_product.querySelector(".donationID").innerHTML=donation_id;
         showIndividualProduct();
+      
+
+
+        //Remove edit donation/remove donation buttons on completed orders.
+        if (this.parentElement.id=="completed_orders_list"){
+          individual_product.querySelector("#claim_donation_button").style.display="none";
+          individual_product.querySelector("#remove_donation_button").style.display="none";
+        }
+        else{
+          individual_product.querySelector("#claim_donation_button").style.display="block";
+          individual_product.querySelector("#remove_donation_button").style.display="block";
+        }
       }
 
       function showIndividualProduct(){
@@ -233,7 +262,7 @@ function Orders(props) {
                         transportReqs={contents.transport_reqs}
 
                         donationID={contents.id}
-                        donationIndex={index}
+                        _version={contents._version}
 
                         donation={contents}
                         />
@@ -255,8 +284,13 @@ function Orders(props) {
                         location={contents.pickup_location}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
+
+
                         donorID={contents.donorID}
                         transportReqs={contents.transport_reqs}
+
+                        donationID={contents.id}
+                        _version={contents._version}
 
                         donation={contents}
                         />

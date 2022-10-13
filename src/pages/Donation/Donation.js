@@ -103,6 +103,7 @@ function Donation(props) {
             ...donatedItem,
             ['title']: e.target.value
         }));
+   
     }
 
      // Updates Quantity Field upon user input

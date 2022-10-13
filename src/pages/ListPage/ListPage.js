@@ -18,6 +18,7 @@ import SearchPage from "../Explore/SearchPage";
 import IndividualProduct from "../IndividualProduct/IndividualProduct";
 
 function ListPage() {
+  
   var search;
   var individual_product;
   var list_page;
@@ -129,9 +130,11 @@ function ListPage() {
          const itemList = allDonations.data.listFOODITEMS.items;
          setFoodItems(itemList);
          console.log(itemList);
+
      } catch (error) {
          console.log('error in fetching FoodItems', error);
      }
+     
  
    };
  
@@ -161,7 +164,7 @@ function ListPage() {
       </div>
       <div className="product_list">
 
-              {foodItems.map(contents => (
+              {foodItems.filter(content => content.isCompleted!=true).map(contents => (
 
                   <Products 
                       key={contents.id}

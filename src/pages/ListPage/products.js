@@ -5,7 +5,7 @@ import Hourglass from "../../assets/icons/PNG/hourglass.png"
 import { a } from 'aws-amplify';
 
 export function Products(props) {
-    console.log(props);
+
     function simplifyDate(date){
         var month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let split_date=date.split("-")
@@ -59,7 +59,8 @@ export function Products(props) {
                 <div className="donorName">{props.donorName}</div>
                 <div className="donorPhone">{props.donorPhone}</div>
               
-                <div className="donationIndex">{props.donationIndex}</div>
+                <div className="donationID">{props.donationID}</div>
+                <div className="_version">{props._version}</div>
                 
               
             </div>
