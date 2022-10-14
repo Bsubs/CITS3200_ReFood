@@ -340,46 +340,46 @@ function Donation(props) {
                             </div>
 
                             <div id="pick-up-input">
-                            <label htmlFor="description" className="description-label">Pick-up Times</label><br></br>
-                            <div className="timePicker">
-                                <div>
-                                <text>Start </text>
-                            <TimePicker
-                                selected={startTime}
-                                onChange={handleTimeChange1}
-                                showTimeSelect
-                                showTimeSelectOnly
-                                popperPlacement="top-end"
-                                timeIntervals={15}
-                                timeCaption="Time"
-                                dateFormat="h:mm aa"
-                                onFocus={e => e.target.blur()}
-                            />
-                            </div>
-                            <div>
-                            <text>End </text>
-                            <TimePicker
-                                selected={endTime}
-                                onChange={handleTimeChange2}
-                                showTimeSelect
-                                showTimeSelectOnly
-                                popperPlacement="top-end"
-                                timeIntervals={15}
-                                timeCaption="Time"
-                                dateFormat="h:mm aa"
-                               
-                                onFocus={e => e.target.blur()}
-                            />
-                            </div>
-                            </div>
+                                <label htmlFor="description" className="description-label">Pick-up Times</label><br></br>
+                                <div className="timePicker">
+                                    <div>
+                                        <text>Start </text>
+                                        <TimePicker
+                                            selected={startTime}
+                                            onChange={handleTimeChange1}
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            popperPlacement="top-end"
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            onFocus={e => e.target.blur()}
+                                        />
+                                    </div>
+                                    <div>
+                                        <text>End </text>
+                                        <TimePicker
+                                            selected={endTime}
+                                            onChange={handleTimeChange2}
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            popperPlacement="top-end"
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                        
+                                            onFocus={e => e.target.blur()}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                            
                         </form>
                     </div>
                 </div>
                 <div className="bottom-row">
-                <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" onClick={addDonation} >Submit</button>
+                    <label className="back-button" onClick={back1}>Back</label>
+                    <button className="next-button" onClick={addDonation} >Submit</button>
                 </div>
             </div>
         </div>
