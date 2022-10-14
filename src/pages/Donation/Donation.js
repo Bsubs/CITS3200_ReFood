@@ -143,14 +143,14 @@ function Donation(props) {
         }));
     }
 
-    // Updates the start time upon user input
+    // // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
         console.log(e.toISOString());
         
         setDonatedItem (() => ({
             ...donatedItem,
-            ['start_time']: e.toISOString().substring(11, 23)
+            ['start_time']: e.toISOString()
             
         }));
     }
@@ -161,7 +161,7 @@ function Donation(props) {
    
         setDonatedItem (() => ({
             ...donatedItem,
-            ['end_time']: e.toISOString().substring(11, 23)
+            ['end_time']: e.toISOString()
         }));
     }
 

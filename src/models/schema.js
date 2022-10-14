@@ -170,14 +170,14 @@ export const schema = {
                 "start_time": {
                     "name": "start_time",
                     "isArray": false,
-                    "type": "AWSTime",
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 },
                 "end_time": {
                     "name": "end_time",
                     "isArray": false,
-                    "type": "AWSTime",
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 },
