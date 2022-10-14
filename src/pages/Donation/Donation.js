@@ -165,14 +165,6 @@ function Donation(props) {
         }));
     }
 
-    // function updateDonatedItem(url) {
-    //     setDonatedItem (() => ({
-    //         ...donatedItem,
-    //         ['picture']:url
-    //     }));
-    //     console.log(donatedItem);
-    // }
-
     // Creates a new FOODITEM and adds it to the database
     async function addDonation() {
         if (file) {
@@ -201,10 +193,10 @@ function Donation(props) {
         const fileForUpload = files[0]
         updateFile(fileForUpload || value)
 
-        // const extension = fileForUpload.name.split(".")[1]
-        // const { type: mimeType } = fileForUpload
-        // const key1 = `images/${uuid()}.${extension}`      
-        // const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
+        const extension = fileForUpload.name.split(".")[1]
+        const { type: mimeType } = fileForUpload
+        const key1 = `images/${uuid()}.${extension}`      
+        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
 
         setKey(key1);
         setURL(url1);
