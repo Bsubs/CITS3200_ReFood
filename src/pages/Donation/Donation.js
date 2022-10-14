@@ -166,20 +166,29 @@ function Donation(props) {
     }
 
     // Creates a new FOODITEM and adds it to the database
+    // async function addDonation() {
+    //     if (file) {
+    //         const { type: mimeType } = file
+    //         try {
+    //             await Storage.put(key, file, {
+    //             contentType: mimeType
+    //             })
+    //             const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+    //             console.log(newFoodItem);
+    //         } catch (err) {
+    //             console.log('error: ', err)
+    //         }
+    //     }
+    // }
+
     async function addDonation() {
-        if (file) {
-            const { type: mimeType } = file
-            try {
-                await Storage.put(key, file, {
-                contentType: mimeType
-                })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
-            } catch (err) {
-                console.log('error: ', err)
-            }
-        }
-      }
+        try {
+            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+            console.log(newFoodItem);
+        } catch (err) {
+            console.log('error: ', err)
+        }   
+    }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
