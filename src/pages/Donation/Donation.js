@@ -254,10 +254,10 @@ function Donation(props) {
        
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
-        let edit_donation_modal=document.getElementById("")
+        let edit_donation_modal=document.getElementById("uploaded_image_0");
         
         let individual_product=document.getElementById("individual_product_page");
-        individual_product.querySelector("#display_image").src=;
+        individual_product.querySelector("#display_image").src=edit_donation_modal.src;
         console.log(donatedItem);
 
         let productTransportRequirements=donatedItem.transport_reqs;
