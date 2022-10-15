@@ -83,7 +83,7 @@ function App({ signOut, user }) {
       var showNav = "True";
       break
     case "/orders":
-      component = <Orders isNFP={isNFP}/>
+      component = <Orders isNFP={isNFP} userInfo={attributes}/>
       var showNav = "True";
       break
     case "/consentform":

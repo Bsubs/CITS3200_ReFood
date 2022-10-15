@@ -10,6 +10,7 @@ import * as queries from '../../graphql/queries';
 import './Orders.css';
 import Logo from "../../assets/images/logo.png";
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
+import EditDonation from '../EditDonation/EditDonation';
 
 import {Products} from '../ListPage/products';
 
@@ -21,6 +22,8 @@ function Orders(props) {
     var individual_product;
     var exit_button;
     var orders_list;
+    var edit_donation_modal;
+
 
 
 
@@ -34,6 +37,7 @@ function Orders(props) {
           const userData = await Auth.currentAuthenticatedUser();
           const attributesList = userData.attributes;
           setAttributes(attributesList);
+      
       } catch (error) {
           console.log('error in fetching user data', error);
       }
@@ -51,26 +55,38 @@ function Orders(props) {
 
      // Fetches donations from database
      const fetchDonations = async() => {
+      let userID= await props.userInfo.sub;
+      let filter= {
+        donorID: {
+            eq: userID
+        }   
+    }
+
+    if (userID!=undefined){
+
+ 
       try{
-          const allDonations = await API.graphql({query:queries.listFOODITEMS});
+          const allDonations = await API.graphql({query:queries.listFOODITEMS, variables:{filter: filter}});
           const itemList = allDonations.data.listFOODITEMS.items;
           setFoodItems(itemList);
-   
+        
+          
       } catch (error) {
           console.log('error in fetching FoodItems', error);
       }
+    }
   
     };
   
     useEffect(() => {
         
       fetchDonations();
-    }, []);
+    }, [props.userInfo]);
 
-    console.log(foodItems);
     useEffect(()=>{
      
         exit_button=document.getElementById("exit_modal");
+        edit_donation_modal=document.getElementById("edit_donation_modal");
         orders_list=document.getElementById("orders_list");
         
   
@@ -82,6 +98,11 @@ function Orders(props) {
         }
   
       });
+
+      useEffect(() => {
+        
+        document.getElementById("claim_donation_button").addEventListener("click",showEditDonation)
+      },[]);
 
       useEffect(() => {
         
@@ -123,13 +144,34 @@ function Orders(props) {
       const [startTime, setStartTime] = useState(null);
     const [endTime, setStartTime1] = useState(null);
 
-    // The donatedItem object that stores the information which will be posted to the database
-    const donatedItem ={
+    // The completedDonatedItem object that stores the information which will be posted to the database
+    const completedDonatedItem ={
       id:"",
       _version: "",
       isCompleted:true,
       
   };
+
+  // The completedDonatedItem object that stores the information which will be posted to the database
+  const editedDonatedItem ={
+    id:"",
+    _version: "",
+    title: "",
+    pickup_date:startDate,
+    category:"",
+    transport_reqs:"",
+    donorID:"",
+    nfpID:"",
+    pickup_location:"",
+    quantity:"",
+    description:"",
+    picture:"",
+    isCompleted:false,
+    start_time:startTime,
+    end_time:endTime,
+    donorName:"",
+    donorPhone:""
+};
 
 
  
@@ -139,105 +181,234 @@ function Orders(props) {
       let donation_version=parseInt(individual_product.querySelector("._version").innerHTML);
       let donation_id=individual_product.querySelector(".donationID").innerHTML;
 
-      donatedItem.id=donation_id;
-      donatedItem._version=donation_version;
+      completedDonatedItem.id=donation_id;
+      completedDonatedItem._version=donation_version;
 
       
       try {
-        console.log("AAAA");
-        console.log(donatedItem);
-        const updatedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:donatedItem}});
+
+        const updatedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:completedDonatedItem}});
         
     } catch (err) {
         console.log('error: ', err)
     }
     }
 
+    function updateHiddenVariables(donationInfo, itemToUpdate){
+      let hiddenVariables=itemToUpdate.querySelector(".hidden");
+
+      hiddenVariables.querySelector(".category").innerHTML=donationInfo.category;
+      hiddenVariables.querySelector(".completionDate").innerHTML=donationInfo.completionDate;
+      hiddenVariables.querySelector(".createdAt").innerHTML=donationInfo.createdAt;
+      hiddenVariables.querySelector(".description").innerHTML=donationInfo.description;
+      hiddenVariables.querySelector(".donorID").innerHTML=donationInfo.donorID;
+      hiddenVariables.querySelector(".donorName").innerHTML=donationInfo.donorName;
+      hiddenVariables.querySelector(".donorPhone").innerHTML=donationInfo.donorPhone;
+      hiddenVariables.querySelector(".endTime").innerHTML=donationInfo.endTime;
+      hiddenVariables.querySelector(".donationID").innerHTML=donationInfo.donationID;
+      hiddenVariables.querySelector(".isCompleted").innerHTML=donationInfo.isCompleted;
+      hiddenVariables.querySelector(".nfpID").innerHTML=donationInfo.nfpID;
+      hiddenVariables.querySelector(".pickup_date").innerHTML=donationInfo.pickup_date;
+      hiddenVariables.querySelector(".pickup_location").innerHTML=donationInfo.pickup_location;
+      hiddenVariables.querySelector(".picture").innerHTML=donationInfo.picture;
+      hiddenVariables.querySelector(".quantity").innerHTML=donationInfo.quantity;
+      hiddenVariables.querySelector(".start_time").innerHTML=donationInfo.category;
+      hiddenVariables.querySelector(".title").innerHTML=donationInfo.title;
+      hiddenVariables.querySelector(".transport_reqs").innerHTML=donationInfo.transport_reqs;
+      hiddenVariables.querySelector(".updatedAt").innerHTML=donationInfo.updatedAt;
+      hiddenVariables.querySelector("._deleted").innerHTML=donationInfo._deleted;
+      hiddenVariables.querySelector("._lastChangedAt").innerHTML=donationInfo._lastChangedAt;
+      hiddenVariables.querySelector("._version").innerHTML=donationInfo._version;
+
+
+
+    }
 
     //triggered when clicking a product card
     //inserts product information into the individual product modal
     function openIndividualProductModal(){
+      let donationInfo=getDonationInfo(this);
+      let transport_reqs=donationInfo.transport_reqs;
 
-        individual_product= document.getElementById("individual_product_modal");
+      individual_product= document.getElementById("individual_product_modal");
+      updateHiddenVariables(donationInfo,individual_product);
 
-      
       let donation_id=this.querySelector(".donationID").innerHTML;
 
 
-        exit_button=document.getElementById("exit_modal");
-        orders_list=document.getElementById("orders_list");
+      exit_button=document.getElementById("exit_modal");
+      orders_list=document.getElementById("orders_list");
 
-        //Grabbing product data from page
-        let productImage=this.querySelector(".productImage").src;
-        let productName=this.querySelector(".productName").innerHTML;
-        let productDescription=this.querySelector(".productDescription").innerHTML;
-        let productQuantity=this.querySelector(".productQuantity").innerHTML;
-        let productLocation=this.querySelector(".productLocation").innerHTML;
-        let productPickupDate=this.querySelector(".pickupDate").innerHTML;
-        let productStartTime=this.querySelector(".startTime").innerHTML;        
-        let productEndTime=this.querySelector(".endTime").innerHTML;
-        let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
-        let donorName=this.querySelector(".donorName").innerHTML;
-        let donorPhone=this.querySelector(".donorPhone").innerHTML;
-        let donorVersion=this.querySelector("._version").innerHTML;
-     
+    
 
-        //let productStartTime=this.querySelector(".")
-        if (productTransportRequirements==""){
-            productTransportRequirements="No requirements listed by donor."
-        }
+      //let productStartTime=this.querySelector(".")
+      if (transport_reqs==undefined){
+          transport_reqs="No requirements listed by donor."
+      }
 
-        //stylising individual modal
-        individual_product.querySelector("#display_image").src=productImage;
-        individual_product.querySelector("#individual_product_title").innerHTML=productName;
-        individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
-        individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
-        individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
-        individual_product.querySelector("#individual_product_pickuptime").innerHTML=productStartTime+"-"+productEndTime;
-        individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
-        individual_product.querySelector("#individual_product_seller_name").innerHTML=donorName;
-        individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
-        individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
-        individual_product.querySelector("#claim_donation_button").innerHTML=donation_button_text;
+      //stylising individual modal
+      individual_product.querySelector("#display_image").src=donationInfo.picture;
+      individual_product.querySelector("#individual_product_title").innerHTML=donationInfo.title;
+      individual_product.querySelector("#individual_product_description").innerHTML=donationInfo.description;
+      individual_product.querySelector("#individual_product_location").innerHTML=donationInfo.pickup_location;
+      individual_product.querySelector("#individual_product_pickupby").innerHTML=donationInfo.pickup_date;
+      individual_product.querySelector("#individual_product_pickuptime").innerHTML=donationInfo.start_time+"-"+donationInfo.end_time;
+      individual_product.querySelector("#individual_product_transport_requirements").innerHTML=transport_reqs;
+      individual_product.querySelector("#individual_product_seller_name").innerHTML=donationInfo.donorName;
+      individual_product.querySelector("#individual_product_seller_number").innerHTML=donationInfo.donorPhone;
+      individual_product.querySelector("#clickable_phone_number").href="tel:"+donationInfo.donorPhone;
+      individual_product.querySelector("#claim_donation_button").innerHTML=donation_button_text;
+  
+      individual_product.querySelector("#individual_product_quantity").innerHTML=donationInfo.quantity;
 
-        individual_product.querySelector("._version").innerHTML=donorVersion;
-        individual_product.querySelector(".donationID").innerHTML=donation_id;
-        showIndividualProduct();
+      showIndividualProduct();
+
+      //Remove edit donation/remove donation buttons on completed orders.
+      if (this.parentElement.id=="completed_orders_list"){
+        individual_product.querySelector("#claim_donation_button").style.display="none";
+        individual_product.querySelector("#remove_donation_button").style.display="none";
+      }
+      else{
+        individual_product.querySelector("#claim_donation_button").style.display="block";
+        individual_product.querySelector("#remove_donation_button").style.display="block";
+      }
       
-
-
-        //Remove edit donation/remove donation buttons on completed orders.
-        if (this.parentElement.id=="completed_orders_list"){
-          individual_product.querySelector("#claim_donation_button").style.display="none";
-          individual_product.querySelector("#remove_donation_button").style.display="none";
-        }
-        else{
-          individual_product.querySelector("#claim_donation_button").style.display="block";
-          individual_product.querySelector("#remove_donation_button").style.display="block";
-        }
+     
       }
 
       function showIndividualProduct(){
         exit_button.style.display="flex";
         individual_product.style.display="block";
         orders_list.style.display="none";
+        edit_donation_modal.style.display="none";
       }
 
       function hideModals(){
         individual_product= document.getElementById("individual_product_modal");
         exit_button=document.getElementById("exit_modal");
         orders_list=document.getElementById("orders_list");
+        edit_donation_modal=document.getElementById("edit_donation_modal");
 
+        edit_donation_modal.style.display="none";
         individual_product.style.display="none";
         orders_list.style.display="block";
         exit_button.style.display="none";
       }
+
+      function showEditDonation(){
+        individual_product= document.getElementById("individual_product_modal");
+        exit_button=document.getElementById("exit_modal");
+        orders_list=document.getElementById("orders_list");
+        edit_donation_modal=document.getElementById("edit_donation_modal");
+
+        let food_categories=edit_donation_modal.querySelectorAll(".food_category");
+        let currently_selected_category=individual_product.querySelector(".category").innerHTML;
+
+        for (let i=0; i<food_categories.length;i++){
+       
+          if (food_categories[i].innerHTML.substring(0,4)==currently_selected_category.substring(0,4)){
+            food_categories[i].classList.add("selected");
+            document.querySelector(".next-button").classList.add("selected");
+          }
+          else{
+            if (food_categories[i].classList.remove("selected"));
+          }
+        }
+
+        let donationInfo=getDonationInfo(this.parentElement);
+     
+        
+
+        edit_donation_modal.querySelector("#title_input_box").value=donationInfo.title;
+        edit_donation_modal.querySelector("#quantity_input_box").value=donationInfo.quantity;
+        edit_donation_modal.querySelector("#food-description-input").value=donationInfo.description;
+        edit_donation_modal.querySelector("#display_image").src=donationInfo.picture;
+  
+        edit_donation_modal.querySelector("#food-requirements-input").value=donationInfo.transport_reqs;
+        edit_donation_modal.querySelector("#pick-up_location_box").value=donationInfo.pickup_location;
+
+
+       
+
+       
+        exit_button.style.display="flex";
+        individual_product.style.display="none";
+        orders_list.style.display="none";
+        edit_donation_modal.style.display="block";
+      }
+
+    function getDonationInfo(info_containing_module){
+      let currentInfoSkimmer=info_containing_module.querySelector(".hidden");
+
+      
+      const donationInfo={
+        category:currentInfoSkimmer.querySelector(".category").innerHTML,
+        completionDate:currentInfoSkimmer.querySelector(".completionDate").innerHTML,
+        createdAt:currentInfoSkimmer.querySelector(".createdAt").innerHTML,
+        description:currentInfoSkimmer.querySelector(".description").innerHTML,
+        donorID:currentInfoSkimmer.querySelector(".donorID").innerHTML,
+        donorName:currentInfoSkimmer.querySelector(".donorName").innerHTML,
+        donorPhone:currentInfoSkimmer.querySelector(".donorPhone").innerHTML,
+        end_time:currentInfoSkimmer.querySelector(".endTime").innerHTML,
+        donationID:currentInfoSkimmer.querySelector(".donationID").innerHTML,
+        isCompleted:currentInfoSkimmer.querySelector(".isCompleted").innerHTML,
+        nfpID:currentInfoSkimmer.querySelector(".nfpID").innerHTML,
+        pickup_date:currentInfoSkimmer.querySelector(".pickup_date").innerHTML,
+        pickup_location:currentInfoSkimmer.querySelector(".pickup_location").innerHTML,
+        picture:currentInfoSkimmer.querySelector(".picture").innerHTML,
+
+        
+        
+        quantity:currentInfoSkimmer.querySelector(".quantity").innerHTML,
+        start_time:currentInfoSkimmer.querySelector(".start_time").innerHTML,
+        
+        title:currentInfoSkimmer.querySelector(".title").innerHTML,
+        transport_reqs:currentInfoSkimmer.querySelector(".transport_reqs").innerHTML,
+        updatedAt:currentInfoSkimmer.querySelector(".updatedAt").innerHTML,
+        deleted:currentInfoSkimmer.querySelector("._deleted").innerHTML,
+        _lastChangedAt:currentInfoSkimmer.querySelector("._lastChangedAt").innerHTML,
+        _version:currentInfoSkimmer.querySelector("._version").innerHTML
+      }
+     
+      return donationInfo;
+    }
+
+    function updateDonationPreview(){
+      editedDonatedItem.id=individual_product.querySelector(".donationID").innerHTML;
+      editedDonatedItem._version=individual_product.querySelector("._version").innerHTML;
+      editedDonatedItem.title=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.pickup_date=edit_donation_modal.querySelector("#pick-up_by_input").value.toISOString.substring(0,10);
+      editedDonatedItem.category=individual_product.querySelector(".donationID").innerHTML;
+      let food_categories=edit_donation_modal.querySelectorAll(".food_category");
+      let currently_selected_category;
+      for (let i=0; i<food_categories.length;i++){
+
+        if (food_categories[i].classList.contains("selected")){
+          currently_selected_category=food_categories[i].value;
+        }
+  
+      }
+
+      editedDonatedItem.transport_reqs=edit_donation_modal.querySelector("#food-requirements-input").innerHTML;
+      editedDonatedItem.donorID=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.nfpID=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.pickup_location=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.quantity=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.description=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.picture=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.isCompleted=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.start_time=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.end_time=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+      editedDonatedItem.donorName=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
+
+    }
     
     return (
         <div id="orders_page">
             <div id="individual_product_modal">
                 <IndividualProduct/>
             </div>
+            <div id="edit_donation_modal"><EditDonation userInfo={props.userInfo}/></div>
             <div id="exit_modal"><div>x</div></div>
             <div id="orders_list">
                 <div id="uncompleted_orders_list">
@@ -245,26 +416,34 @@ function Orders(props) {
                     {uncompleted_orders.map((contents,index) => (
                         <Products
                         key={contents.id}
-                        image={contents.picture}
+                        category={contents.category}
+                        completionDate={contents.completionDate}
+                        createdAt={contents.createdAt}
                         description={contents.description}
-                        quantity={contents.quantity}
-                        pickup_date={contents.pickup_date}
-                        title={contents.title}
-                        type={contents.type}
-                        startTime={contents.start_time}
-                        endTime={contents.end_time}
-                        location={contents.pickup_location}
+                        donorID={contents.donorID}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
-
-
-                        donorID={contents.donorID}
-                        transportReqs={contents.transport_reqs}
-
+                        endTime={contents.end_time}
                         donationID={contents.id}
+                        isCompleted={contents.isCompleted}
+                        nfpID={contents.nfpID}
+                        pickup_date={contents.pickup_date}
+                        pickup_location={contents.pickup_location}
+                        picture={contents.picture}
+
+                        
+                        
+                        quantity={contents.quantity}
+                        start_time={contents.start_time}
+                        
+                        title={contents.title}
+                        transport_reqs={contents.transport_reqs}
+                        updatedAt={contents.updatedAt}
+                        deleted={contents._deleted}
+                        _lastChangedAt={contents._lastChangedAt}
                         _version={contents._version}
 
-                        donation={contents}
+                        
                         />
                     ))}
                 </div>
@@ -273,26 +452,32 @@ function Orders(props) {
                     {completed_orders.map(contents => (
                         <Products
                         key={contents.id}
-                        image={contents.picture}
+                        category={contents.category}
+                        completionDate={contents.completionDate}
+                        createdAt={contents.createdAt}
                         description={contents.description}
-                        quantity={contents.quantity}
-                        pickup_date={contents.pickup_date}
-                        title={contents.title}
-                        type={contents.type}
-                        startTime={contents.start_time}
-                        endTime={contents.end_time}
-                        location={contents.pickup_location}
+                        donorID={contents.donorID}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
-
-
-                        donorID={contents.donorID}
-                        transportReqs={contents.transport_reqs}
-
+                        endTime={contents.end_time}
                         donationID={contents.id}
-                        _version={contents._version}
+                        isCompleted={contents.isCompleted}
+                        nfpID={contents.nfpID}
+                        pickup_date={contents.pickup_date}
+                        pickup_location={contents.pickup_location}
+                        picture={contents.picture}
 
-                        donation={contents}
+                        
+                        
+                        quantity={contents.quantity}
+                        start_time={contents.start_time}
+                        
+                        title={contents.title}
+                        transport_reqs={contents.transport_reqs}
+                        updatedAt={contents.updatedAt}
+                        deleted={contents._deleted}
+                        _lastChangedAt={contents._lastChangedAt}
+                        _version={contents._version}
                         />
                     ))}
               </div>

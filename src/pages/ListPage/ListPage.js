@@ -78,39 +78,62 @@ function ListPage() {
   }
 
 
-  //Fills individual product modal with product-specific information
-  function openIndividualProductModal(){
+  //triggered when clicking a product card
+    //inserts product information into the individual product modal
+    function openIndividualProductModal(){
+
+      individual_product= document.getElementById("individual_product_modal");
+
     
+    let donation_id=this.querySelector(".donationID").innerHTML;
+
+
+      exit_button=document.getElementById("exit_modal");
+     
+
+      //Grabbing product data from page
+      let productImage=this.querySelector(".productImage").src;
+      let productName=this.querySelector(".productName").innerHTML;
+      let productDescription=this.querySelector(".productDescription").innerHTML;
+      let productQuantity=this.querySelector(".productQuantity").innerHTML;
+      let productLocation=this.querySelector(".productLocation").innerHTML;
+      let productPickupDate=this.querySelector(".pickupDate").innerHTML;
+      let productStartTime=this.querySelector(".startTime").innerHTML;        
+      let productEndTime=this.querySelector(".endTime").innerHTML;
+      let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
+      let donorName=this.querySelector(".donorName").innerHTML;
+      let donorPhone=this.querySelector(".donorPhone").innerHTML;
+      let donorVersion=this.querySelector("._version").innerHTML;
+      
+   
+
+      //let productStartTime=this.querySelector(".")
+      if (productTransportRequirements==""){
+          productTransportRequirements="No requirements listed by donor."
+      }
+
+      //stylising individual modal
+      individual_product.querySelector("#display_image").src=productImage;
+      individual_product.querySelector("#individual_product_title").innerHTML=productName;
+      individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
+      individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
+      individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
+      individual_product.querySelector("#individual_product_pickuptime").innerHTML=productStartTime+"-"+productEndTime;
+      individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
+      individual_product.querySelector("#individual_product_seller_name").innerHTML=donorName;
+      individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
+      individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
+      
     
-    let productImage=this.querySelector(".productImage").src;
-    let productName=this.querySelector(".productName").innerHTML;
-    let productDescription=this.querySelector(".productDescription").innerHTML;
-    let productQuantity=this.querySelector(".productQuantity").innerHTML;
-    let productLocation=this.querySelector(".productLocation").innerHTML;
-    let productPickupDate=this.querySelector(".pickupDate").innerHTML;
-    let productStartTime=this.querySelector(".startTime").innerHTML;
-    console.log(this.querySelector(".startTime").innerHTML);
+      individual_product.querySelector("#individual_product_quantity").innerHTML=productQuantity;
+
+      individual_product.querySelector("._version").innerHTML=donorVersion;
+      individual_product.querySelector(".donationID").innerHTML=donation_id;
+      showIndividualProduct();
     
-    let productEndTime=this.querySelector(".endTime").innerHTML;
-    let productTransportRequirements=this.querySelector(".transportReqs").innerHTML;
-    let donorName=this.querySelector(".donorName").innerHTML;
-    let donorPhone=this.querySelector(".donorPhone").innerHTML;
-    //let productStartTime=this.querySelector(".")
-    if (productTransportRequirements==""){
-        productTransportRequirements="No requirements listed by donor."
+
+
     }
-    individual_product.querySelector("#display_image").src=productImage;
-    individual_product.querySelector("#individual_product_title").innerHTML=productName;
-    individual_product.querySelector("#individual_product_description").innerHTML=productDescription;
-    individual_product.querySelector("#individual_product_location").innerHTML=productLocation;
-    individual_product.querySelector("#individual_product_pickupby").innerHTML=productPickupDate;
-    individual_product.querySelector("#individual_product_pickuptime").innerHTML=productStartTime+"-"+productEndTime;
-    individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
-    individual_product.querySelector("#individual_product_seller_name").innerHTML=donorName;
-    individual_product.querySelector("#individual_product_seller_number").innerHTML=donorPhone;
-    individual_product.querySelector("#clickable_phone_number").href="tel:"+donorPhone;
-    showIndividualProduct();
-  }
 
   function hideModals(){
 

@@ -10,9 +10,6 @@ export const onCreateMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -25,9 +22,6 @@ export const onUpdateMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -40,9 +34,6 @@ export const onDeleteMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -64,11 +55,10 @@ export const onCreateFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -90,11 +80,10 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -116,11 +105,10 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

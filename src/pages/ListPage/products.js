@@ -31,7 +31,7 @@ export function Products(props) {
                 <img src={isCompletedIcon} alt='product-img' ></img>
             </div>
             <div className="image_box">
-                <img src={props.image} alt='product-img' className='productImage'></img>
+                <img src={props.picture} alt='product-img' className='productImage'></img>
             </div>
             
            
@@ -52,17 +52,28 @@ export function Products(props) {
             </div>
             
             <div className="hidden">
-                <div className="startTime">{props.startTime}</div>
-                <div className="endTime">{props.endTime}</div>
+                <div className="category">{props.category}</div>
+                <div className="completionDate">{props.completionDate}</div>
+                <div className="createdAt">{props.createdAt}</div>
+                <div className="description">{props.description}</div>
                 <div className="donorID">{props.donorID}</div>
-                <div className="transportReqs">{props.transportReqs}</div>
                 <div className="donorName">{props.donorName}</div>
                 <div className="donorPhone">{props.donorPhone}</div>
-              
+                <div className="endTime">{props.endTime}</div>
                 <div className="donationID">{props.donationID}</div>
+                <div className="isCompleted">{props.isCompleted}</div>
+                <div className="nfpID">{props.nfpID}</div>
+                <div className="pickup_date">{props.pickup_date}</div>
+                <div className="pickup_location">{props.pickup_location}</div>
+                <div className="picture">{props.picture}</div>
+                <div className="quantity">{props.quantity}</div>
+                <div className="start_time">{props.start_time}</div>
+                <div className="title">{props.title}</div>
+                <div className="transport_reqs">{props.transport_reqs}</div>
+                <div className="updatedAt">{props.updatedAt}</div>
+                <div className="_deleted">{props._deleted}</div>
+                <div className="_lastChangedAt">{props._lastChangedAt}</div>
                 <div className="_version">{props._version}</div>
-                
-              
             </div>
             </div>
         </div>

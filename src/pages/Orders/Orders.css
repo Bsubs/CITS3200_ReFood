@@ -76,3 +76,7 @@
     opacity: 70%;
   }
 
+  #edit_donation_modal{
+    display: none;
+background-color: white;
+}

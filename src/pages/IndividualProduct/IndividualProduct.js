@@ -35,6 +35,7 @@ export default function IndividualProduct(props) {
                 <div id="individual_product_location"></div>
             </div>
             <div id="individual_product_description"> </div>
+            <div id="individual_product_quantity"></div>
             
         </div>
         <div className="description_block">
@@ -69,8 +70,28 @@ export default function IndividualProduct(props) {
         <div id="remove_donation_button" className="button" > Remove Donation</div>
 
         <div className="hidden">
-            <div className="_version"></div>
-            <div className="donationID"></div>
+                <div className="category"></div>
+                <div className="completionDate"></div>
+                <div className="createdAt"></div>
+                <div className="description"></div>
+                <div className="donorID"></div>
+                <div className="donorName"></div>
+                <div className="donorPhone"></div>
+                <div className="endTime"></div>
+                <div className="donationID"></div>
+                <div className="isCompleted"></div>
+                <div className="nfpID"></div>
+                <div className="pickup_date"></div>
+                <div className="pickup_location"></div>
+                <div className="picture"></div>
+                <div className="quantity"></div>
+                <div className="start_time"></div>
+                <div className="title"></div>
+                <div className="transport_reqs"></div>
+                <div className="updatedAt"></div>
+                <div className="_deleted"></div>
+                <div className="_lastChangedAt"></div>
+                <div className="_version"></div>
         </div>
         
         
