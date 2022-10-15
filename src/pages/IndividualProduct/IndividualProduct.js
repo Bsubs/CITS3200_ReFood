@@ -3,6 +3,7 @@ import './IndividualProduct.css';
 import ProductContent from "../ListPage/content"
 import Location from "../../assets/icons/PNG/location.png"
 import MessageIcon from "../../assets/icons/PNG/message-text.png"
+import Logo from "../../assets/images/logo.png"
 import config from '../../aws-exports';
 
 import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation, Storage } from 'aws-amplify';
@@ -14,11 +15,14 @@ import { v4 as uuid } from 'uuid'
 export default function IndividualProduct(props) {
 
     
-
     function invertDate(date){
         console.log(date);
         return date;
     }
+
+   
+      
+  
 
     
   return (

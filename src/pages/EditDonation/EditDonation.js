@@ -223,32 +223,7 @@ function EditDonation(props) {
         hiddenDonationInfo.querySelector(".end_time").innerHTML=e.toISOString();
     }
 
-    // function updateDonatedItem(url) {
-    //     setDonatedItem (() => ({
-    //         ...editedDonatedItem,
-    //         ['picture']:url
-    //     }));
-    //     console.log(editedDonatedItem);
-    // }
 
-    // Creates a new FOODITEM and adds it to the database
-    /**async function addDonation() {
-        console.log("add donation worked");
-        if (file) {
-            const { type: mimeType } = file
-            try {
-                
-                await Storage.put(key, file, {
-                contentType: mimeType
-                })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:editedDonatedItem}});
-                console.log(newFoodItem);
-            } catch (err) {
-                console.log('error: ', err)
-            }
-        }
-      }
-      **/
      async function editDonation(){
         
         if (file) {
@@ -316,6 +291,10 @@ function EditDonation(props) {
         num_images=num_images+1;
     }
 
+    function makeImagePreviewVisible(){
+        
+    }
+
   
 
     // Functions for navigation buttons
@@ -330,29 +309,29 @@ function EditDonation(props) {
         else {
             window.alert("Please select a food type");
         }
+        let image_placement=document.getElementById("uploaded_image_0");
+        
+        
     }
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
+
+    //Shows donation preview
     function next2(){
         updateDonatedItemAttributes();
         console.log(editedDonatedItem1);
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
-        
-
         let individual_product=document.getElementById("edit_donation_modal").querySelector("#individual_product_page");
-       
-       
-
         let productTransportRequirements=editedDonatedItem1.transport_reqs;
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
 
-     
+        //Updating Individual Product Modal for preview
         individual_product.querySelector("#display_image").src=document.getElementById("edit_donation_modal").querySelector("#uploaded_image_0").src;
         individual_product.querySelector("#individual_product_title").innerHTML=editedDonatedItem1.title;
         individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem1.description;
@@ -363,7 +342,9 @@ function EditDonation(props) {
         individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem1.donorName;
         individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem1.donorPhone;
         individual_product.querySelector("#clickable_phone_number").href="tel:"+editedDonatedItem1.donorPhone;
-        
+
+        //Remove donation Button
+        individual_product.querySelector("#remove_donation_button").style.display="none";
     }
 
     function getDonationInfo(info_containing_module){
@@ -612,7 +593,7 @@ function EditDonation(props) {
                 </div>
                 <div className="bottom-row">
                     <label className="back-button" onClick={back2}>Back</label>
-                    <button className="next-button" onClick={editDonation} >Submit</button>
+                    <button className="next-button selected" onClick={editDonation} >Submit</button>
                 </div>
 
             </div>

@@ -340,6 +340,8 @@ function Orders(props) {
         edit_donation_modal.querySelector("#food-requirements-input").value=donationInfo.transport_reqs;
         edit_donation_modal.querySelector("#pick-up_location_box").value=donationInfo.pickup_location;
 
+        edit_donation_modal.querySelector("#uploaded_image_0").src=donationInfo.picture;
+
 
        
 
@@ -348,6 +350,13 @@ function Orders(props) {
         individual_product.style.display="none";
         orders_list.style.display="none";
         edit_donation_modal.style.display="block";
+
+
+
+        let image_placement=document.getElementById("uploaded_image_0");
+        if (image_placement.src!="no_image" | image_placement.src!=undefined){
+          image_placement.classList.add("make_image_visible");
+      }
       }
 
     function getDonationInfo(info_containing_module){
