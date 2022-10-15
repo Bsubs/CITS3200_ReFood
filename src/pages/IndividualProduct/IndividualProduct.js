@@ -13,18 +13,12 @@ import { v4 as uuid } from 'uuid'
 
 
 export default function IndividualProduct(props) {
-
     
     function invertDate(date){
         console.log(date);
         return date;
     }
 
-   
-      
-  
-
-    
   return (
     <div id="individual_product_page">
         <div id="multiple_image_wheel"> 
@@ -71,7 +65,7 @@ export default function IndividualProduct(props) {
             </div>
         </div>
         <div id="claim_donation_button" className="button"> Message Donor</div>
-        <div id="remove_donation_button" className="button" > Remove Donation</div>
+        <div id="remove_donation_button" className="button"> Remove Donation</div>
 
         <div id="individual_hidden" className="hidden">
                 <div className="category"></div>
