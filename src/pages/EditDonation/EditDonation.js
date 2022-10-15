@@ -264,6 +264,14 @@ function EditDonation(props) {
                 console.log('error: ', err)
             }
         }
+        else {
+            try {
+                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem1}});
+                console.log("edit donation worked");
+            } catch (err) {
+                console.log('error: ', err)
+            }
+        }
         
         //window.location="/orders";
      }
