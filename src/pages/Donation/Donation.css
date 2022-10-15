@@ -23,7 +23,7 @@
   margin-bottom: 10vh;
 
 }
-#donation-heading1 {
+.donation-heading {
 
   color: rgb(255, 255, 255);
   text-align: center;
@@ -142,6 +142,9 @@
   background-color: grey;
 }
 
+#donation_page #donation_preview_modal{
+  display: none;
+}
 
 
 #donation_page input{
@@ -178,6 +181,7 @@
   font-size: 1.8vh;
   
 }
+
 
 #food-description-input{
   max-width: 100%;
@@ -264,12 +268,6 @@
   margin-bottom: 1rem;
 }
 
-/* #donation_page .modalBox{
-  position: absolute;
-  width: 400;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  background-color: white;
-  border: 2px solid #000;
-} */
+#third-donation{
+  display: none;
+}
