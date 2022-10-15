@@ -14,8 +14,10 @@ describe('Donation:', function() {
           cy.get('button').contains('Sign in').click();
           cy.wait(5000);
           cy.visit('/donate');
+          cy.get('[id^=donation-heading1').should('contain', 'What kind of food do you want to donate?');
           cy.get('ul li').contains('Frozen').click();
           cy.get('button').contains('Next').click();
+          cy.get('[id^=donation-heading1').should('contain', 'Food Donation Details');
           cy.contains('Food Item(s)').parent('div').within(() =>{
             cy.get('input').type('Steaks')
           });
@@ -42,7 +44,14 @@ describe('Donation:', function() {
             cy.get('div:first').click()
             cy.get('ul').contains('11:45').click()
           });
-          //cy.get('button').contains('Sign out').click();
+          // cy.contains('Submit').click();
+          // cy.wait(500);
+          cy.scrollTo('top');
+          cy.wait(300);
+          cy.get('Button').contains('Open modal').click();
+          cy.get('[id^=modal-modal-title]').should('contain', 'Donation Successful');
+          cy.get('[id^=modal-modal-description]').should('contain', 'Press ok to return to the orders page');
+          cy.get('a[href*="/orders"]').click()    
       });
   });
 
