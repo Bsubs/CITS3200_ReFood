@@ -7,6 +7,10 @@ import { a } from 'aws-amplify';
 export function Products(props) {
 
     function simplifyDate(date){
+        console.log(date);
+        if (date==null){
+            return ("no date entered")
+        }
         var month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let split_date=date.split("-")
         let month=split_date[1];
@@ -16,10 +20,16 @@ export function Products(props) {
         
         return (month_name + " "+day);
       }
+    
+      function simplifyLocation(location_string){
+        let split_location=location_string.split(",");
+        return split_location.pop();
+    }
     if (props.isCompleted=="True"){
         var isCompletedIcon=Check;
         var pickupDescription="Picked-up On";
     }
+
     else{
         var isCompletedIcon=Hourglass;
         var pickupDescription="Pick-up By";
@@ -46,7 +56,7 @@ export function Products(props) {
                 </div>
                 
                 <div className="row">
-                    <div className='productLocation'>{props.location}</div>
+                    <div className='productLocation'>{simplifyLocation(props.pickup_location)}</div>
                     <div className='pickupDate'>{simplifyDate(props.pickup_date)}</div>
                 </div>
             </div>
@@ -59,7 +69,7 @@ export function Products(props) {
                 <div className="donorID">{props.donorID}</div>
                 <div className="donorName">{props.donorName}</div>
                 <div className="donorPhone">{props.donorPhone}</div>
-                <div className="endTime">{props.endTime}</div>
+                <div className="end_time">{props.end_time}</div>
                 <div className="donationID">{props.donationID}</div>
                 <div className="isCompleted">{props.isCompleted}</div>
                 <div className="nfpID">{props.nfpID}</div>

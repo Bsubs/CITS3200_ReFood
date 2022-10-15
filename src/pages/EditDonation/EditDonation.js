@@ -50,54 +50,25 @@ function EditDonation(props) {
         
     });
 
-
-    function updateDonationPreview(){
-      
-        let edit_donation_modal=document.getElementById("edit_donation_modal");
-        let individual_product=document.getElementById("individual_product_modal");
-        editedDonatedItem.id=individual_product.querySelector(".donationID").innerHTML;
-        editedDonatedItem._version=individual_product.querySelector("._version").innerHTML;
-        editedDonatedItem.title=edit_donation_modal.querySelector("#individual_product_title").value;
-
-        console.log(edit_donation_modal.querySelector("#individual_product_title"));
-        
-        let dateParts=edit_donation_modal.querySelector("#pick-up_by_input").value.split("/");
-        
-        let myDate= new Date("20"+dateParts[2],dateParts[1],dateParts[0]);
-        editedDonatedItem.pickup_date=myDate.toISOString().substring(0,10);
-
-        
-        let food_categories=edit_donation_modal.querySelectorAll(".food_category");
-        let currently_selected_category;
-        for (let i=0; i<food_categories.length;i++){
-  
-          if (food_categories[i].classList.contains("selected")){
-            currently_selected_category=food_categories[i].value;
-          }
-    
-        }
-
-        editedDonatedItem.category=currently_selected_category;
-  
-        editedDonatedItem.transport_reqs=edit_donation_modal.querySelector("#food-requirements-input").innerHTML;
-        editedDonatedItem.donorID=props.userInfo.sub;
+    const editedDonatedItem1={
+        id: "",
+        title: "",
+        pickup_date:startDate,
+        category:"",
+        transport_reqs:"",
+        nfpID:"",
+        pickup_location:"",
+        quantity:"",
+        description:"",
+        picture:"",
+        donorPhone:"",
+        isCompleted:false,
+        start_time:startTime,
+        end_time:endTime,
+    }
 
 
-        editedDonatedItem.nfpID="";
-        editedDonatedItem.pickup_location=edit_donation_modal.querySelector("#pick-up_location_box").innerHTML;
-
-        editedDonatedItem.quantity=edit_donation_modal.querySelector("#quantity_input_box").innerHTML;
-
-        editedDonatedItem.description=edit_donation_modal.querySelector("#food-description-input").innerHTML;
-
-        editedDonatedItem.picture=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
-        editedDonatedItem.isCompleted=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
-        editedDonatedItem.start_time=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
-        editedDonatedItem.end_time=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
-        editedDonatedItem.donorName=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
-  
-        console.log(editedDonatedItem);
-      }
+   
 
     //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
     const fetchAttributes = async() => {
@@ -154,7 +125,12 @@ function EditDonation(props) {
             ...editedDonatedItem,
             ['title']: e.target.value
         }));
-        console.log(editedDonatedItem);
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".title").innerHTML=e.target.value;
+        //updateDonationInfo.querySelector(".title")=e.target.value;
+       
     }
 
      // Updates Quantity Field upon user input
@@ -163,6 +139,10 @@ function EditDonation(props) {
             ...editedDonatedItem,
             ['quantity']: e.target.value
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".quantity").innerHTML=e.target.value;
     }
 
     // Updates Description Field upon user input
@@ -171,7 +151,10 @@ function EditDonation(props) {
             ...editedDonatedItem,
             ['description']: e.target.value
         }));
-        console.log(editedDonatedItem);
+    
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".description").innerHTML=e.target.value;
     }
     
     // Updates Address Field upon user input
@@ -180,6 +163,10 @@ function EditDonation(props) {
             ...editedDonatedItem,
             ['pickup_location']: e.target.value
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".pickup_location").innerHTML=e.target.value;
     }
 
     // Updates Transport Requirements Field upon user input
@@ -188,6 +175,10 @@ function EditDonation(props) {
             ...editedDonatedItem,
             ['transport_reqs']: e.target.value
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".transport_reqs").innerHTML=e.target.value;
     }
 
     // Updates the pick-up by date upon user input
@@ -196,18 +187,26 @@ function EditDonation(props) {
             ...editedDonatedItem,
             ['pickup_date']: e.toISOString().substring(0, 10)
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".pickup_date").innerHTML=e.toISOString().substring(0, 10);
     }
 
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-        console.log(e.toISOString());
+      
         
         setDonatedItem (() => ({
             ...editedDonatedItem,
-            ['start_time']: e.toISOString().substring(11, 23)
+            ['start_time']: e.toISOString()
             
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".start_time").innerHTML=e.toISOString();
     }
 
     // Updates the end time upon user input
@@ -216,8 +215,12 @@ function EditDonation(props) {
    
         setDonatedItem (() => ({
             ...editedDonatedItem,
-            ['end_time']: e.toISOString().substring(11, 23)
+            ['end_time']: e.toISOString()
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".end_time").innerHTML=e.toISOString();
     }
 
     // function updateDonatedItem(url) {
@@ -246,15 +249,23 @@ function EditDonation(props) {
         }
       }
       **/
-     async function addDonation(){
+     async function editDonation(){
         
-        try {
-            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:editedDonatedItem}});
-            console.log(newFoodItem);
-        } catch (err) {
-            console.log('error: ', err)
+        if (file) {
+            const { type: mimeType } = file
+            try {
+            
+                await Storage.put(key, file, {
+                    contentType: mimeType
+                    })
+                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem1}});
+                console.log("edit donation worked");
+            } catch (err) {
+                console.log('error: ', err)
+            }
         }
-        window.location="/orders";
+        
+        //window.location="/orders";
      }
 
     const [file, updateFile] = useState(null)
@@ -264,32 +275,32 @@ function EditDonation(props) {
     let num_images=0;
 
     function handleChange(event) {
-        // if (num_images==1){
-        //     return
-        // }
-        //Saves image details in preparation for upload to AWS S3
+        if (num_images==1){
+            return
+        }
+       //Saves image details in preparation for upload to AWS S3
+    
+    
+       const { target: { value, files } } = event
+       const fileForUpload = files[0]
+       updateFile(fileForUpload || value)
+
+       const extension = fileForUpload.name.split(".")[1]
+       const { type: mimeType } = fileForUpload
+       const key1 = `images/${uuid()}.${extension}`      
+       const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
+
+       setKey(key1);
+       setURL(url1);
+
+      
+     
         
-        /*TEMP COMMENT: AVOID IMAGE UPLOAD
-        *const { target: { value, files } } = event
-        const fileForUpload = files[0]
-        updateFile(fileForUpload || value)
-
-        const extension = fileForUpload.name.split(".")[1]
-        const { type: mimeType } = fileForUpload
-        const key1 = `images/${uuid()}.${extension}`      
-        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
-
-        setKey(key1);
-        setURL(url1);
-END OF TEMP COMMENT**/
-        let url1="empty_image"
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['picture']:url1
-        }));
-        console.log(editedDonatedItem);
 
 
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".picture").innerHTML=url1;
         //Makes image preview visible
         let image_placement=document.getElementById("uploaded_image_"+num_images);
         image_placement.src= URL.createObjectURL(event.target.files[0]);
@@ -318,32 +329,125 @@ END OF TEMP COMMENT**/
     }
     
     function next2(){
-        updateDonationPreview();
+        updateDonatedItemAttributes();
+        console.log(editedDonatedItem1);
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
         
-        let individual_product=document.getElementById("individual_product_page");
-        individual_product.querySelector("#display_image").src=editedDonatedItem.picture;
+
+        let individual_product=document.getElementById("edit_donation_modal").querySelector("#individual_product_page");
+       
        
 
-        let productTransportRequirements=editedDonatedItem.transport_reqs;
+        let productTransportRequirements=editedDonatedItem1.transport_reqs;
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
-    
-    
-        individual_product.querySelector("#display_image").src=editedDonatedItem.picture;
-        individual_product.querySelector("#individual_product_title").innerHTML=editedDonatedItem.title;
-        individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem.description;
-        individual_product.querySelector("#individual_product_location").innerHTML=editedDonatedItem.pickup_location;
-        individual_product.querySelector("#individual_product_pickupby").innerHTML=editedDonatedItem.pickup_date;
-        individual_product.querySelector("#individual_product_pickuptime").innerHTML=editedDonatedItem.start_time+"-"+editedDonatedItem.end_time;
+
+     
+        individual_product.querySelector("#display_image").src=document.getElementById("edit_donation_modal").querySelector("#uploaded_image_0").src;
+        individual_product.querySelector("#individual_product_title").innerHTML=editedDonatedItem1.title;
+        individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem1.description;
+        individual_product.querySelector("#individual_product_location").innerHTML=editedDonatedItem1.pickup_location;
+        individual_product.querySelector("#individual_product_pickupby").innerHTML=editedDonatedItem1.pickup_date;
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=editedDonatedItem1.start_time+"-"+editedDonatedItem1.end_time;
         individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
-        individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem.donorName;
-        individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem.donorPhone;
-        individual_product.querySelector("#clickable_phone_number").href="tel:"+editedDonatedItem.donorPhone;
-      
+        individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem1.donorName;
+        individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem1.donorPhone;
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+editedDonatedItem1.donorPhone;
+        
     }
+
+    function getDonationInfo(info_containing_module){
+        let currentInfoSkimmer=info_containing_module.querySelector(".hidden");
+  
+        
+        const donationInfo={
+          category:currentInfoSkimmer.querySelector(".category").innerHTML,
+          completionDate:currentInfoSkimmer.querySelector(".completionDate").innerHTML,
+          createdAt:currentInfoSkimmer.querySelector(".createdAt").innerHTML,
+          description:currentInfoSkimmer.querySelector(".description").innerHTML,
+          donorID:currentInfoSkimmer.querySelector(".donorID").innerHTML,
+          donorName:currentInfoSkimmer.querySelector(".donorName").innerHTML,
+          donorPhone:currentInfoSkimmer.querySelector(".donorPhone").innerHTML,
+          end_time:currentInfoSkimmer.querySelector(".end_time").innerHTML,
+          donationID:currentInfoSkimmer.querySelector(".donationID").innerHTML,
+          isCompleted:currentInfoSkimmer.querySelector(".isCompleted").innerHTML,
+          nfpID:currentInfoSkimmer.querySelector(".nfpID").innerHTML,
+          pickup_date:currentInfoSkimmer.querySelector(".pickup_date").innerHTML,
+          pickup_location:currentInfoSkimmer.querySelector(".pickup_location").innerHTML,
+          picture:currentInfoSkimmer.querySelector(".picture").innerHTML,
+  
+          
+          
+          quantity:currentInfoSkimmer.querySelector(".quantity").innerHTML,
+          start_time:currentInfoSkimmer.querySelector(".start_time").innerHTML,
+          
+          title:currentInfoSkimmer.querySelector(".title").innerHTML,
+          transport_reqs:currentInfoSkimmer.querySelector(".transport_reqs").innerHTML,
+          updatedAt:currentInfoSkimmer.querySelector(".updatedAt").innerHTML,
+          deleted:currentInfoSkimmer.querySelector("._deleted").innerHTML,
+          _lastChangedAt:currentInfoSkimmer.querySelector("._lastChangedAt").innerHTML,
+          //_version:currentInfoSkimmer.querySelector("._version").innerHTML
+        }
+        
+        return donationInfo;
+      }
+  
+
+    function updateDonatedItemAttributes(){
+        let editedDonationInfo=getDonationInfo(document.getElementById("edit_donation_hidden"));
+
+        let edit_donation_modal=document.getElementById("edit_donation_modal");
+       
+
+
+
+        let food_categories=edit_donation_modal.querySelectorAll(".food_category");
+        let currently_selected_category;
+        for (let i=0; i<food_categories.length;i++){
+          if (food_categories[i].classList.contains("selected")){
+            currently_selected_category=food_categories[i].innerHTML;
+           
+          }
+        }
+
+
+        
+        editedDonatedItem1.category=currently_selected_category;
+        //editedDonatedItem1.completionDate=editedDonationInfo.completionDate;
+        editedDonatedItem1.id=editedDonationInfo.donationID;
+
+        //editedDonatedItem._version=individual_product.querySelector("._version").innerHTML;
+        editedDonatedItem1.title=editedDonationInfo.title;
+
+        
+        let dateParts=edit_donation_modal.querySelector("#pick-up_by_input").value.split("/");
+        
+        let myDate= new Date("20"+dateParts[2],dateParts[1],dateParts[0]);
+        editedDonatedItem1.pickup_date=myDate.toISOString().substring(0,10);
+
+        
+        
+  
+        editedDonatedItem1.transport_reqs=editedDonationInfo.transport_reqs;
+        //editedDonatedItem1.donorID=props.userInfo.donorID;
+
+
+        //editedDonatedItem1.nfpID="";
+        editedDonatedItem1.pickup_location=editedDonationInfo.pickup_location;
+
+        editedDonatedItem1.quantity=editedDonationInfo.quantity;
+
+        editedDonatedItem1.description=editedDonationInfo.description;
+        editedDonatedItem1.picture=editedDonationInfo.picture;
+        editedDonatedItem1.isCompleted=editedDonationInfo.isCompleted;
+        editedDonatedItem1.start_time=editedDonationInfo.start_time;
+        editedDonatedItem1.end_time=editedDonationInfo.end_time;
+        editedDonatedItem1.donorName=editedDonationInfo.donorName;
+        editedDonatedItem1.donorPhone=editedDonationInfo.donorPhone;
+   
+      }
 
     function back2(){
         document.getElementById("second-donation").style.display="block";
@@ -381,7 +485,7 @@ END OF TEMP COMMENT**/
             <div id="second-donation">
                 <div className="top-row">
              
-                <h1 className="donation-heading">Food Donation Details</h1>
+                <h1 className="donation-heading">Edit Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
@@ -500,10 +604,37 @@ END OF TEMP COMMENT**/
                 </div>
                 <div className="bottom-row">
                     <label className="back-button" onClick={back2}>Back</label>
-                    <button className="next-button" onClick={addDonation} >Submit</button>
+                    <button className="next-button" onClick={editDonation} >Submit</button>
                 </div>
 
             </div>
+
+        <div id="edit_donation_hidden">
+            <div className="hidden">
+                <div className="category"></div>
+                <div className="completionDate"></div>
+                <div className="createdAt"></div>
+                <div className="description"></div>
+                <div className="donorID"></div>
+                <div className="donorName"></div>
+                <div className="donorPhone"></div>
+                <div className="end_time"></div>
+                <div className="donationID"></div>
+                <div className="isCompleted"></div>
+                <div className="nfpID"></div>
+                <div className="pickup_date"></div>
+                <div className="pickup_location"></div>
+                <div className="picture"></div>
+                <div className="quantity"></div>
+                <div className="start_time"></div>
+                <div className="title"></div>
+                <div className="transport_reqs"></div>
+                <div className="updatedAt"></div>
+                <div className="_deleted"></div>
+                <div className="_lastChangedAt"></div>
+               
+        </div>
+        </div>
         </div>
 
        

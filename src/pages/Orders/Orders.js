@@ -37,6 +37,7 @@ function Orders(props) {
           const userData = await Auth.currentAuthenticatedUser();
           const attributesList = userData.attributes;
           setAttributes(attributesList);
+          
       
       } catch (error) {
           console.log('error in fetching user data', error);
@@ -69,6 +70,8 @@ function Orders(props) {
           const allDonations = await API.graphql({query:queries.listFOODITEMS, variables:{filter: filter}});
           const itemList = allDonations.data.listFOODITEMS.items;
           setFoodItems(itemList);
+          console.log("Food items List:");
+          console.log(itemList);
         
           
       } catch (error) {
@@ -147,7 +150,7 @@ function Orders(props) {
     // The completedDonatedItem object that stores the information which will be posted to the database
     const completedDonatedItem ={
       id:"",
-      _version: "",
+      //_version: "",
       isCompleted:true,
       
   };
@@ -155,7 +158,7 @@ function Orders(props) {
   // The completedDonatedItem object that stores the information which will be posted to the database
   const editedDonatedItem ={
     id:"",
-    _version: "",
+    //_version: "",
     title: "",
     pickup_date:startDate,
     category:"",
@@ -178,15 +181,16 @@ function Orders(props) {
     
     async function markDonationAsCompleted(){
       individual_product= document.getElementById("individual_product_modal");
-      let donation_version=parseInt(individual_product.querySelector("._version").innerHTML);
+      //let donation_version=parseInt(individual_product.querySelector("._version").innerHTML);
       let donation_id=individual_product.querySelector(".donationID").innerHTML;
 
       completedDonatedItem.id=donation_id;
-      completedDonatedItem._version=donation_version;
+      //completedDonatedItem._version=donation_version;
+
+      console.log(completedDonatedItem);
 
       
       try {
-
         const updatedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:completedDonatedItem}});
         
     } catch (err) {
@@ -204,7 +208,7 @@ function Orders(props) {
       hiddenVariables.querySelector(".donorID").innerHTML=donationInfo.donorID;
       hiddenVariables.querySelector(".donorName").innerHTML=donationInfo.donorName;
       hiddenVariables.querySelector(".donorPhone").innerHTML=donationInfo.donorPhone;
-      hiddenVariables.querySelector(".endTime").innerHTML=donationInfo.endTime;
+      hiddenVariables.querySelector(".end_time").innerHTML=donationInfo.end_time;
       hiddenVariables.querySelector(".donationID").innerHTML=donationInfo.donationID;
       hiddenVariables.querySelector(".isCompleted").innerHTML=donationInfo.isCompleted;
       hiddenVariables.querySelector(".nfpID").innerHTML=donationInfo.nfpID;
@@ -212,13 +216,13 @@ function Orders(props) {
       hiddenVariables.querySelector(".pickup_location").innerHTML=donationInfo.pickup_location;
       hiddenVariables.querySelector(".picture").innerHTML=donationInfo.picture;
       hiddenVariables.querySelector(".quantity").innerHTML=donationInfo.quantity;
-      hiddenVariables.querySelector(".start_time").innerHTML=donationInfo.category;
+      hiddenVariables.querySelector(".start_time").innerHTML=donationInfo.start_time;
       hiddenVariables.querySelector(".title").innerHTML=donationInfo.title;
       hiddenVariables.querySelector(".transport_reqs").innerHTML=donationInfo.transport_reqs;
       hiddenVariables.querySelector(".updatedAt").innerHTML=donationInfo.updatedAt;
       hiddenVariables.querySelector("._deleted").innerHTML=donationInfo._deleted;
       hiddenVariables.querySelector("._lastChangedAt").innerHTML=donationInfo._lastChangedAt;
-      hiddenVariables.querySelector("._version").innerHTML=donationInfo._version;
+      //hiddenVariables.querySelector("._version").innerHTML=donationInfo._version;
 
 
 
@@ -229,6 +233,7 @@ function Orders(props) {
     function openIndividualProductModal(){
       let donationInfo=getDonationInfo(this);
       let transport_reqs=donationInfo.transport_reqs;
+      let donation_picture=donationInfo.picture;
 
       individual_product= document.getElementById("individual_product_modal");
       updateHiddenVariables(donationInfo,individual_product);
@@ -246,8 +251,13 @@ function Orders(props) {
           transport_reqs="No requirements listed by donor."
       }
 
+      if (donation_picture==""){
+        donation_picture=Logo;
+      }
+      
+
       //stylising individual modal
-      individual_product.querySelector("#display_image").src=donationInfo.picture;
+      individual_product.querySelector("#display_image").src=donation_picture;
       individual_product.querySelector("#individual_product_title").innerHTML=donationInfo.title;
       individual_product.querySelector("#individual_product_description").innerHTML=donationInfo.description;
       individual_product.querySelector("#individual_product_location").innerHTML=donationInfo.pickup_location;
@@ -296,11 +306,14 @@ function Orders(props) {
       }
 
       function showEditDonation(){
+        
         individual_product= document.getElementById("individual_product_modal");
         exit_button=document.getElementById("exit_modal");
         orders_list=document.getElementById("orders_list");
         edit_donation_modal=document.getElementById("edit_donation_modal");
 
+      
+        updateHiddenVariables(getDonationInfo(individual_product),document.getElementById("edit_donation_hidden"));
         let food_categories=edit_donation_modal.querySelectorAll(".food_category");
         let currently_selected_category=individual_product.querySelector(".category").innerHTML;
 
@@ -349,7 +362,7 @@ function Orders(props) {
         donorID:currentInfoSkimmer.querySelector(".donorID").innerHTML,
         donorName:currentInfoSkimmer.querySelector(".donorName").innerHTML,
         donorPhone:currentInfoSkimmer.querySelector(".donorPhone").innerHTML,
-        end_time:currentInfoSkimmer.querySelector(".endTime").innerHTML,
+        end_time:currentInfoSkimmer.querySelector(".end_time").innerHTML,
         donationID:currentInfoSkimmer.querySelector(".donationID").innerHTML,
         isCompleted:currentInfoSkimmer.querySelector(".isCompleted").innerHTML,
         nfpID:currentInfoSkimmer.querySelector(".nfpID").innerHTML,
@@ -367,7 +380,7 @@ function Orders(props) {
         updatedAt:currentInfoSkimmer.querySelector(".updatedAt").innerHTML,
         deleted:currentInfoSkimmer.querySelector("._deleted").innerHTML,
         _lastChangedAt:currentInfoSkimmer.querySelector("._lastChangedAt").innerHTML,
-        _version:currentInfoSkimmer.querySelector("._version").innerHTML
+        //_version:currentInfoSkimmer.querySelector("._version").innerHTML
       }
      
       return donationInfo;
@@ -375,7 +388,7 @@ function Orders(props) {
 
     function updateDonationPreview(){
       editedDonatedItem.id=individual_product.querySelector(".donationID").innerHTML;
-      editedDonatedItem._version=individual_product.querySelector("._version").innerHTML;
+      //=individual_product.querySelector("._version").innerHTML;
       editedDonatedItem.title=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
       editedDonatedItem.pickup_date=edit_donation_modal.querySelector("#pick-up_by_input").value.toISOString.substring(0,10);
       editedDonatedItem.category=individual_product.querySelector(".donationID").innerHTML;
@@ -406,6 +419,7 @@ function Orders(props) {
     return (
         <div id="orders_page">
             <div id="individual_product_modal">
+           
                 <IndividualProduct/>
             </div>
             <div id="edit_donation_modal"><EditDonation userInfo={props.userInfo}/></div>
@@ -423,7 +437,7 @@ function Orders(props) {
                         donorID={contents.donorID}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
-                        endTime={contents.end_time}
+                        end_time={contents.end_time}
                         donationID={contents.id}
                         isCompleted={contents.isCompleted}
                         nfpID={contents.nfpID}
@@ -441,7 +455,7 @@ function Orders(props) {
                         updatedAt={contents.updatedAt}
                         deleted={contents._deleted}
                         _lastChangedAt={contents._lastChangedAt}
-                        _version={contents._version}
+                        //_version={contents._version}
 
                         
                         />
@@ -459,7 +473,7 @@ function Orders(props) {
                         donorID={contents.donorID}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
-                        endTime={contents.end_time}
+                        end_time={contents.end_time}
                         donationID={contents.id}
                         isCompleted={contents.isCompleted}
                         nfpID={contents.nfpID}
@@ -477,7 +491,7 @@ function Orders(props) {
                         updatedAt={contents.updatedAt}
                         deleted={contents._deleted}
                         _lastChangedAt={contents._lastChangedAt}
-                        _version={contents._version}
+                        //_version={contents._version}
                         />
                     ))}
               </div>

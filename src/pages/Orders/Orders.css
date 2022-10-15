@@ -1,5 +1,6 @@
 #orders_page{
     background-color: lightgrey;
+    min-height: 100vh;
 }
 #orders_header{
     background-color: rgb(48, 154, 87);

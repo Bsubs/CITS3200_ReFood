@@ -170,8 +170,9 @@ function Donation(props) {
     }
 
     // Creates a new FOODITEM and adds it to the database
+
     async function addDonation() {
-        console.log("add donation worked");
+       
         if (file) {
             const { type: mimeType } = file
             try {
@@ -181,12 +182,29 @@ function Donation(props) {
                 })
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
+                console.log("add donation worked");
             } catch (err) {
                 console.log('error: ', err)
             }
         }
        
       }
+      
+
+         // Creates a new FOODITEM and adds it to the database
+    /**async function addDonation() {
+      
+            try {
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                console.log(newFoodItem);
+                console.log("add donation worked");
+            } catch (err) {
+                console.log('error: ', err)
+            
+        }
+       
+      }
+      */
     
 
 
@@ -201,7 +219,7 @@ function Donation(props) {
              return
          }
         //Saves image details in preparation for upload to AWS S3
-        
+     
      
         const { target: { value, files } } = event
         const fileForUpload = files[0]
@@ -268,6 +286,7 @@ function Donation(props) {
     
       
         individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
+        individual_product.querySelector("#individual_product_quantity").innerHTML=donatedItem.quantity;
         individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
         individual_product.querySelector("#individual_product_location").innerHTML=donatedItem.pickup_location;
         individual_product.querySelector("#individual_product_pickupby").innerHTML=donatedItem.pickup_date;

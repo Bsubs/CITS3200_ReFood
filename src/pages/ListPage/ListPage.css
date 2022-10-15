@@ -2,6 +2,7 @@
 #list_page{
   overflow: scroll;
   background-color: lightgrey;
+  min-height: 100vh;
 }
 #list_page .image_box{
   height: 15vh;

@@ -69,7 +69,7 @@ export default function IndividualProduct(props) {
         <div id="claim_donation_button" className="button"> Message Donor</div>
         <div id="remove_donation_button" className="button" > Remove Donation</div>
 
-        <div className="hidden">
+        <div id="individual_hidden" className="hidden">
                 <div className="category"></div>
                 <div className="completionDate"></div>
                 <div className="createdAt"></div>
@@ -77,7 +77,7 @@ export default function IndividualProduct(props) {
                 <div className="donorID"></div>
                 <div className="donorName"></div>
                 <div className="donorPhone"></div>
-                <div className="endTime"></div>
+                <div className="end_time"></div>
                 <div className="donationID"></div>
                 <div className="isCompleted"></div>
                 <div className="nfpID"></div>
@@ -91,7 +91,7 @@ export default function IndividualProduct(props) {
                 <div className="updatedAt"></div>
                 <div className="_deleted"></div>
                 <div className="_lastChangedAt"></div>
-                <div className="_version"></div>
+              
         </div>
         
         
