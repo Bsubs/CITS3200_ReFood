@@ -1,3 +1,9 @@
+type FavouritesTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: String
+  donationID: String
+}
+
 type Message @model @auth(rules: [{allow: public}]) {
   id: ID!
   channelID: ID

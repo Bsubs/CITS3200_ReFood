@@ -1,11 +1,25 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
+type FavouritesTableMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type MessageMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
 type FOODITEMMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class FavouritesTable {
+  readonly id: string;
+  readonly userID?: string | null;
+  readonly donationID?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<FavouritesTable, FavouritesTableMetaData>);
+  static copyOf(source: FavouritesTable, mutator: (draft: MutableModel<FavouritesTable, FavouritesTableMetaData>) => MutableModel<FavouritesTable, FavouritesTableMetaData> | void): FavouritesTable;
 }
 
 export declare class Message {

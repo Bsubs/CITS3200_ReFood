@@ -1,6 +1,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getFavouritesTable = /* GraphQL */ `
+  query GetFavouritesTable($id: ID!) {
+    getFavouritesTable(id: $id) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listFavouritesTables = /* GraphQL */ `
+  query ListFavouritesTables(
+    $filter: ModelFavouritesTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFavouritesTables(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        donationID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getMessage = /* GraphQL */ `
   query GetMessage($id: ID!) {
     getMessage(id: $id) {
@@ -84,35 +117,6 @@ export const listFOODITEMS = /* GraphQL */ `
         donorPhone
         createdAt
         updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getFavouritesTable = /* GraphQL */ `
-  query GetFavouritesTable($id: ID!) {
-    getFavouritesTable(id: $id) {
-      id
-      userID
-      donationID
-    }
-  }
-`;
-export const listFavouritesTables = /* GraphQL */ `
-  query ListFavouritesTables(
-    $filter: TableFavouritesTableFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listFavouritesTables(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        userID
-        donationID
       }
       nextToken
     }
