@@ -70,8 +70,6 @@ function Orders(props) {
           const allDonations = await API.graphql({query:queries.listFOODITEMS, variables:{filter: filter}});
           const itemList = allDonations.data.listFOODITEMS.items;
           setFoodItems(itemList);
-          console.log("Food items List:");
-          console.log(itemList);
         
           
       } catch (error) {
