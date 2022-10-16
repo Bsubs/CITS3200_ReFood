@@ -100,6 +100,8 @@ function Orders(props) {
           product_images[i].addEventListener("error",defaultImageReplace);
         }
   
+        let individual_product_modal_image=document.getElementById("display_image");
+    individual_product_modal_image.addEventListener("error",defaultImageReplace);
       });
 
       useEffect(() => {

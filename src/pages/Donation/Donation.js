@@ -229,6 +229,7 @@ function Donation(props) {
             try {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log("add donation worked");
+                handleOpen();
             } catch (err) {
                 console.log('error: ', err)
             }
@@ -317,22 +318,44 @@ function Donation(props) {
     
     function next2(){
        
-        document.getElementById("second-donation").style.display="none";
-        document.getElementById("third-donation").style.display="block";
+        
         let edit_donation_modal=document.getElementById("uploaded_image_0");
         
         let individual_product=document.getElementById("individual_product_page");
         individual_product.querySelector("#display_image").src=edit_donation_modal.src;
         console.log(donatedItem);
 
+
+        let description_labels=document.querySelectorAll(".description-label");
+        console.log(description_labels);
+
+        for (let i=0;i<description_labels.length;i++){
+            if (description_labels[i].classList.contains("uncompleted")){
+                description_labels[i].classList.remove("uncompleted");
+            }
+        }
+        let isCompleted=true;
         for (var key in donatedItem) {
+            
             if (donatedItem.hasOwnProperty(key)) {
-              
-                if (donatedItem.key==undefined){
+            
+                if (donatedItem[key]==undefined|donatedItem[key]==""){
                     console.log(key);
+                    
+                    for (let i=0;i<description_labels.length;i++){
+                        if (description_labels[i].classList.contains(key)){
+                            description_labels[i].classList.add("uncompleted");
+                            isCompleted=false;
+                        }
+                    }
                 }
             }
         }
+        if (isCompleted==false){
+            return
+        }
+        document.getElementById("second-donation").style.display="none";
+        document.getElementById("third-donation").style.display="block";
 
         let productTransportRequirements=donatedItem.transport_reqs;
         if (productTransportRequirements==""){
@@ -417,23 +440,23 @@ function Donation(props) {
                     <div className="form-container">
                         <form>
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label"> Food Item(s)</label><br></br>
+                                <label htmlFor="description" className="description-label title"> Food Item(s)</label><br></br>
                                 <input id="title_input_box" type="text" className="description-input" name="text" onChange={handleTitleChange}></input>
                             </div> 
                             
                             
                             <div className="form-row">
-                                <label htmlFor="quantity" className="quantity-label description-label">Quantity/Volume of Food</label><br></br>
+                                <label htmlFor="quantity" className="quantity-label description-label quantity">Quantity/Volume of Food</label><br></br>
                                 <input id="quantity_input_box" type="text" className="description-input" name="text" onChange={handleQuantityChange}></input>
                             </div> 
                             
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Food Description</label><br></br>
+                                <label htmlFor="description" className="description-label description">Food Description</label><br></br>
                                 <textarea id="food-description-input" type="text" className="description-input" name="text" onChange={handleDescriptionChange}></textarea>
                                 
                             </div> 
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
+                                <label htmlFor="description" className="description-label transport_reqs">Transport Requirements</label><br></br>
                                 <textarea id="food-requirements-input" type="text" className="description-input" name="text" onChange={handleTransportChange}></textarea>
                                 
                             </div> 
@@ -458,13 +481,13 @@ function Donation(props) {
                            
                             
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
+                                <label htmlFor="description" className="description-label pickup_location">Pick-up Location</label><br></br>
                                 <input id="pick-up_location_box" type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
                             
 
                             <div id="dates-input">
-                                <label htmlFor="description" className="description-label">Pick-up By:</label><br></br>
+                                <label htmlFor="description" className="description-label pickup_date">Pick-up By:</label><br></br>
                                 <DatePicker
                                     id="pick-up_by_input"
                                     selected={startDate}
@@ -478,7 +501,7 @@ function Donation(props) {
                             </div>
 
                             <div id="pick-up-input">
-                            <label htmlFor="description" className="description-label">Pick-up Times</label><br></br>
+                            <label htmlFor="description" className="description-label start_time end_time">Pick-up Times</label><br></br>
                             <div className="timePicker">
                                 <div>
                                 <text>Start </text>
