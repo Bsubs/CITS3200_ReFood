@@ -1,6 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createFavouritesTable = /* GraphQL */ `
+  mutation CreateFavouritesTable(
+    $input: CreateFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    createFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFavouritesTable = /* GraphQL */ `
+  mutation UpdateFavouritesTable(
+    $input: UpdateFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    updateFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFavouritesTable = /* GraphQL */ `
+  mutation DeleteFavouritesTable(
+    $input: DeleteFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    deleteFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createMessage = /* GraphQL */ `
   mutation CreateMessage(
     $input: CreateMessageInput!
@@ -127,33 +169,6 @@ export const deleteFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createFavouritesTable = /* GraphQL */ `
-  mutation CreateFavouritesTable($input: CreateFavouritesTableInput!) {
-    createFavouritesTable(input: $input) {
-      id
-      userID
-      donationID
-    }
-  }
-`;
-export const updateFavouritesTable = /* GraphQL */ `
-  mutation UpdateFavouritesTable($input: UpdateFavouritesTableInput!) {
-    updateFavouritesTable(input: $input) {
-      id
-      userID
-      donationID
-    }
-  }
-`;
-export const deleteFavouritesTable = /* GraphQL */ `
-  mutation DeleteFavouritesTable($input: DeleteFavouritesTableInput!) {
-    deleteFavouritesTable(input: $input) {
-      id
-      userID
-      donationID
     }
   }
 `;

@@ -18,7 +18,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-
 const {
     aws_user_files_s3_bucket_region: region,
     aws_user_files_s3_bucket: bucket
@@ -45,7 +44,7 @@ function Donation(props) {
         pickup_location:"",
         quantity:"",
         description:"",
-        picture:"",
+        picture:"test",
         isCompleted:false,
         start_time:startTime,
         end_time:endTime,
@@ -139,7 +138,6 @@ function Donation(props) {
             ...donatedItem,
             ['description']: e.target.value
         }));
-        console.log(donatedItem);
     }
     
     // Updates Address Field upon user input
@@ -166,7 +164,7 @@ function Donation(props) {
         }));
     }
 
-    // Updates the start time upon user input
+    // // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
         console.log(e.toISOString());
@@ -188,7 +186,6 @@ function Donation(props) {
         }));
     }
 
-    
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -204,7 +201,8 @@ function Donation(props) {
         boxShadow: 24,
         p: 4,
     };
-
+    
+    
     // Creates a new FOODITEM and adds it to the database
 
     async function addDonation() {
@@ -212,7 +210,6 @@ function Donation(props) {
         if (file) {
             const { type: mimeType } = file
             try {
-                
                 await Storage.put(key, file, {
                 contentType: mimeType
                 })
@@ -224,37 +221,17 @@ function Donation(props) {
                 console.log('error: ', err)
             }
         }
-
         else {
-            try {
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log("add donation worked");
-                handleOpen();
-            } catch (err) {
-                console.log('error: ', err)
-            }
-        }
-        
-       
-      }
-      
-
-         // Creates a new FOODITEM and adds it to the database
-    /**async function addDonation() {
-      
             try {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
                 console.log("add donation worked");
             } catch (err) {
                 console.log('error: ', err)
-            
+            }
         }
-       
-      }
-      */
-    
-
+        handleOpen();
+    }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
@@ -263,12 +240,7 @@ function Donation(props) {
     let num_images=0;
 
     function handleChange(event) {
-        if (num_images==1){
-             return
-         }
         //Saves image details in preparation for upload to AWS S3
-     
-     
         const { target: { value, files } } = event
         const fileForUpload = files[0]
         updateFile(fileForUpload || value)
@@ -281,7 +253,6 @@ function Donation(props) {
         setKey(key1);
         setURL(url1);
 
-       
         setDonatedItem (() => ({
             ...donatedItem,
             ['picture']:url1
@@ -311,14 +282,15 @@ function Donation(props) {
             window.alert("Please select a food type");
         }
     }
+
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
     function next2(){
-       
-        
+        document.getElementById("second-donation").style.display="none";
+        document.getElementById("third-donation").style.display="block";
         let edit_donation_modal=document.getElementById("uploaded_image_0");
         
         let individual_product=document.getElementById("individual_product_page");
@@ -361,9 +333,7 @@ function Donation(props) {
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
-    
-    
-      
+
         individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
         individual_product.querySelector("#individual_product_quantity").innerHTML=donatedItem.quantity;
         individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
@@ -373,8 +343,7 @@ function Donation(props) {
         individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
         individual_product.querySelector("#individual_product_seller_name").innerHTML=donatedItem.donorName;
         individual_product.querySelector("#individual_product_seller_number").innerHTML=donatedItem.donorPhone;
-        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;
-      
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;    
     }
 
     function back2(){
@@ -411,9 +380,8 @@ function Donation(props) {
             </div>
 
             <div id="second-donation">
-                <div className="top-row">
-             
-                <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
+            <div className="top-row">
+                <Button onClick={handleOpen}>Open modal</Button>
                 <div>
                     <Modal
                         open={open}
@@ -434,7 +402,7 @@ function Donation(props) {
                         </Box>
                     </Modal>
                 </div>
-                <h1 className="donation-heading">Food Donation Details</h1>
+                <h1 id="donation-heading1">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
