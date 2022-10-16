@@ -89,3 +89,32 @@ export const listFOODITEMS = /* GraphQL */ `
     }
   }
 `;
+export const getFavouritesTable = /* GraphQL */ `
+  query GetFavouritesTable($id: ID!) {
+    getFavouritesTable(id: $id) {
+      id
+      userID
+      donationID
+    }
+  }
+`;
+export const listFavouritesTables = /* GraphQL */ `
+  query ListFavouritesTables(
+    $filter: TableFavouritesTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFavouritesTables(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        donationID
+      }
+      nextToken
+    }
+  }
+`;

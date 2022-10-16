@@ -17,7 +17,7 @@ import SearchPage from "../Explore/SearchPage";
 
 import IndividualProduct from "../IndividualProduct/IndividualProduct";
 
-function ListPage() {
+function ListPage(props) {
   
   var search;
   var individual_product;
@@ -50,8 +50,16 @@ function ListPage() {
    
       product_images[i].addEventListener("error",defaultImageReplace);
     }
+    let individual_product_modal_image=document.getElementById("display_image");
+    individual_product_modal_image.addEventListener("error",defaultImageReplace);
 
   });
+
+
+  useEffect(() => {
+        
+    document.getElementById("claim_donation_button").addEventListener("click",addToSaved)
+  },[]);
   
 
   function showSearch(){
@@ -61,6 +69,63 @@ function ListPage() {
     exit_button.style.display="flex";
     
   }
+
+  //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
+  const fetchAttributes = async() => {
+    try{
+        const userData = await Auth.currentAuthenticatedUser();
+        const attributesList = userData.attributes;
+        document.getElementById("user_id").innerHTML=attributesList.sub;
+    } catch (error) {
+        console.log('error in fetching user data', error);
+    }
+
+
+};
+
+//The fetch attribute function is called everytime the component is rendered. Retrives user details from Cognito
+useEffect(() => {
+    fetchAttributes();
+  }, []);
+
+  function addToSaved(){
+
+    let donationInformation=getDonationInfo(this.parentElement.parentElement);
+
+    
+    let donationID=donationInformation.donationID;
+    let nfpID=document.getElementById("user_id").innerHTML;
+    
+    console.log(donationID, nfpID);
+    let favouriteRow={
+      donationID:"",
+      userID:""
+    };
+    favouriteRow.donationID=donationID;
+    favouriteRow.userID=nfpID;
+    console.log(favouriteRow);
+      addDonation(favouriteRow);
+    }
+  
+
+
+  // Adds favourite item to database
+
+  async function addDonation(favouriteItem) {
+    console.log(favouriteItem);
+      try {
+          
+          
+          const newFavouriteItem = await API.graphql({query:mutations.createFavouritesTable, variables:{input:favouriteItem}});
+          console.log(newFavouriteItem);
+          console.log("add  favourites worked");
+      } catch (err) {
+          console.log('error: ', err)
+      }
+    
+   
+  }
+  
 
   //Makes individual_product modal visible
   function showIndividualProduct(){
@@ -280,6 +345,7 @@ function ListPage() {
       </div>
   
     </div>
+    <div id="user_id" className="hidden"></div>
     </>
   
   )

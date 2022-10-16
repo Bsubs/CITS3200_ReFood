@@ -112,3 +112,42 @@ export const onDeleteFOODITEM = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFavouritesTable = /* GraphQL */ `
+  subscription OnCreateFavouritesTable(
+    $id: ID
+    $userID: String
+    $donationID: String
+  ) {
+    onCreateFavouritesTable(id: $id, userID: $userID, donationID: $donationID) {
+      id
+      userID
+      donationID
+    }
+  }
+`;
+export const onUpdateFavouritesTable = /* GraphQL */ `
+  subscription OnUpdateFavouritesTable(
+    $id: ID
+    $userID: String
+    $donationID: String
+  ) {
+    onUpdateFavouritesTable(id: $id, userID: $userID, donationID: $donationID) {
+      id
+      userID
+      donationID
+    }
+  }
+`;
+export const onDeleteFavouritesTable = /* GraphQL */ `
+  subscription OnDeleteFavouritesTable(
+    $id: ID
+    $userID: String
+    $donationID: String
+  ) {
+    onDeleteFavouritesTable(id: $id, userID: $userID, donationID: $donationID) {
+      id
+      userID
+      donationID
+    }
+  }
+`;

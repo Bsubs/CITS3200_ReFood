@@ -19,7 +19,7 @@ function Navbar(props) {
     var color_filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)"
     var icon_0_text="Find food"
     var icon_0_link="/listpage"
-    var icon_1_text="Orders"
+    var icon_1_text="Saved"
   }
   else{
     var icon = food;

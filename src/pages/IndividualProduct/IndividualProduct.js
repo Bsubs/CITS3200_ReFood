@@ -70,8 +70,8 @@ export default function IndividualProduct(props) {
                 <img src={MessageIcon}></img>
             </div>
         </div>
-        <div id="claim_donation_button" className="button"> Message Donor</div>
-        <div id="remove_donation_button" className="button" > Remove Donation</div>
+        <div id="claim_donation_button" className="button"> Add to Saved</div>
+        <div id="remove_donation_button" className="button" > Mark as Completed</div>
 
         <div id="individual_hidden" className="hidden">
                 <div className="category"></div>
