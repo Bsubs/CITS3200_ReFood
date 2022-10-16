@@ -11,6 +11,12 @@ import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import config from '../../aws-exports';
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
+import Logo from '../../../src/assets/images/logo.png'
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 
 const {
@@ -65,6 +71,19 @@ function Donation(props) {
     useEffect(() => {
         fetchAttributes();
       }, []);
+
+
+      useEffect(()=>{
+     
+  
+        let individual_product_modal_image=document.getElementById("display_image");
+        individual_product_modal_image.addEventListener("error",defaultImageReplace);
+      });
+
+         //Replace faulty images with ReFood Logo
+    function defaultImageReplace(){
+        this.src=Logo;
+      }
 
     // Selects the category of food in the initial page
     function selectType(event) {
@@ -169,6 +188,23 @@ function Donation(props) {
         }));
     }
 
+    
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
     // Creates a new FOODITEM and adds it to the database
 
     async function addDonation() {
@@ -183,10 +219,21 @@ function Donation(props) {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
                 console.log("add donation worked");
+                handleOpen();
             } catch (err) {
                 console.log('error: ', err)
             }
         }
+
+        else {
+            try {
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                console.log("add donation worked");
+            } catch (err) {
+                console.log('error: ', err)
+            }
+        }
+        
        
       }
       
@@ -278,6 +325,15 @@ function Donation(props) {
         individual_product.querySelector("#display_image").src=edit_donation_modal.src;
         console.log(donatedItem);
 
+        for (var key in donatedItem) {
+            if (donatedItem.hasOwnProperty(key)) {
+              
+                if (donatedItem.key==undefined){
+                    console.log(key);
+                }
+            }
+        }
+
         let productTransportRequirements=donatedItem.transport_reqs;
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
@@ -334,6 +390,27 @@ function Donation(props) {
             <div id="second-donation">
                 <div className="top-row">
              
+                <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Donation Successful
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Press ok to return to the orders page
+                            </Typography>
+                            <Button href="/orders">
+                                Ok
+                            </Button>
+                        </Box>
+                    </Modal>
+                </div>
                 <h1 className="donation-heading">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
