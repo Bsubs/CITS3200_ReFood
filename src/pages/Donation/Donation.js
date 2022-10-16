@@ -11,6 +11,12 @@ import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import config from '../../aws-exports';
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
+import Logo from '../../../src/assets/images/logo.png'
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 
 const {
@@ -65,6 +71,19 @@ function Donation(props) {
     useEffect(() => {
         fetchAttributes();
       }, []);
+
+
+      useEffect(()=>{
+     
+  
+        let individual_product_modal_image=document.getElementById("display_image");
+        individual_product_modal_image.addEventListener("error",defaultImageReplace);
+      });
+
+         //Replace faulty images with ReFood Logo
+    function defaultImageReplace(){
+        this.src=Logo;
+      }
 
     // Selects the category of food in the initial page
     function selectType(event) {
@@ -169,6 +188,23 @@ function Donation(props) {
         }));
     }
 
+    
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
     // Creates a new FOODITEM and adds it to the database
 
     async function addDonation() {
@@ -183,10 +219,22 @@ function Donation(props) {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
                 console.log("add donation worked");
+                handleOpen();
             } catch (err) {
                 console.log('error: ', err)
             }
         }
+
+        else {
+            try {
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                console.log("add donation worked");
+                handleOpen();
+            } catch (err) {
+                console.log('error: ', err)
+            }
+        }
+        
        
       }
       
@@ -270,13 +318,44 @@ function Donation(props) {
     
     function next2(){
        
-        document.getElementById("second-donation").style.display="none";
-        document.getElementById("third-donation").style.display="block";
+        
         let edit_donation_modal=document.getElementById("uploaded_image_0");
         
         let individual_product=document.getElementById("individual_product_page");
         individual_product.querySelector("#display_image").src=edit_donation_modal.src;
         console.log(donatedItem);
+
+
+        let description_labels=document.querySelectorAll(".description-label");
+        console.log(description_labels);
+
+        for (let i=0;i<description_labels.length;i++){
+            if (description_labels[i].classList.contains("uncompleted")){
+                description_labels[i].classList.remove("uncompleted");
+            }
+        }
+        let isCompleted=true;
+        for (var key in donatedItem) {
+            
+            if (donatedItem.hasOwnProperty(key)) {
+            
+                if (donatedItem[key]==undefined|donatedItem[key]==""){
+                    console.log(key);
+                    
+                    for (let i=0;i<description_labels.length;i++){
+                        if (description_labels[i].classList.contains(key)){
+                            description_labels[i].classList.add("uncompleted");
+                            isCompleted=false;
+                        }
+                    }
+                }
+            }
+        }
+        if (isCompleted==false){
+            return
+        }
+        document.getElementById("second-donation").style.display="none";
+        document.getElementById("third-donation").style.display="block";
 
         let productTransportRequirements=donatedItem.transport_reqs;
         if (productTransportRequirements==""){
@@ -334,29 +413,50 @@ function Donation(props) {
             <div id="second-donation">
                 <div className="top-row">
              
+                <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Donation Successful
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Press ok to return to the orders page
+                            </Typography>
+                            <Button href="/orders">
+                                Ok
+                            </Button>
+                        </Box>
+                    </Modal>
+                </div>
                 <h1 className="donation-heading">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
                         <form>
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label"> Food Item(s)</label><br></br>
+                                <label htmlFor="description" className="description-label title"> Food Item(s)</label><br></br>
                                 <input id="title_input_box" type="text" className="description-input" name="text" onChange={handleTitleChange}></input>
                             </div> 
                             
                             
                             <div className="form-row">
-                                <label htmlFor="quantity" className="quantity-label description-label">Quantity/Volume of Food</label><br></br>
+                                <label htmlFor="quantity" className="quantity-label description-label quantity">Quantity/Volume of Food</label><br></br>
                                 <input id="quantity_input_box" type="text" className="description-input" name="text" onChange={handleQuantityChange}></input>
                             </div> 
                             
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Food Description</label><br></br>
+                                <label htmlFor="description" className="description-label description">Food Description</label><br></br>
                                 <textarea id="food-description-input" type="text" className="description-input" name="text" onChange={handleDescriptionChange}></textarea>
                                 
                             </div> 
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
+                                <label htmlFor="description" className="description-label transport_reqs">Transport Requirements</label><br></br>
                                 <textarea id="food-requirements-input" type="text" className="description-input" name="text" onChange={handleTransportChange}></textarea>
                                 
                             </div> 
@@ -381,13 +481,13 @@ function Donation(props) {
                            
                             
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
+                                <label htmlFor="description" className="description-label pickup_location">Pick-up Location</label><br></br>
                                 <input id="pick-up_location_box" type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
                             
 
                             <div id="dates-input">
-                                <label htmlFor="description" className="description-label">Pick-up By:</label><br></br>
+                                <label htmlFor="description" className="description-label pickup_date">Pick-up By:</label><br></br>
                                 <DatePicker
                                     id="pick-up_by_input"
                                     selected={startDate}
@@ -401,7 +501,7 @@ function Donation(props) {
                             </div>
 
                             <div id="pick-up-input">
-                            <label htmlFor="description" className="description-label">Pick-up Times</label><br></br>
+                            <label htmlFor="description" className="description-label start_time end_time">Pick-up Times</label><br></br>
                             <div className="timePicker">
                                 <div>
                                 <text>Start </text>

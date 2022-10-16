@@ -70,8 +70,6 @@ function Orders(props) {
           const allDonations = await API.graphql({query:queries.listFOODITEMS, variables:{filter: filter}});
           const itemList = allDonations.data.listFOODITEMS.items;
           setFoodItems(itemList);
-          console.log("Food items List:");
-          console.log(itemList);
         
           
       } catch (error) {
@@ -100,6 +98,8 @@ function Orders(props) {
           product_images[i].addEventListener("error",defaultImageReplace);
         }
   
+        let individual_product_modal_image=document.getElementById("display_image");
+    individual_product_modal_image.addEventListener("error",defaultImageReplace);
       });
 
       useEffect(() => {

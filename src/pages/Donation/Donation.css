@@ -271,3 +271,10 @@
 #third-donation{
   display: none;
 }
+#open_completed_modal{
+  display: none;
+}
+
+.uncompleted{
+  color: red;
+}
