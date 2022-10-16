@@ -7,7 +7,6 @@ import { a } from 'aws-amplify';
 export function Products(props) {
 
     function simplifyDate(date){
-        console.log(date);
         if (date==null){
             return ("no date entered")
         }

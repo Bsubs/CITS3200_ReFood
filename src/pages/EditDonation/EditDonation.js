@@ -310,7 +310,9 @@ function EditDonation(props) {
             window.alert("Please select a food type");
         }
         let image_placement=document.getElementById("uploaded_image_0");
-        
+        if (image_placement.src!="no_image"){
+            image_placement.classList.add("make_image_visible");
+        }
         
     }
     function back1() {

@@ -130,3 +130,30 @@ export const deleteFOODITEM = /* GraphQL */ `
     }
   }
 `;
+export const createFavouritesTable = /* GraphQL */ `
+  mutation CreateFavouritesTable($input: CreateFavouritesTableInput!) {
+    createFavouritesTable(input: $input) {
+      id
+      userID
+      donationID
+    }
+  }
+`;
+export const updateFavouritesTable = /* GraphQL */ `
+  mutation UpdateFavouritesTable($input: UpdateFavouritesTableInput!) {
+    updateFavouritesTable(input: $input) {
+      id
+      userID
+      donationID
+    }
+  }
+`;
+export const deleteFavouritesTable = /* GraphQL */ `
+  mutation DeleteFavouritesTable($input: DeleteFavouritesTableInput!) {
+    deleteFavouritesTable(input: $input) {
+      id
+      userID
+      donationID
+    }
+  }
+`;
