@@ -1,6 +1,6 @@
-// index.js
-const customCommands = require('./commands.js')
+// // index.js
+// const customCommands = require('./commands.js')
 
-module.exports = {
-  commands: customCommands
-}
+// module.exports = {
+//   commands: customCommands
+// }

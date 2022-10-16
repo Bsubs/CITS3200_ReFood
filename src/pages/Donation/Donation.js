@@ -124,7 +124,6 @@ function Donation(props) {
             ...donatedItem,
             ['description']: e.target.value
         }));
-        console.log(donatedItem);
     }
     
     // Updates Address Field upon user input
@@ -197,7 +196,6 @@ function Donation(props) {
         if (file) {
             const { type: mimeType } = file
             try {
-                
                 await Storage.put(key, file, {
                 contentType: mimeType
                 })
@@ -208,26 +206,17 @@ function Donation(props) {
                 console.log('error: ', err)
             }
         }
-       
-      }
-      
-
-         // Creates a new FOODITEM and adds it to the database
-    /**async function addDonation() {
-      
+        else {
             try {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
                 console.log(newFoodItem);
                 console.log("add donation worked");
             } catch (err) {
                 console.log('error: ', err)
-            
+            }
         }
-       
-      }
-      */
-    
-
+        handleOpen();
+    }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
@@ -278,13 +267,13 @@ function Donation(props) {
             window.alert("Please select a food type");
         }
     }
+
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
     function next2(){
-       
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
         let edit_donation_modal=document.getElementById("uploaded_image_0");
@@ -297,9 +286,7 @@ function Donation(props) {
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
-    
-    
-      
+
         individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
         individual_product.querySelector("#individual_product_quantity").innerHTML=donatedItem.quantity;
         individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
@@ -309,8 +296,7 @@ function Donation(props) {
         individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
         individual_product.querySelector("#individual_product_seller_name").innerHTML=donatedItem.donorName;
         individual_product.querySelector("#individual_product_seller_number").innerHTML=donatedItem.donorPhone;
-        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;
-      
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;    
     }
 
     function back2(){
