@@ -75,21 +75,23 @@ function Orders(props) {
     fetchDonations();
   }, [props.userInfo]);
 
-  useEffect(()=>{
-    
-      exit_button=document.getElementById("exit_modal");
-      edit_donation_modal=document.getElementById("edit_donation_modal");
-      orders_list=document.getElementById("orders_list");
+    useEffect(()=>{
+     
+        exit_button=document.getElementById("exit_modal");
+        edit_donation_modal=document.getElementById("edit_donation_modal");
+        orders_list=document.getElementById("orders_list");
+        
+  
       
-
-    
-      exit_button.addEventListener("click",hideModals);
-      let product_images=document.getElementsByClassName("productImage");
-      for (let i=0;i<product_images.length;i++){
-        product_images[i].addEventListener("error",defaultImageReplace);
-      }
-
-    });
+        exit_button.addEventListener("click",hideModals);
+        let product_images=document.getElementsByClassName("productImage");
+        for (let i=0;i<product_images.length;i++){
+          product_images[i].addEventListener("error",defaultImageReplace);
+        }
+  
+        let individual_product_modal_image=document.getElementById("display_image");
+    individual_product_modal_image.addEventListener("error",defaultImageReplace);
+      });
 
     useEffect(() => {
       
