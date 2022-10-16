@@ -14,10 +14,8 @@ describe('Donation:', function() {
   describe('Donation:', () => {
       it('allows a donor to donate food', () => {
           cy.visit('/donate');
-          //cy.get('[id^=donation-heading1').should('contain', 'What kind of food do you want to donate?');
           cy.get('ul li').contains('Frozen').click();
           cy.get('button').contains('Next').click();
-          //cy.get('[id^=donation-heading1').should('contain', 'Food Donation Details');
           cy.contains('Food Item(s)').parent('div').within(() =>{
             cy.get('input').type('Steaks')
           });
@@ -56,61 +54,75 @@ describe('Donation:', function() {
       });
   });
 
-    describe('View Donation:', () => {
-      it('allows a donor to view their donations', () => {
-          cy.visit('/orders');
-          cy.get('[id^=in_progress_orders_header').should('contain', 'In Progress');
-          cy.contains('Steaks').parent('div').within(() =>{
-            cy.get('[class^=productName]').should('contain', 'Steaks');
-            cy.get('[class^=productDescription]').should('contain', 'Fresh Ribeye Steak');
-            cy.get('[class^=bottom_info]').click();
-          });
+  describe('View Donation:', () => {
+    it('allows a donor to view their donations', () => {
+        cy.visit('/orders');
+        cy.get('[id^=in_progress_orders_header').should('contain', 'In Progress');
+        cy.contains('Steaks').parent('div').within(() =>{
           cy.get('[class^=productName]').should('contain', 'Steaks');
           cy.get('[class^=productDescription]').should('contain', 'Fresh Ribeye Steak');
-          cy.get('[id^=individual_product_pickupby]').should('contain', '2022-10-13');
-          cy.get('[id^=individual_product_transport_requirements]').should('contain', 'No additional requirements');
-      });
-
-      it('allows a donor edit their donations', () => {
-        cy.visit('/orders');
-        cy.get('[class^=product_content]').within(() => {
-          cy.contains('Steaks').click();
-        })
-        cy.scrollTo('bottom');
-        cy.wait(300);
-        cy.contains('Edit Donation').click();
-        cy.get('ul li').contains('Eggs').click();
-        cy.get('button').contains('Next').click();
-        cy.contains('Food Item(s)').parent('div').within(() =>{
-          cy.get('input').clear().type('Fresh Eggs')
+          cy.get('[class^=bottom_info]').click();
         });
-        cy.contains('Quantity/Volume of Food').parent('div').within(() =>{
-          cy.get('input').clear().type('Half a dozen eggs')
-        });
-        cy.contains('Food Description').parent('div').within(() =>{
-          cy.get('textarea').clear().type('Uncooked eggs')
-        });
-        cy.contains('Transport Requirements').parent('div').within(() =>{
-          cy.get('textarea').clear().type('Bring a box')
-        });
-        cy.scrollTo('bottom')
-        cy.wait(300);
-        cy.get('[id^=pick-up_by_input]').click({force:true})
-        cy.contains('14').click();
-        cy.contains('Start').parent('div').within(() =>{
-          cy.get('div:first').click()
-          cy.get('ul').contains('11:00').click()
-        });
-        cy.contains('End').parent('div').within(() =>{
-          cy.get('div:first').click()
-          cy.get('ul').contains('11:45').click()
-        });
-        cy.contains('Preview').click();
-        cy.contains('Submit').click();
-        cy.wait(5000);
-        cy.visit('/orders');
+        cy.get('[class^=productName]').should('contain', 'Steaks');
+        cy.get('[class^=productDescription]').should('contain', 'Fresh Ribeye Steak');
+        cy.get('[id^=individual_product_pickupby]').should('contain', '2022-10-13');
+        cy.get('[id^=individual_product_transport_requirements]').should('contain', 'No additional requirements');
     });
 
+    it('allows a donor edit their donations', () => {
+      cy.visit('/orders');
+      cy.get('[class^=product_content]').within(() => {
+        cy.contains('Steaks').click();
+      })
+      cy.scrollTo('bottom');
+      cy.wait(300);
+      cy.contains('Edit Donation').click();
+      cy.get('ul li').contains('Eggs').click();
+      cy.get('button').contains('Next').click();
+      cy.contains('Food Item(s)').parent('div').within(() =>{
+        cy.get('input').clear().type('Fresh Eggs')
+      });
+      cy.contains('Quantity/Volume of Food').parent('div').within(() =>{
+        cy.get('input').clear().type('Half a dozen eggs')
+      });
+      cy.contains('Food Description').parent('div').within(() =>{
+        cy.get('textarea').clear().type('Uncooked eggs')
+      });
+      cy.contains('Transport Requirements').parent('div').within(() =>{
+        cy.get('textarea').clear().type('Bring a box')
+      });
+      cy.scrollTo('bottom')
+      cy.wait(300);
+      cy.get('[id^=pick-up_by_input]').click({force:true})
+      cy.contains('14').click();
+      cy.contains('Start').parent('div').within(() =>{
+        cy.get('div:first').click()
+        cy.get('ul').contains('11:00').click()
+      });
+      cy.contains('End').parent('div').within(() =>{
+        cy.get('div:first').click()
+        cy.get('ul').contains('11:45').click()
+      });
+      cy.contains('Preview').click();
+      cy.contains('Submit').click();
+      cy.wait(5000);
+      cy.visit('/orders');
   });
+
+  it('allows a donor mark their donations as complete', () => {
+    cy.visit('/orders');
+    cy.get('[class^=product_content]').within(() => {
+      cy.contains('Steaks').click();
+    })
+    cy.scrollTo('bottom');
+    cy.wait(300);
+    cy.contains('Mark as Completed').click();
+    cy.visit('/orders');
+    cy.get('[id^=pick-up_by_input]').within(() => {
+      cy.contains('Steaks');
+    });
+});
+
+});
 
 });

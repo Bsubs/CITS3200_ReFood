@@ -23,7 +23,7 @@ describe('Authenticator:', function() {
           cy.get('[placeholder="Password"]').type('Cits3200@');
           cy.get('button').contains('Sign in').click();
           cy.wait(5000);
-          cy.url().should('include', '/explore')
+          cy.url().should('include', '/listpage')
           cy.get('a[href*="inbox"]').click();
           cy.get('button').contains('Sign out').click();
       });
