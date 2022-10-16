@@ -12,6 +12,7 @@ import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
 import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
+import Favourites from "./pages/Favourites/Favourites"
 
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
@@ -71,7 +72,7 @@ function App({ signOut, user }) {
     case "/":
       return <ConsentForm isNFP={isNFP}/>
     case "/explore":
-      component = <Explore />
+      component = <Explore userInfo={attributes}/>
       var showNav = "True";
       break
     case "/profilesettings":
@@ -83,7 +84,13 @@ function App({ signOut, user }) {
       var showNav = "True";
       break
     case "/orders":
-      component = <Orders isNFP={isNFP}/>
+      if (isNFP=="False"){
+        component = <Orders isNFP={isNFP} userInfo={attributes}/>
+      }
+      
+      else{
+        component = <Favourites isNFP={isNFP} userInfo={attributes}/>
+      }
       var showNav = "True";
       break
     case "/consentform":
@@ -99,7 +106,7 @@ function App({ signOut, user }) {
       var showNav = "False";
       break
     case "/listpage":
-      component = <ListPage />
+      component = <ListPage userInfo={attributes}/>
       var showNav= "True";
       break
 

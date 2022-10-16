@@ -1,4 +1,4 @@
-#orders_page{
+#favourites_page{
     background-color: lightgrey;
     min-height: 100vh;
 }
@@ -40,26 +40,26 @@
 }
 
 #orders_list .order_type
-#orders_page .image_box{
+#favourites_page .image_box{
     height: 10vh;
     min-width: 10vh;
 }
 
-#orders_page .productDescription{
+#favourites_page .productDescription{
     display: none;
 }
 
-#orders_page .productName{
+#favourites_page .productName{
     padding-top:0;
  
 }
 
-#orders_page #individual_product_modal{
+#favourites_page #individual_product_modal{
     display: none;
     background-color: white;
 }
 
-#orders_page #exit_modal{
+#favourites_page #exit_modal{
     display: none;
     align-items: center;
     justify-content: center;

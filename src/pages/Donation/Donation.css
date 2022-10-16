@@ -23,7 +23,7 @@
   margin-bottom: 10vh;
 
 }
-#donation-heading1 {
+.donation-heading {
 
   color: rgb(255, 255, 255);
   text-align: center;
@@ -142,6 +142,9 @@
   background-color: grey;
 }
 
+#donation_page #donation_preview_modal{
+  display: none;
+}
 
 
 #donation_page input{
@@ -178,6 +181,7 @@
   font-size: 1.8vh;
   
 }
+
 
 #food-description-input{
   max-width: 100%;
@@ -262,4 +266,8 @@
 
 #dates-input{
   margin-bottom: 1rem;
+}
+
+#third-donation{
+  display: none;
 }

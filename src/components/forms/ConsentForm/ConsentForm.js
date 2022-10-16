@@ -5,7 +5,7 @@ function ConsentForm(props) {
 
 
   if (props.isNFP=="True"){
-    var accept_terms_link="/explore"
+    var accept_terms_link="/listpage"
   }
   else{
     var accept_terms_link="/profile"

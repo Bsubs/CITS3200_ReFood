@@ -3,7 +3,7 @@ import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation, Storage } 
 import { type } from '@testing-library/user-event/dist/type';
 import { v4 as uuid } from 'uuid'
 import cancel from "../../assets/icons/PNG/close.png"
-import './Donation.css';
+import './EditDonation.css';
 import '../../App.css';
 import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
@@ -18,7 +18,8 @@ const {
     aws_user_files_s3_bucket: bucket
   } = config
 
-function Donation(props) {
+function EditDonation(props) {
+   
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
@@ -28,8 +29,9 @@ function Donation(props) {
     const [startTime, setStartTime] = useState(null);
     const [endTime, setStartTime1] = useState(null);
 
-    // The donatedItem object that stores the information which will be posted to the database
-    const [donatedItem, setDonatedItem] = useState({
+    // The editedDonatedItem object that stores the information which will be posted to the database
+    const [editedDonatedItem, setDonatedItem] = useState({
+        id: "",
         title: "",
         pickup_date:startDate,
         category:"",
@@ -47,6 +49,26 @@ function Donation(props) {
         donorPhone:""
         
     });
+
+    const editedDonatedItem1={
+        id: "",
+        title: "",
+        pickup_date:startDate,
+        category:"",
+        transport_reqs:"",
+        nfpID:"",
+        pickup_location:"",
+        quantity:"",
+        description:"",
+        picture:"",
+        donorPhone:"",
+        isCompleted:false,
+        start_time:startTime,
+        end_time:endTime,
+    }
+
+
+   
 
     //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
     const fetchAttributes = async() => {
@@ -80,7 +102,7 @@ function Donation(props) {
          
             // Updates the donated Item object with the selected parameters 
             setDonatedItem (() => ({
-                ...donatedItem,
+                ...editedDonatedItem,
                 ['category']: event.target.innerHTML,
                 ['donorID']: attributes['sub'],
                 ['pickup_location']: attributes['custom:address'],
@@ -100,63 +122,91 @@ function Donation(props) {
     // Updates Title Field upon user input
     function handleTitleChange(e) {
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['title']: e.target.value
         }));
-   
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".title").innerHTML=e.target.value;
+        //updateDonationInfo.querySelector(".title")=e.target.value;
+       
     }
 
      // Updates Quantity Field upon user input
     function handleQuantityChange(e) {
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['quantity']: e.target.value
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".quantity").innerHTML=e.target.value;
     }
 
     // Updates Description Field upon user input
     function handleDescriptionChange(e) {
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['description']: e.target.value
         }));
-        console.log(donatedItem);
+    
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".description").innerHTML=e.target.value;
     }
     
     // Updates Address Field upon user input
     function handleAddressChange(e) {
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['pickup_location']: e.target.value
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".pickup_location").innerHTML=e.target.value;
     }
 
     // Updates Transport Requirements Field upon user input
     function handleTransportChange(e) {
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['transport_reqs']: e.target.value
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".transport_reqs").innerHTML=e.target.value;
     }
 
     // Updates the pick-up by date upon user input
     function handleDateChange(e) {
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['pickup_date']: e.toISOString().substring(0, 10)
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".pickup_date").innerHTML=e.toISOString().substring(0, 10);
     }
 
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-        console.log(e.toISOString());
+      
         
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['start_time']: e.toISOString()
             
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".start_time").innerHTML=e.toISOString();
     }
 
     // Updates the end time upon user input
@@ -164,49 +214,42 @@ function Donation(props) {
         setStartTime1(e)
    
         setDonatedItem (() => ({
-            ...donatedItem,
+            ...editedDonatedItem,
             ['end_time']: e.toISOString()
         }));
+
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".end_time").innerHTML=e.toISOString();
     }
 
-    // Creates a new FOODITEM and adds it to the database
 
-    async function addDonation() {
-       
+     async function editDonation(){
+        
         if (file) {
             const { type: mimeType } = file
             try {
-                
+            
                 await Storage.put(key, file, {
-                contentType: mimeType
-                })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
-                console.log("add donation worked");
+                    contentType: mimeType
+                    })
+                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem1}});
+                console.log("edit donation worked");
             } catch (err) {
                 console.log('error: ', err)
             }
         }
-       
-      }
-      
-
-         // Creates a new FOODITEM and adds it to the database
-    /**async function addDonation() {
-      
+        else {
             try {
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
-                console.log("add donation worked");
+                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem1}});
+                console.log("edit donation worked");
             } catch (err) {
                 console.log('error: ', err)
-            
+            }
         }
-       
-      }
-      */
-    
-
+        
+        //window.location="/orders";
+     }
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
@@ -216,36 +259,40 @@ function Donation(props) {
 
     function handleChange(event) {
         if (num_images==1){
-             return
-         }
-        //Saves image details in preparation for upload to AWS S3
+            return
+        }
+       //Saves image details in preparation for upload to AWS S3
+    
+    
+       const { target: { value, files } } = event
+       const fileForUpload = files[0]
+       updateFile(fileForUpload || value)
+
+       const extension = fileForUpload.name.split(".")[1]
+       const { type: mimeType } = fileForUpload
+       const key1 = `images/${uuid()}.${extension}`      
+       const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
+
+       setKey(key1);
+       setURL(url1);
+
+      
      
-     
-        const { target: { value, files } } = event
-        const fileForUpload = files[0]
-        updateFile(fileForUpload || value)
-
-        const extension = fileForUpload.name.split(".")[1]
-        const { type: mimeType } = fileForUpload
-        const key1 = `images/${uuid()}.${extension}`      
-        const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
-
-        setKey(key1);
-        setURL(url1);
-
-       
-        setDonatedItem (() => ({
-            ...donatedItem,
-            ['picture']:url1
-        }));
-        console.log(donatedItem);
+        
 
 
+        let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
+
+        hiddenDonationInfo.querySelector(".picture").innerHTML=url1;
         //Makes image preview visible
         let image_placement=document.getElementById("uploaded_image_"+num_images);
         image_placement.src= URL.createObjectURL(event.target.files[0]);
         image_placement.classList.add("make_image_visible");
         num_images=num_images+1;
+    }
+
+    function makeImagePreviewVisible(){
+        
     }
 
   
@@ -262,41 +309,136 @@ function Donation(props) {
         else {
             window.alert("Please select a food type");
         }
+        let image_placement=document.getElementById("uploaded_image_0");
+        if (image_placement.src!="no_image"){
+            image_placement.classList.add("make_image_visible");
+        }
+        
     }
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
+
+    //Shows donation preview
     function next2(){
-       
+        updateDonatedItemAttributes();
+        console.log(editedDonatedItem1);
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
-        let edit_donation_modal=document.getElementById("uploaded_image_0");
-        
-        let individual_product=document.getElementById("individual_product_page");
-        individual_product.querySelector("#display_image").src=edit_donation_modal.src;
-        console.log(donatedItem);
-
-        let productTransportRequirements=donatedItem.transport_reqs;
+        let individual_product=document.getElementById("edit_donation_modal").querySelector("#individual_product_page");
+        let productTransportRequirements=editedDonatedItem1.transport_reqs;
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
-    
-    
-      
-        individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
-        individual_product.querySelector("#individual_product_quantity").innerHTML=donatedItem.quantity;
-        individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
-        individual_product.querySelector("#individual_product_location").innerHTML=donatedItem.pickup_location;
-        individual_product.querySelector("#individual_product_pickupby").innerHTML=donatedItem.pickup_date;
-        individual_product.querySelector("#individual_product_pickuptime").innerHTML=donatedItem.start_time+"-"+donatedItem.end_time;
+
+        //Updating Individual Product Modal for preview
+        individual_product.querySelector("#display_image").src=document.getElementById("edit_donation_modal").querySelector("#uploaded_image_0").src;
+        individual_product.querySelector("#individual_product_title").innerHTML=editedDonatedItem1.title;
+        individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem1.description;
+        individual_product.querySelector("#individual_product_location").innerHTML=editedDonatedItem1.pickup_location;
+        individual_product.querySelector("#individual_product_pickupby").innerHTML=editedDonatedItem1.pickup_date;
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=editedDonatedItem1.start_time+"-"+editedDonatedItem1.end_time;
         individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
-        individual_product.querySelector("#individual_product_seller_name").innerHTML=donatedItem.donorName;
-        individual_product.querySelector("#individual_product_seller_number").innerHTML=donatedItem.donorPhone;
-        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;
-      
+        individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem1.donorName;
+        individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem1.donorPhone;
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+editedDonatedItem1.donorPhone;
+
+        //Remove donation Button
+        individual_product.querySelector("#remove_donation_button").style.display="none";
     }
+
+    function getDonationInfo(info_containing_module){
+        let currentInfoSkimmer=info_containing_module.querySelector(".hidden");
+  
+        
+        const donationInfo={
+          category:currentInfoSkimmer.querySelector(".category").innerHTML,
+          completionDate:currentInfoSkimmer.querySelector(".completionDate").innerHTML,
+          createdAt:currentInfoSkimmer.querySelector(".createdAt").innerHTML,
+          description:currentInfoSkimmer.querySelector(".description").innerHTML,
+          donorID:currentInfoSkimmer.querySelector(".donorID").innerHTML,
+          donorName:currentInfoSkimmer.querySelector(".donorName").innerHTML,
+          donorPhone:currentInfoSkimmer.querySelector(".donorPhone").innerHTML,
+          end_time:currentInfoSkimmer.querySelector(".end_time").innerHTML,
+          donationID:currentInfoSkimmer.querySelector(".donationID").innerHTML,
+          isCompleted:currentInfoSkimmer.querySelector(".isCompleted").innerHTML,
+          nfpID:currentInfoSkimmer.querySelector(".nfpID").innerHTML,
+          pickup_date:currentInfoSkimmer.querySelector(".pickup_date").innerHTML,
+          pickup_location:currentInfoSkimmer.querySelector(".pickup_location").innerHTML,
+          picture:currentInfoSkimmer.querySelector(".picture").innerHTML,
+  
+          
+          
+          quantity:currentInfoSkimmer.querySelector(".quantity").innerHTML,
+          start_time:currentInfoSkimmer.querySelector(".start_time").innerHTML,
+          
+          title:currentInfoSkimmer.querySelector(".title").innerHTML,
+          transport_reqs:currentInfoSkimmer.querySelector(".transport_reqs").innerHTML,
+          updatedAt:currentInfoSkimmer.querySelector(".updatedAt").innerHTML,
+          deleted:currentInfoSkimmer.querySelector("._deleted").innerHTML,
+          _lastChangedAt:currentInfoSkimmer.querySelector("._lastChangedAt").innerHTML,
+          //_version:currentInfoSkimmer.querySelector("._version").innerHTML
+        }
+        
+        return donationInfo;
+      }
+  
+
+    function updateDonatedItemAttributes(){
+        let editedDonationInfo=getDonationInfo(document.getElementById("edit_donation_hidden"));
+
+        let edit_donation_modal=document.getElementById("edit_donation_modal");
+       
+
+
+
+        let food_categories=edit_donation_modal.querySelectorAll(".food_category");
+        let currently_selected_category;
+        for (let i=0; i<food_categories.length;i++){
+          if (food_categories[i].classList.contains("selected")){
+            currently_selected_category=food_categories[i].innerHTML;
+           
+          }
+        }
+
+
+        
+        editedDonatedItem1.category=currently_selected_category;
+        //editedDonatedItem1.completionDate=editedDonationInfo.completionDate;
+        editedDonatedItem1.id=editedDonationInfo.donationID;
+
+        //editedDonatedItem._version=individual_product.querySelector("._version").innerHTML;
+        editedDonatedItem1.title=editedDonationInfo.title;
+
+        
+        let dateParts=edit_donation_modal.querySelector("#pick-up_by_input").value.split("/");
+        
+        let myDate= new Date("20"+dateParts[2],dateParts[1],dateParts[0]);
+        editedDonatedItem1.pickup_date=myDate.toISOString().substring(0,10);
+
+        
+        
+  
+        editedDonatedItem1.transport_reqs=editedDonationInfo.transport_reqs;
+        //editedDonatedItem1.donorID=props.userInfo.donorID;
+
+
+        //editedDonatedItem1.nfpID="";
+        editedDonatedItem1.pickup_location=editedDonationInfo.pickup_location;
+
+        editedDonatedItem1.quantity=editedDonationInfo.quantity;
+
+        editedDonatedItem1.description=editedDonationInfo.description;
+        editedDonatedItem1.picture=editedDonationInfo.picture;
+        editedDonatedItem1.isCompleted=editedDonationInfo.isCompleted;
+        editedDonatedItem1.start_time=editedDonationInfo.start_time;
+        editedDonatedItem1.end_time=editedDonationInfo.end_time;
+        editedDonatedItem1.donorName=editedDonationInfo.donorName;
+        editedDonatedItem1.donorPhone=editedDonationInfo.donorPhone;
+   
+      }
 
     function back2(){
         document.getElementById("second-donation").style.display="block";
@@ -334,7 +476,7 @@ function Donation(props) {
             <div id="second-donation">
                 <div className="top-row">
              
-                <h1 className="donation-heading">Food Donation Details</h1>
+                <h1 className="donation-heading">Edit Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
@@ -453,14 +595,41 @@ function Donation(props) {
                 </div>
                 <div className="bottom-row">
                     <label className="back-button" onClick={back2}>Back</label>
-                    <button className="next-button" onClick={addDonation} >Submit</button>
+                    <button className="next-button selected" onClick={editDonation} >Submit</button>
                 </div>
 
             </div>
+
+        <div id="edit_donation_hidden">
+            <div className="hidden">
+                <div className="category"></div>
+                <div className="completionDate"></div>
+                <div className="createdAt"></div>
+                <div className="description"></div>
+                <div className="donorID"></div>
+                <div className="donorName"></div>
+                <div className="donorPhone"></div>
+                <div className="end_time"></div>
+                <div className="donationID"></div>
+                <div className="isCompleted"></div>
+                <div className="nfpID"></div>
+                <div className="pickup_date"></div>
+                <div className="pickup_location"></div>
+                <div className="picture"></div>
+                <div className="quantity"></div>
+                <div className="start_time"></div>
+                <div className="title"></div>
+                <div className="transport_reqs"></div>
+                <div className="updatedAt"></div>
+                <div className="_deleted"></div>
+                <div className="_lastChangedAt"></div>
+               
+        </div>
+        </div>
         </div>
 
        
     );
 }
 
-export default Donation;
+export default EditDonation;
