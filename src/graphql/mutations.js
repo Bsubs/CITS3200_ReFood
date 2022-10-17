@@ -13,6 +13,9 @@ export const createMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -28,6 +31,9 @@ export const updateMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -43,6 +49,9 @@ export const deleteMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -71,6 +80,9 @@ export const createFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -99,6 +111,9 @@ export const updateFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -127,33 +142,9 @@ export const deleteFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createFavouritesTable = /* GraphQL */ `
-  mutation CreateFavouritesTable($input: CreateFavouritesTableInput!) {
-    createFavouritesTable(input: $input) {
-      id
-      userID
-      donationID
-    }
-  }
-`;
-export const updateFavouritesTable = /* GraphQL */ `
-  mutation UpdateFavouritesTable($input: UpdateFavouritesTableInput!) {
-    updateFavouritesTable(input: $input) {
-      id
-      userID
-      donationID
-    }
-  }
-`;
-export const deleteFavouritesTable = /* GraphQL */ `
-  mutation DeleteFavouritesTable($input: DeleteFavouritesTableInput!) {
-    deleteFavouritesTable(input: $input) {
-      id
-      userID
-      donationID
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

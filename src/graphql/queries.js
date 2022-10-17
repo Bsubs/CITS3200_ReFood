@@ -10,6 +10,9 @@ export const getMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -27,8 +30,41 @@ export const listMessages = /* GraphQL */ `
         body
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncMessages = /* GraphQL */ `
+  query SyncMessages(
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMessages(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        channelID
+        author
+        body
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -54,6 +90,9 @@ export const getFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -84,37 +123,54 @@ export const listFOODITEMS = /* GraphQL */ `
         donorPhone
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
-export const getFavouritesTable = /* GraphQL */ `
-  query GetFavouritesTable($id: ID!) {
-    getFavouritesTable(id: $id) {
-      id
-      userID
-      donationID
-    }
-  }
-`;
-export const listFavouritesTables = /* GraphQL */ `
-  query ListFavouritesTables(
-    $filter: TableFavouritesTableFilterInput
+export const syncFOODITEMS = /* GraphQL */ `
+  query SyncFOODITEMS(
+    $filter: ModelFOODITEMFilterInput
     $limit: Int
     $nextToken: String
+    $lastSync: AWSTimestamp
   ) {
-    listFavouritesTables(
+    syncFOODITEMS(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
+      lastSync: $lastSync
     ) {
       items {
         id
-        userID
-        donationID
+        title
+        pickup_date
+        category
+        transport_reqs
+        picture
+        donorID
+        nfpID
+        pickup_location
+        quantity
+        description
+        isCompleted
+        completionDate
+        start_time
+        end_time
+        donorName
+        donorPhone
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;

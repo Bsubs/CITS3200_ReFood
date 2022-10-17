@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Inbox.css";
 import Dialog from './Dialog';
-import { arrayToDict, dialogDataV2 } from './content';
+import { arrayToDict, dialogDataV2 } from './content.js';
 
 import InboxItem from '../../components/inbox/InboxItem';
 import GroupTitle from '../../components/inbox/GroupTitle';
