@@ -1,6 +1,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateFavouritesTable = /* GraphQL */ `
+  subscription OnCreateFavouritesTable {
+    onCreateFavouritesTable {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateFavouritesTable = /* GraphQL */ `
+  subscription OnUpdateFavouritesTable {
+    onUpdateFavouritesTable {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteFavouritesTable = /* GraphQL */ `
+  subscription OnDeleteFavouritesTable {
+    onDeleteFavouritesTable {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateMessage = /* GraphQL */ `
   subscription OnCreateMessage {
     onCreateMessage {
@@ -10,9 +43,6 @@ export const onCreateMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -25,9 +55,6 @@ export const onUpdateMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -40,9 +67,6 @@ export const onDeleteMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -64,11 +88,10 @@ export const onCreateFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -90,11 +113,10 @@ export const onUpdateFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -116,11 +138,10 @@ export const onDeleteFOODITEM = /* GraphQL */ `
       completionDate
       start_time
       end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

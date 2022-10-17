@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'; //, { useState } 
 import './ConsentForm.css';
 
+//This page is the first that appears to users upon visiting the web application. 
 function ConsentForm(props) {
 
 
   if (props.isNFP=="True"){
-    var accept_terms_link="/explore"
+    var accept_terms_link="/listpage"
   }
   else{
     var accept_terms_link="/profile"

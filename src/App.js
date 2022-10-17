@@ -3,25 +3,28 @@ import Navbar from './components/layout/Navbar';
 import './App.css';
 //import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Explore from "./pages/Explore/Explore"
-import Inbox from "./pages/Inbox"
+import Inbox from "./pages/inbox/Inbox"
 import Orders from "./pages/Orders/Orders"
 import Profile from "./pages/Profile/Profile"
+
 import Home from "./pages/Home"
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
+
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
 import ProfileSettings from "./pages/Profile/ProfileSettings/ProfileSettings"
 import IndividualProduct from "./pages/IndividualProduct/IndividualProduct"
+import Favourites from "./pages/Favourites/Favourites"
 
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
 import awsExports from './aws-exports';
 // Authentication Module
-import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
+import { Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 //DO NOT import anything below this line 
 Amplify.configure(awsExports);
@@ -88,46 +91,52 @@ function App({ signOut, user }) {
     case "/":
       return <ConsentForm isNFP={isNFP}/>
     case "/explore":
-      component = <Explore />
+      component = <Explore userInfo={attributes}/>
       var showNav = "True";
       break
     case "/profilesettings":
       component = <ProfileSettings />
-      var showNav = "True";
+      showNav = "True";
       break
     case "/inbox":
       component = <Inbox />
-      var showNav = "True";
+      showNav = "True";
       break
     case "/orders":
-      component = <Orders isNFP={isNFP}/>
+      if (isNFP=="False"){
+        component = <Orders isNFP={isNFP} userInfo={attributes}/>
+      }
+      
+      else{
+        component = <Favourites isNFP={isNFP} userInfo={attributes}/>
+      }
       var showNav = "True";
       break
     case "/consentform":
       component = <ConsentForm isNFP={isNFP}/>
-      var showNav = "True";
+      showNav = "True";
       break
     case "/profile":
       component = <Profile />
-      var showNav = "True";
+      showNav = "True";
       break
     case "/donation":
       component = <Donation />
-      var showNav = "False";
+      showNav = "False";
       break
     case "/listpage":
-      component = <ListPage />
+      component = <ListPage userInfo={attributes}/>
       var showNav= "True";
       break
 
     case "/individualproduct":
       component=<IndividualProduct />
-      var showNav="True";
+      showNav="True";
       break
    
     default:
       component = <Donation/>
-      var showNav = "False";
+      showNav = "False";
 
   }
   return (
@@ -180,7 +189,7 @@ function App({ signOut, user }) {
   >
     {({ signOut, user }) => (
       <div className="App">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, autoRotate:disabled"></meta>
       <header className="App-header">
         <>
       {component}
@@ -188,7 +197,7 @@ function App({ signOut, user }) {
       <Navbar isNFP={isNFP}/> }
       </>
       </header>
-      <button id="signOut" onClick={signOut}>Sign out</button>
+      
     </div>
     )}
   </Authenticator>

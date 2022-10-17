@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation, Storage } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
-import cancel from "../../assets/icons/PNG/close.png"
-import './Donation.css';
-import '../../App.css';
-import Camera from '../../assets/icons/PNG/camera.png'
+import { v4 as uuid } from 'uuid'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
-import config from '../../aws-exports'
-import { v4 as uuid } from 'uuid'
+
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
   } from "react-places-autocomplete";
+
+import config from '../../aws-exports';
+
+//Image/icon Imports
+import IndividualProduct from '../IndividualProduct/IndividualProduct';
+import Logo from '../../../src/assets/images/logo.png'
+import Camera from '../../assets/icons/PNG/camera.png'
+import cancel from "../../assets/icons/PNG/close.png"
+
+//Style sheet Imports
+import './Donation.css';
+import '../../App.css';
+
+//Pop-up modal imports
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -81,6 +97,19 @@ function Donation(props) {
         fetchAttributes();
       }, []);
 
+
+      useEffect(()=>{
+     
+  
+        let individual_product_modal_image=document.getElementById("display_image");
+        individual_product_modal_image.addEventListener("error",defaultImageReplace);
+      });
+
+         //Replace faulty images with ReFood Logo
+    function defaultImageReplace(){
+        this.src=Logo;
+      }
+
     // Selects the category of food in the initial page
     function selectType(event) {
         var next_buttons=document.getElementsByClassName("next-button");
@@ -118,6 +147,7 @@ function Donation(props) {
             ...donatedItem,
             ['title']: e.target.value
         }));
+   
     }
 
      // Updates Quantity Field upon user input
@@ -163,11 +193,10 @@ function Donation(props) {
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-        console.log(e.toISOString());
         
         setDonatedItem (() => ({
             ...donatedItem,
-            ['start_time']: e.toISOString().substring(11, 23)
+            ['start_time']: e.toISOString()
             
         }));
     }
@@ -178,21 +207,32 @@ function Donation(props) {
    
         setDonatedItem (() => ({
             ...donatedItem,
-            ['end_time']: e.toISOString().substring(11, 23)
+            ['end_time']: e.toISOString()
         }));
     }
 
-    // function updateDonatedItem(url) {
-    //     setDonatedItem (() => ({
-    //         ...donatedItem,
-    //         ['picture']:url
-    //     }));
-    //     console.log(donatedItem);
-    // }
+    
+    //Used for pop-up modal
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
     // Creates a new FOODITEM and adds it to the database
-    /**async function addDonation() {
-        console.log("add donation worked");
+
+    async function addDonation() {
+        //If image uploaded, upload image with donation
         if (file) {
             const { type: mimeType } = file
             try {
@@ -201,36 +241,43 @@ function Donation(props) {
                 contentType: mimeType
                 })
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
+                handleOpen();
             } catch (err) {
                 console.log('error: ', err)
             }
         }
-      }
-      **/
-     async function addDonation(){
-        try {
-            const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-            console.log(newFoodItem);
-        } catch (err) {
-            console.log('error: ', err)
-        }
-     }
 
+        //In the case where no image is uploaded
+        else {
+            try {
+                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
+                handleOpen();
+            } catch (err) {
+                console.log('error: ', err)
+            }
+        }
+        
+       
+      }
+      
+
+    //Used for managing image upload
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
     const [key, setKey] = useState(null);
     const [url, setURL] = useState(null);
-    let num_images=0;
+
+    //can only upload one image in a given donation
+    let num_images=0; 
 
     function handleChange(event) {
-        // if (num_images==1){
-        //     return
-        // }
+        if (num_images==1){
+             return
+         }
         //Saves image details in preparation for upload to AWS S3
-        
-        /*TEMP COMMENT: AVOID IMAGE UPLOAD
-        *const { target: { value, files } } = event
+     
+     
+        const { target: { value, files } } = event
         const fileForUpload = files[0]
         updateFile(fileForUpload || value)
 
@@ -239,17 +286,13 @@ function Donation(props) {
         const key1 = `images/${uuid()}.${extension}`      
         const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
 
+        //url1 is the future link to the image once the donation is uploaded to the DB
         setKey(key1);
         setURL(url1);
-END OF TEMP COMMENT**/
-        let url1="empty_image"
         setDonatedItem (() => ({
             ...donatedItem,
             ['picture']:url1
         }));
-        console.log(donatedItem);
-
-
         //Makes image preview visible
         let image_placement=document.getElementById("uploaded_image_"+num_images);
         image_placement.src= URL.createObjectURL(event.target.files[0]);
@@ -257,33 +300,116 @@ END OF TEMP COMMENT**/
         num_images=num_images+1;
     }
 
+  
+
+    // Functions for navigation buttons
+
+    //Takes from food category page to food donation details page
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
             document.getElementById("first-donation").style.display = "none"
             document.getElementById("second-donation").style.display = "initial"
+            
         }
         else {
             window.alert("Please select a food type");
         }
-
-        
     }
 
-    // Function for navigation buttons
+    //Reverse of next1()
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
+
+    //Takes from food donation details to preview donation page
+    function next2(){
+    
+        
+
+        //Checks if all form fields are completed. If not, colours field titles red.
+        if (checkFilledForms()==false){
+            return
+        }
+        document.getElementById("second-donation").style.display="none";
+        document.getElementById("third-donation").style.display="block";
+        document.getElementById("remove_donation_button").style.display="none";
+
+        
+        //Updates preview modal with correct donation details
+        updateIndividualProductModal();
+    }
+
+
+    //Reverse of next2()
+    function back2(){
+        document.getElementById("second-donation").style.display="block";
+        document.getElementById("third-donation").style.display="none";
+    }
+
+
+
+    //Checks if all form fields of donation form are completed. If not, colours field titles red.
+    function checkFilledForms(){
+        let description_labels=document.querySelectorAll(".description-label");
+        
+        for (let i=0;i<description_labels.length;i++){
+            if (description_labels[i].classList.contains("uncompleted")){
+                description_labels[i].classList.remove("uncompleted");
+            }
+        }
+        let isCompleted=true;
+        for (var key in donatedItem) {
+            
+            if (donatedItem.hasOwnProperty(key)) {
+            
+                if (donatedItem[key]==undefined|donatedItem[key]==""){
+                    
+                    for (let i=0;i<description_labels.length;i++){
+                        if (description_labels[i].classList.contains(key)){
+                            description_labels[i].classList.add("uncompleted");
+                            isCompleted=false;
+                        }
+                    }
+                }
+            }
+        }
+        return isCompleted;
+    }
+
+
+       //Updates preview modal with correct donation details
+    function updateIndividualProductModal(){
+        let individual_product=document.getElementById("individual_product_page");
+        let edit_donation_modal=document.getElementById("uploaded_image_0");
+
+        let productTransportRequirements=donatedItem.transport_reqs;
+        if (productTransportRequirements==""){
+            productTransportRequirements="No requirements listed by donor."
+        }
+        individual_product.querySelector("#display_image").src=edit_donation_modal.src;
+        individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
+        individual_product.querySelector("#individual_product_quantity").innerHTML=donatedItem.quantity;
+        individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
+        individual_product.querySelector("#individual_product_location").innerHTML=donatedItem.pickup_location;
+        individual_product.querySelector("#individual_product_pickupby").innerHTML=donatedItem.pickup_date;
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=donatedItem.start_time+"-"+donatedItem.end_time;
+        individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
+        individual_product.querySelector("#individual_product_seller_name").innerHTML=donatedItem.donorName;
+        individual_product.querySelector("#individual_product_seller_number").innerHTML=donatedItem.donorPhone;
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;
+    }
     return (
         <div id="donation_page">
              <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.css" />
+             
             <div id="first-donation">
                 <div className="top-row">
         
                
-                <h1 id="donation-heading1">What kind of food do you want to donate?</h1>
+                <h1 className="donation-heading">What kind of food do you want to donate?</h1>
                 </div>
                 <div className="middle-row">
                     <ul id="food_category_selection">
@@ -305,31 +431,52 @@ END OF TEMP COMMENT**/
             </div>
 
             <div id="second-donation">
-            <div className="top-row">
+                <div className="top-row">
              
-                <h1 id="donation-heading1">Food Donation Details</h1>
+                <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Donation Successful
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Press ok to return to the orders page
+                            </Typography>
+                            <Button href="/orders">
+                                Ok
+                            </Button>
+                        </Box>
+                    </Modal>
+                </div>
+                <h1 className="donation-heading">Food Donation Details</h1>
                 </div>
                 <div className="middle-row">
                     <div className="form-container">
                         <form>
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label"> Food Item(s)</label><br></br>
-                                <input type="text" className="description-input" name="text" onChange={handleTitleChange}></input>
+                                <label htmlFor="description" className="description-label title"> Food Item(s)</label><br></br>
+                                <input id="title_input_box" type="text" className="description-input" name="text" onChange={handleTitleChange}></input>
                             </div> 
                             
                             
                             <div className="form-row">
-                                <label htmlFor="quantity" className="quantity-label description-label">Quantity/Volume of Food</label><br></br>
-                                <input type="text" className="description-input" name="text" onChange={handleQuantityChange}></input>
+                                <label htmlFor="quantity" className="quantity-label description-label quantity">Quantity/Volume of Food</label><br></br>
+                                <input id="quantity_input_box" type="text" className="description-input" name="text" onChange={handleQuantityChange}></input>
                             </div> 
                             
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Food Description</label><br></br>
+                                <label htmlFor="description" className="description-label description">Food Description</label><br></br>
                                 <textarea id="food-description-input" type="text" className="description-input" name="text" onChange={handleDescriptionChange}></textarea>
                                 
                             </div> 
                             <div className="form-row">
-                                <label htmlFor="description" className="description-label">Transport Requirements</label><br></br>
+                                <label htmlFor="description" className="description-label transport_reqs">Transport Requirements</label><br></br>
                                 <textarea id="food-requirements-input" type="text" className="description-input" name="text" onChange={handleTransportChange}></textarea>
                                 
                             </div> 
@@ -343,7 +490,7 @@ END OF TEMP COMMENT**/
                                         <img id="uploaded_image_0" className="uploaded_image" src="data:,"></img>
                                         <input type='file' className="image_upload_button"  name='image' accept="image/png, image/gif, image/jpeg" onChange={handleChange}></input>
                                         
-                                        <img src={Camera} alt="camera"/>
+                                        <img id="image_display" src={Camera} alt="camera"/>
                                         
                                         <div className="delete_image">x</div>
                                     
@@ -354,6 +501,7 @@ END OF TEMP COMMENT**/
                            
                             
                             <div className="form-row">
+
                                 <label htmlFor="description" className="description-label">Pick-up Location</label><br></br>
                                 <PlacesAutocomplete
                                     searchOptions={{componentRestrictions: { country: ['au'] }}}
@@ -384,12 +532,14 @@ END OF TEMP COMMENT**/
                                     </div>
                                     )}
                                 </PlacesAutocomplete>
+
                             </div> 
                             
 
                             <div id="dates-input">
-                                <label htmlFor="description" className="description-label">Pick-up By:</label><br></br>
+                                <label htmlFor="description" className="description-label pickup_date">Pick-up By:</label><br></br>
                                 <DatePicker
+                                    id="pick-up_by_input"
                                     selected={startDate}
                                     onSelect={(date) => setStartDate(date)} //when day is clicked
                                     onChange={handleDateChange} //only when value has changed
@@ -401,11 +551,12 @@ END OF TEMP COMMENT**/
                             </div>
 
                             <div id="pick-up-input">
-                            <label htmlFor="description" className="description-label">Pick-up Times</label><br></br>
+                            <label htmlFor="description" className="description-label start_time end_time">Pick-up Times</label><br></br>
                             <div className="timePicker">
                                 <div>
                                 <text>Start </text>
                             <TimePicker
+                                id="start_time_input"
                                 selected={startTime}
                                 onChange={handleTimeChange1}
                                 showTimeSelect
@@ -420,6 +571,7 @@ END OF TEMP COMMENT**/
                             <div>
                             <text>End </text>
                             <TimePicker
+                                id="end_time_input"
                                 selected={endTime}
                                 onChange={handleTimeChange2}
                                 showTimeSelect
@@ -440,10 +592,24 @@ END OF TEMP COMMENT**/
                 </div>
                 <div className="bottom-row">
                 <label className="back-button" onClick={back1}>Back</label>
-                 <button className="next-button" onClick={addDonation} >Submit</button>
+                 <button className="next-button" onClick={next2} >Preview</button>
                 </div>
             </div>
+
+            <div id="third-donation">
+                <div className="top-row donation-heading"><h1>Donation Preview</h1></div>
+                <div className="middle-row">
+                    <IndividualProduct/>
+                </div>
+                <div className="bottom-row">
+                    <label className="back-button" onClick={back2}>Back</label>
+                    <button className="next-button" onClick={addDonation} >Submit</button>
+                </div>
+
+            </div>
         </div>
+
+       
     );
 }
 
