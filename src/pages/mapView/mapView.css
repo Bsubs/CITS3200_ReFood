@@ -1,9 +1,9 @@
 .map-container {
   position: absolute;
-  top: 10;
-  bottom: 10;
-  left: 10;
-  right: 10;
+  top: -8;
+  bottom: 0;
+  left: 0.01;
+  right: 0;
 }
 
 .sidebarStyle {
