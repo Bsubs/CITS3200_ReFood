@@ -4,10 +4,23 @@ import "./SearchPage.css";
 import search from '../../assets/icons/PNG/search.png';
 import * as queries from '../../graphql/queries';
 import Explore from "./Explore"
+import PlacesAutocomplete, { geocodeByAddress, getLatLng} from "react-places-autocomplete";
 
 
 
 function SearchPage({ placeholder, data }) {
+  const [address, setAddress] = React.useState("");
+  const [coordinates, setCoordinates] = React.useState({
+    lat: null,
+    lng: null
+  });
+
+  const handleSelect = async value => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    setAddress(value);
+    setCoordinates(latLng);
+  };
 
   // Array to store FoodItems
   const[foodItems, setFoodItems] = useState([]);
@@ -53,7 +66,35 @@ function SearchPage({ placeholder, data }) {
 
       <div className="search">
         <div className="searchHeader">Where</div>
-        <input id='input2' type="text" name='input2' placeholder="enter here..." />
+        <PlacesAutocomplete
+                                    searchOptions={{componentRestrictions: { country: ['au'] }}}
+                                    value={address}
+                                    onChange={setAddress}
+                                    onSelect={handleSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div>
+
+                                        <input type="text" className="description-input" name="text" {...getInputProps({ placeholder: "Type address" })} />
+
+                                        <div>
+                                        {loading ? <div>...loading</div> : null}
+
+                                        {suggestions.map(suggestion => {
+                                            const style = {
+                                            backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                                            };
+
+                                            return (
+                                            <div {...getSuggestionItemProps(suggestion, { style })}>
+                                                {suggestion.description}
+                                            </div>
+                                            );
+                                        })}
+                                        </div>
+                                    </div>
+                                    )}
+                                </PlacesAutocomplete>
       </div>
 
 

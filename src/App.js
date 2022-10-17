@@ -6,6 +6,13 @@ import Explore from "./pages/Explore/Explore"
 import Inbox from "./pages/inbox/Inbox"
 import Orders from "./pages/Orders/Orders"
 import Profile from "./pages/Profile/Profile"
+
+import Home from "./pages/Home"
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
+
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
@@ -24,9 +31,22 @@ Amplify.configure(awsExports);
 
 
 
-
 // USE showNav VARIABLE TO DETERMINE IF PAGE SHOULD LOAD NAVBAR COMPONENT
 function App({ signOut, user }) {
+
+  const [address, setAddress] = React.useState("");
+    const [coordinates, setCoordinates] = React.useState({
+      lat: null,
+      lng: null
+    });
+  
+    const handleSelect = async value => {
+      const results = await geocodeByAddress(value);
+      const latLng = await getLatLng(results[0]);
+      setAddress(value);
+      setCoordinates(latLng);
+    };
+    
   const myTimeout = setTimeout(function () {
     let viewheight = window.screen.height;
     let viewwidth = window.screen.width;
