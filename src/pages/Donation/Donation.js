@@ -381,7 +381,6 @@ function Donation(props) {
 
             <div id="second-donation">
             <div className="top-row">
-                <Button onClick={handleOpen}>Open modal</Button>
                 <div>
                     <Modal
                         open={open}
