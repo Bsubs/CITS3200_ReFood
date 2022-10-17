@@ -1,3 +1,9 @@
+type FavouritesTable @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: String
+  donationID: String
+}
+
 type Message @model @auth(rules: [{allow: public}]) {
   id: ID!
   channelID: ID
@@ -19,8 +25,8 @@ type FOODITEM @model @auth(rules: [{allow: public}]) {
   description: String
   isCompleted: Boolean
   completionDate: AWSDate
-  start_time: AWSTime
-  end_time: AWSTime
+  start_time: AWSDateTime
+  end_time: AWSDateTime
   donorName: String
   donorPhone: String
 }

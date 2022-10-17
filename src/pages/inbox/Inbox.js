@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "./Inbox.css";
 import Dialog from './Dialog';
-import { arrayToDict, dialogDataV2 } from './content.js';
+import { arrayToDict, dialogDataV2 } from './content';
 
-import InboxItem from '../../components/inbox/InboxItem';
-import GroupTitle from '../../components/inbox/GroupTitle';
-import InboxTitleBar from '../../components/inbox/Titlebar';
+import InboxItem from '../../components/Inbox/InboxItem';
+import GroupTitle from '../../components/Inbox/GroupTitle';
+import InboxTitleBar from '../../components/Inbox/Titlebar';
 import { shouldInsertTimestamp } from './util';
 
 const NO_DIALOG_ID = -1;

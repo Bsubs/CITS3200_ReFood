@@ -1,6 +1,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getFavouritesTable = /* GraphQL */ `
+  query GetFavouritesTable($id: ID!) {
+    getFavouritesTable(id: $id) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listFavouritesTables = /* GraphQL */ `
+  query ListFavouritesTables(
+    $filter: ModelFavouritesTableFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFavouritesTables(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        donationID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getMessage = /* GraphQL */ `
   query GetMessage($id: ID!) {
     getMessage(id: $id) {
@@ -10,9 +43,6 @@ export const getMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -30,41 +60,8 @@ export const listMessages = /* GraphQL */ `
         body
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncMessages = /* GraphQL */ `
-  query SyncMessages(
-    $filter: ModelMessageFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncMessages(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        channelID
-        author
-        body
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -90,9 +87,6 @@ export const getFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -123,54 +117,8 @@ export const listFOODITEMS = /* GraphQL */ `
         donorPhone
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncFOODITEMS = /* GraphQL */ `
-  query SyncFOODITEMS(
-    $filter: ModelFOODITEMFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFOODITEMS(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        title
-        pickup_date
-        category
-        transport_reqs
-        picture
-        donorID
-        nfpID
-        pickup_location
-        quantity
-        description
-        isCompleted
-        completionDate
-        start_time
-        end_time
-        donorName
-        donorPhone
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;

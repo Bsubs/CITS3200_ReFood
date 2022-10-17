@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './Dialog.css'
 
-import { userDataV2, arrayToDict } from '../../pages/Inbox/content';
-import InboxTitleBar from '../../components/inbox/Titlebar';
-import MessageItemView from '../../components/inbox/MessageItemView';
+import { userDataV2, arrayToDict } from './content';
+import InboxTitleBar from '../../components/Inbox/Titlebar';
+import MessageItemView from '../../components/Inbox/MessageItemView';
 const userData = arrayToDict(userDataV2);
 
 

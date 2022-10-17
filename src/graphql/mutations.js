@@ -1,6 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createFavouritesTable = /* GraphQL */ `
+  mutation CreateFavouritesTable(
+    $input: CreateFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    createFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFavouritesTable = /* GraphQL */ `
+  mutation UpdateFavouritesTable(
+    $input: UpdateFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    updateFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFavouritesTable = /* GraphQL */ `
+  mutation DeleteFavouritesTable(
+    $input: DeleteFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    deleteFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createMessage = /* GraphQL */ `
   mutation CreateMessage(
     $input: CreateMessageInput!
@@ -13,9 +55,6 @@ export const createMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -31,9 +70,6 @@ export const updateMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -49,9 +85,6 @@ export const deleteMessage = /* GraphQL */ `
       body
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -80,9 +113,6 @@ export const createFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -111,9 +141,6 @@ export const updateFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -142,9 +169,6 @@ export const deleteFOODITEM = /* GraphQL */ `
       donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

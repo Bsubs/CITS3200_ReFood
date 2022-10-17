@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './components/layout/Navbar';
 import './App.css';
-//import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Explore from "./pages/Explore/Explore"
-import Inbox from "./pages/inbox/Inbox"
+import Inbox from "./pages/Inbox/Inbox"
 import Orders from "./pages/Orders/Orders"
 import Profile from "./pages/Profile/Profile"
-import Home from "./pages/Home"
 import ConsentForm from "./components/forms/ConsentForm/ConsentForm"
 import Donation from "./pages/Donation/Donation"
 import ListPage from "./pages/ListPage/ListPage"
@@ -17,9 +15,11 @@ import Favourites from "./pages/Favourites/Favourites"
 //Configuring AWS Amplify 
 import { Amplify, Auth } from 'aws-amplify';
 import awsExports from './aws-exports';
+
 // Authentication Module
-import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
+import { Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
+
 //DO NOT import anything below this line 
 Amplify.configure(awsExports);
 
@@ -77,11 +77,11 @@ function App({ signOut, user }) {
       break
     case "/profilesettings":
       component = <ProfileSettings />
-      var showNav = "True";
+      showNav = "True";
       break
     case "/inbox":
       component = <Inbox />
-      var showNav = "True";
+      showNav = "True";
       break
     case "/orders":
       if (isNFP=="False"){
@@ -95,15 +95,15 @@ function App({ signOut, user }) {
       break
     case "/consentform":
       component = <ConsentForm isNFP={isNFP}/>
-      var showNav = "True";
+      showNav = "True";
       break
     case "/profile":
       component = <Profile />
-      var showNav = "True";
+      showNav = "True";
       break
     case "/donation":
       component = <Donation />
-      var showNav = "False";
+      showNav = "False";
       break
     case "/listpage":
       component = <ListPage userInfo={attributes}/>
@@ -112,12 +112,12 @@ function App({ signOut, user }) {
 
     case "/individualproduct":
       component=<IndividualProduct />
-      var showNav="True";
+      showNav="True";
       break
    
     default:
       component = <Donation/>
-      var showNav = "False";
+      showNav = "False";
 
   }
   return (
@@ -170,7 +170,7 @@ function App({ signOut, user }) {
   >
     {({ signOut, user }) => (
       <div className="App">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, autoRotate:disabled"></meta>
       <header className="App-header">
         <>
       {component}
@@ -178,7 +178,7 @@ function App({ signOut, user }) {
       <Navbar isNFP={isNFP}/> }
       </>
       </header>
-      <button id="signOut" onClick={signOut}>Sign out</button>
+      
     </div>
     )}
   </Authenticator>
