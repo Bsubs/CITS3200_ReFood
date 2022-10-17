@@ -1,6 +1,6 @@
 projects:
-  CITS3200ReFood-staging:
-    schemaPath: src/graphql/schema.json
+  CITS3200ReFood:
+    schemaPath: amplify/backend/api/CITS3200ReFood/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -11,5 +11,8 @@ projects:
         generatedFileName: ''
         docsFilePath: src/graphql
         region: us-west-1
-        apiId: lw4hkeooefas3chdpzz6nce7ka
-        maxDepth: 2
+        apiId: null
+        maxDepth: 3
+extensions:
+  amplify:
+    version: 3

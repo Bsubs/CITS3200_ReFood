@@ -1,6 +1,93 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createFavouritesTable = /* GraphQL */ `
+  mutation CreateFavouritesTable(
+    $input: CreateFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    createFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateFavouritesTable = /* GraphQL */ `
+  mutation UpdateFavouritesTable(
+    $input: UpdateFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    updateFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteFavouritesTable = /* GraphQL */ `
+  mutation DeleteFavouritesTable(
+    $input: DeleteFavouritesTableInput!
+    $condition: ModelFavouritesTableConditionInput
+  ) {
+    deleteFavouritesTable(input: $input, condition: $condition) {
+      id
+      userID
+      donationID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    createMessage(input: $input, condition: $condition) {
+      id
+      channelID
+      author
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage(
+    $input: UpdateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    updateMessage(input: $input, condition: $condition) {
+      id
+      channelID
+      author
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage(
+    $input: DeleteMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    deleteMessage(input: $input, condition: $condition) {
+      id
+      channelID
+      author
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createFOODITEM = /* GraphQL */ `
   mutation CreateFOODITEM(
     $input: CreateFOODITEMInput!
@@ -10,19 +97,22 @@ export const createFOODITEM = /* GraphQL */ `
       id
       title
       pickup_date
-      pickup_time
       category
-      quantity
-      expiry_date
       transport_reqs
       picture
-      nfpID
       donorID
+      nfpID
+      pickup_location
+      quantity
+      description
+      isCompleted
+      completionDate
+      start_time
+      end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -35,19 +125,22 @@ export const updateFOODITEM = /* GraphQL */ `
       id
       title
       pickup_date
-      pickup_time
       category
-      quantity
-      expiry_date
       transport_reqs
       picture
-      nfpID
       donorID
+      nfpID
+      pickup_location
+      quantity
+      description
+      isCompleted
+      completionDate
+      start_time
+      end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -60,178 +153,22 @@ export const deleteFOODITEM = /* GraphQL */ `
       id
       title
       pickup_date
-      pickup_time
       category
-      quantity
-      expiry_date
       transport_reqs
       picture
-      nfpID
       donorID
+      nfpID
+      pickup_location
+      quantity
+      description
+      isCompleted
+      completionDate
+      start_time
+      end_time
+      donorName
+      donorPhone
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createDONOR = /* GraphQL */ `
-  mutation CreateDONOR(
-    $input: CreateDONORInput!
-    $condition: ModelDONORConditionInput
-  ) {
-    createDONOR(input: $input, condition: $condition) {
-      id
-      email
-      password
-      business_name
-      type
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateDONOR = /* GraphQL */ `
-  mutation UpdateDONOR(
-    $input: UpdateDONORInput!
-    $condition: ModelDONORConditionInput
-  ) {
-    updateDONOR(input: $input, condition: $condition) {
-      id
-      email
-      password
-      business_name
-      type
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteDONOR = /* GraphQL */ `
-  mutation DeleteDONOR(
-    $input: DeleteDONORInput!
-    $condition: ModelDONORConditionInput
-  ) {
-    deleteDONOR(input: $input, condition: $condition) {
-      id
-      email
-      password
-      business_name
-      type
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createNFP = /* GraphQL */ `
-  mutation CreateNFP(
-    $input: CreateNFPInput!
-    $condition: ModelNFPConditionInput
-  ) {
-    createNFP(input: $input, condition: $condition) {
-      id
-      email
-      password
-      org_name
-      type
-      registered_charity
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateNFP = /* GraphQL */ `
-  mutation UpdateNFP(
-    $input: UpdateNFPInput!
-    $condition: ModelNFPConditionInput
-  ) {
-    updateNFP(input: $input, condition: $condition) {
-      id
-      email
-      password
-      org_name
-      type
-      registered_charity
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteNFP = /* GraphQL */ `
-  mutation DeleteNFP(
-    $input: DeleteNFPInput!
-    $condition: ModelNFPConditionInput
-  ) {
-    deleteNFP(input: $input, condition: $condition) {
-      id
-      email
-      password
-      org_name
-      type
-      registered_charity
-      abn
-      contact_number
-      address
-      FOODITEMS {
-        nextToken
-        startedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

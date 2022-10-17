@@ -2,6 +2,7 @@
 #list_page{
   overflow: scroll;
   background-color: lightgrey;
+  min-height: 100vh;
 }
 #list_page .image_box{
   height: 15vh;
@@ -21,11 +22,22 @@
   
 }
 
-#exit_search{
+#exit_modal{
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  
   position: absolute;
   right: 0;
-  margin: 1rem;
+  top: 0;
   font-size: 2rem;
+
+  background-color: white;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  opacity: 70%;
 }
 
 #search_bar{
@@ -39,6 +51,7 @@
 
 #search_bar input{
   border: none;
+  width: 100%;
 }
 #search_bar input:focus{
   outline: none;
@@ -51,3 +64,8 @@
 #list-page br{
   height: 100vh;
 }
+
+#individual_product_modal{
+  display: none;
+}
+

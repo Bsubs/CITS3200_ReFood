@@ -1,0 +1,29 @@
+.inbox-title-bar {
+    text-align: center;
+    padding: 8px;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+
+.inbox-title-bar .title {
+    text-align: center;
+    margin: 0 32px;
+}
+
+.inbox-title-bar .back-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+    padding-left: 4px;
+    padding-top: 8px;
+}
+
+.inbox-title-bar .back-icon img {
+    height: 28px;
+    width: 28px;
+}

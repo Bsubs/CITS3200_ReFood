@@ -19,14 +19,14 @@ function Navbar(props) {
     var color_filter="invert(11%) sepia(70%) saturate(7486%) hue-rotate(359deg) brightness(116%) contrast(114%)"
     var icon_0_text="Find food"
     var icon_0_link="/listpage"
-    var icon_1_text="Orders"
+    var icon_1_text="Saved"
   }
   else{
     var icon = food;
     var text_color="green";
     var color_filter="invert(44%) sepia(45%) saturate(636%) hue-rotate(89deg) brightness(102%) contrast(87%)"
     var icon_0_text="Give food"
-    var icon_0_link="/donate"
+    var icon_0_link="/donation"
     var icon_1_text="Donations"
 
   }
@@ -36,6 +36,7 @@ function Navbar(props) {
     switch(page){
       case "/":
         break
+      case "/listpage":
       case "/explore":
         document.getElementById("explore_icon_text").style.color=text_color;
         document.getElementById("explore_icon").style.filter=color_filter;
@@ -49,7 +50,8 @@ function Navbar(props) {
         document.getElementById("orders_icon_text").style.color=text_color;
         document.getElementById("orders_icon").style.filter=color_filter;
         break
-      case "/profile":
+      case "/profilesettings":
+      case "/profile" :
         document.getElementById("profile_icon_text").style.color=text_color;
         document.getElementById("profile_icon").style.filter=color_filter;
         break
@@ -77,7 +79,7 @@ function Navbar(props) {
               </a>
             </li>
             <li>
-            <a href="#" onclick="changeUser()">
+            <a href="#" click="changeUser()">
             <img id="logo" src={logo} alt="ReFood logo"/>
             </a>  
             </li>
