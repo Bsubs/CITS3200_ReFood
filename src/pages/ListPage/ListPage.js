@@ -17,6 +17,11 @@ import SearchPage from "../Explore/SearchPage";
 
 import IndividualProduct from "../IndividualProduct/IndividualProduct";
 
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
 function ListPage(props) {
   
   var search;
@@ -104,8 +109,8 @@ useEffect(() => {
     favouriteRow.donationID=donationID;
     favouriteRow.userID=nfpID;
     console.log(favouriteRow);
-      addDonation(favouriteRow);
-    }
+    addDonation(favouriteRow);
+  }
   
 
 
@@ -113,19 +118,31 @@ useEffect(() => {
 
   async function addDonation(favouriteItem) {
     console.log(favouriteItem);
-      try {
-          
-          
-          const newFavouriteItem = await API.graphql({query:mutations.createFavouritesTable, variables:{input:favouriteItem}});
-          console.log(newFavouriteItem);
-          console.log("add  favourites worked");
-      } catch (err) {
-          console.log('error: ', err)
-      }
-    
-   
+    try {
+        const newFavouriteItem = await API.graphql({query:mutations.createFavouritesTable, variables:{input:favouriteItem}});
+        console.log(newFavouriteItem);
+        console.log("add  favourites worked");
+    } catch (err) {
+        console.log('error: ', err)
+    }
+    handleOpen();
   }
-  
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+  };
 
   //Makes individual_product modal visible
   function showIndividualProduct(){
@@ -298,6 +315,26 @@ useEffect(() => {
     
     <div id="individual_product_modal">
       <IndividualProduct/>
+      <div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Added to favourites!
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Press ok to view your favourited items
+                    </Typography>
+                    <Button href="/orders">
+                        Ok
+                    </Button>
+                </Box>
+            </Modal>
+        </div>
     </div>
     <div id="exit_modal"><div>x</div></div>
     <div id="list_page">

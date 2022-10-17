@@ -11,8 +11,10 @@ import './Orders.css';
 import Logo from "../../assets/images/logo.png";
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import EditDonation from '../EditDonation/EditDonation';
-
 import {Products} from '../ListPage/products';
+import Modal from '@mui/material/Modal';import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 function Orders(props) {
   var order_header;
@@ -75,42 +77,38 @@ function Orders(props) {
     fetchDonations();
   }, [props.userInfo]);
 
-    useEffect(()=>{
-     
-        exit_button=document.getElementById("exit_modal");
-        edit_donation_modal=document.getElementById("edit_donation_modal");
-        orders_list=document.getElementById("orders_list");
-        
-  
-      
-        exit_button.addEventListener("click",hideModals);
-        let product_images=document.getElementsByClassName("productImage");
-        for (let i=0;i<product_images.length;i++){
-          product_images[i].addEventListener("error",defaultImageReplace);
-        }
-  
-        let individual_product_modal_image=document.getElementById("display_image");
+  useEffect(()=>{
+    exit_button=document.getElementById("exit_modal");
+    edit_donation_modal=document.getElementById("edit_donation_modal");
+    orders_list=document.getElementById("orders_list");
+
+    exit_button.addEventListener("click",hideModals);
+    let product_images=document.getElementsByClassName("productImage");
+    for (let i=0;i<product_images.length;i++){
+      product_images[i].addEventListener("error",defaultImageReplace);
+    }
+
+    let individual_product_modal_image=document.getElementById("display_image");
     individual_product_modal_image.addEventListener("error",defaultImageReplace);
-      });
+  });
 
-    useEffect(() => {
-      
-      document.getElementById("claim_donation_button").addEventListener("click",showEditDonation)
-    },[]);
+  useEffect(() => {
+    
+    document.getElementById("claim_donation_button").addEventListener("click",showEditDonation)
+  },[]);
 
-    useEffect(() => {
-      
-      document.getElementById("remove_donation_button").addEventListener("click",markDonationAsCompleted)
-    },[]);
+  useEffect(() => {
+    
+    document.getElementById("remove_donation_button").addEventListener("click",markDonationAsCompleted)
+  },[]);
 
-    useEffect(() => {
-      let products=document.getElementsByClassName("products_component");
-
-        for (let i=0;i<products.length;i++){
-          products[i].addEventListener("click",openIndividualProductModal);
-          
-        }
-    });
+  useEffect(() => {
+    let products=document.getElementsByClassName("products_component");
+      for (let i=0;i<products.length;i++){
+        products[i].addEventListener("click",openIndividualProductModal);
+        
+      }
+  });
   
   
   
@@ -130,7 +128,7 @@ function Orders(props) {
   //Replace faulty images with ReFood Logo
   function defaultImageReplace(){
       this.src=Logo;
-    }
+  }
 
   
 
@@ -187,6 +185,7 @@ async function markDonationAsCompleted(){
   } catch (err) {
     console.log('error: ', err)
   }
+  handleOpen();
 }
 
 function updateHiddenVariables(donationInfo, itemToUpdate){
@@ -415,12 +414,46 @@ function updateHiddenVariables(donationInfo, itemToUpdate){
     editedDonatedItem.donorName=edit_donation_modal.querySelector("#individual_product_title").innerHTML;
 
   }
+
     
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+  };
+
     return (
         <div id="orders_page">
             <div id="individual_product_modal">
-           
                 <IndividualProduct/>
+                <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                  >
+                      <Box sx={style}>
+                          <Typography id="modal-modal-title" variant="h6" component="h2">
+                              Donation has been completed
+                          </Typography>
+                          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                              Press ok to return to orders page
+                          </Typography>
+                          <Button href="/orders">
+                              Ok
+                          </Button>
+                      </Box>
+                  </Modal>
             </div>
             <div id="edit_donation_modal"><EditDonation userInfo={props.userInfo}/></div>
             <div id="exit_modal"><div>x</div></div>
