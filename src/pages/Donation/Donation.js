@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation, Storage } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
 import { v4 as uuid } from 'uuid'
-import cancel from "../../assets/icons/PNG/close.png"
-import './Donation.css';
-import '../../App.css';
-import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import config from '../../aws-exports';
+
+//Image/icon Imports
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import Logo from '../../../src/assets/images/logo.png'
+import Camera from '../../assets/icons/PNG/camera.png'
+import cancel from "../../assets/icons/PNG/close.png"
 
+//Style sheet Imports
+import './Donation.css';
+import '../../App.css';
+
+//Pop-up modal imports
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -206,7 +211,7 @@ function Donation(props) {
     // Creates a new FOODITEM and adds it to the database
 
     async function addDonation() {
-       
+        //If image uploaded, upload image with donation
         if (file) {
             const { type: mimeType } = file
             try {
@@ -221,23 +226,29 @@ function Donation(props) {
                 console.log('error: ', err)
             }
         }
+        //In the case where no image is uploaded
         else {
             try {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
                 console.log("add donation worked");
+                handleOpen();
             } catch (err) {
                 console.log('error: ', err)
             }
         }
-        handleOpen();
-    }
+
+      }
+      
+
+    //Used for managing image upload
 
     const [file, updateFile] = useState(null)
     const [image, setImage]= useState(undefined);
     const [key, setKey] = useState(null);
     const [url, setURL] = useState(null);
-    let num_images=0;
+
+    //can only upload one image in a given donation
+    let num_images=0; 
 
     function handleChange(event) {
         //Saves image details in preparation for upload to AWS S3
@@ -250,16 +261,13 @@ function Donation(props) {
         const key1 = `images/${uuid()}.${extension}`      
         const url1 = `https://${bucket}.s3.${region}.amazonaws.com/public/${key1}`
 
+        //url1 is the future link to the image once the donation is uploaded to the DB
         setKey(key1);
         setURL(url1);
-
         setDonatedItem (() => ({
             ...donatedItem,
             ['picture']:url1
         }));
-        console.log(donatedItem);
-
-
         //Makes image preview visible
         let image_placement=document.getElementById("uploaded_image_"+num_images);
         image_placement.src= URL.createObjectURL(event.target.files[0]);
@@ -271,6 +279,7 @@ function Donation(props) {
 
     // Functions for navigation buttons
 
+    //Takes from food category page to food donation details page
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
@@ -283,24 +292,40 @@ function Donation(props) {
         }
     }
 
+    //Reverse of next1()
     function back1() {
         document.getElementById("first-donation").style.display = "initial"
         document.getElementById("second-donation").style.display = "none"
     }
     
+
+    //Takes from food donation details to preview donation page
     function next2(){
+        //Checks if all form fields are completed. If not, colours field titles red.
+        if (checkFilledForms()==false){
+            return
+        }
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
-        let edit_donation_modal=document.getElementById("uploaded_image_0");
+
         
-        let individual_product=document.getElementById("individual_product_page");
-        individual_product.querySelector("#display_image").src=edit_donation_modal.src;
-        console.log(donatedItem);
+        //Updates preview modal with correct donation details
+        updateIndividualProductModal();
+    }
 
 
+    //Reverse of next2()
+    function back2(){
+        document.getElementById("second-donation").style.display="block";
+        document.getElementById("third-donation").style.display="none";
+    }
+
+
+
+    //Checks if all form fields of donation form are completed. If not, colours field titles red.
+    function checkFilledForms(){
         let description_labels=document.querySelectorAll(".description-label");
-        console.log(description_labels);
-
+        
         for (let i=0;i<description_labels.length;i++){
             if (description_labels[i].classList.contains("uncompleted")){
                 description_labels[i].classList.remove("uncompleted");
@@ -323,16 +348,21 @@ function Donation(props) {
                 }
             }
         }
-        if (isCompleted==false){
-            return
-        }
-        document.getElementById("second-donation").style.display="none";
-        document.getElementById("third-donation").style.display="block";
+        return isCompleted;
+    }
+
+
+       //Updates preview modal with correct donation details
+    function updateIndividualProductModal(){
+        let individual_product=document.getElementById("individual_product_page");
+        let edit_donation_modal=document.getElementById("uploaded_image_0");
 
         let productTransportRequirements=donatedItem.transport_reqs;
         if (productTransportRequirements==""){
             productTransportRequirements="No requirements listed by donor."
         }
+
+        individual_product.querySelector("#display_image").src=edit_donation_modal.src;
 
         individual_product.querySelector("#individual_product_title").innerHTML=donatedItem.title;
         individual_product.querySelector("#individual_product_quantity").innerHTML=donatedItem.quantity;
@@ -346,9 +376,7 @@ function Donation(props) {
         individual_product.querySelector("#clickable_phone_number").href="tel:"+donatedItem.donorPhone;    
     }
 
-    function back2(){
-        document.getElementById("second-donation").style.display="block";
-        document.getElementById("third-donation").style.display="none";
+
     }
     return (
         <div id="donation_page">
@@ -449,7 +477,7 @@ function Donation(props) {
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label pickup_location">Pick-up Location</label><br></br>
-                                <input id="pick-up_location_box" type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
+                                <input id="pick-up_location_box" type="text" className="description-input" name="text" value={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
                             
 

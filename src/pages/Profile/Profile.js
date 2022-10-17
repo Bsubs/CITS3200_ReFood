@@ -3,15 +3,57 @@ import { Amplify, Auth } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
 import './Profile.css';
 import profile from './profile-circle.png';
-import lock from './lock.png';
-import notification from './notification.png';
-import chevrons from './chevrons-right.png';
-import book from './book.png';
+import lock from '../../../src/assets/icons/PNG/lock.png';
+import notification from '../../../src/assets/icons/PNG/notification.png';
+import chevrons from '../../../src/assets/icons/PNG/chevrons-right.png';
+import book from '../../../src/assets/icons/PNG/book.png';
 import banner from "./bakers-delight.jpg";
+import Logo from "../../../src/assets/images/logo.png";
 import TermsOfService from "../../components/forms/ConsentForm/ConsentForm";
 import ProfileSettings from"./ProfileSettings/ProfileSettings";
 import Notifications from "./Notifications/Notifications";
-function Profile(props) {
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+//Configuring AWS Amplify 
+
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from '../../aws-exports';
+// Authentication Module
+import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
+import '@aws-amplify/ui-react/styles.css';
+//DO NOT import anything below this line 
+Amplify.configure(awsExports);
+
+
+function Profile({ signOut, user }) {
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+
+    signOut = () => {
+        Auth.signOut()
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
+      }
+    
     useEffect(()=>{
         
       
@@ -19,6 +61,7 @@ function Profile(props) {
         ToS=document.getElementById("consent_form");
         return_button=document.getElementById("return_to_profile_page");
         profile_page=document.getElementById("profile");
+        signOutButton=document.getElementById("signOut");
         profile_settings=document.getElementById("profile_settings");
         notifications=document.getElementById("notifications_modal");
 
@@ -28,7 +71,7 @@ function Profile(props) {
         document.getElementById("notifications_button").addEventListener("click",showNotifications);
       });
       
-    var ToS, return_button, profile_page, profile_settings, notifications;
+    var ToS, return_button, profile_page, profile_settings, notifications, signOutButton;
     
     function showToS(){
         profile_page.style.display="none";
@@ -36,6 +79,7 @@ function Profile(props) {
         profile_settings.style.display="none";
         return_button.style.display="block";
         notifications.style.display="none";
+        signOutButton.style.display="none";
     }
 
     function showProfileSettings(){
@@ -44,6 +88,7 @@ function Profile(props) {
         profile_settings.style.display="block";
         return_button.style.display="block";
         notifications.style.display="none";
+        signOutButton.style.display="block";
     }
 
     function showNotifications(){
@@ -52,6 +97,8 @@ function Profile(props) {
         profile_settings.style.display="none";
         notifications.style.display="block";
         return_button.style.display="block";
+        signOutButton.style.display="none";
+        handleOpen();
     }
 
     function returnToProfilePage(){
@@ -60,6 +107,7 @@ function Profile(props) {
         profile_settings.style.display="none";
         return_button.style.display="none";
         notifications.style.display="none";
+        signOutButton.style.display="none";
     }
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
@@ -86,6 +134,28 @@ function Profile(props) {
     return (
 
         <div id="profile_page">
+
+            <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Sorry
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                These features are not yet enabled.
+                            </Typography>
+                            <Button onClick={handleClose}>
+                                Ok
+                            </Button>
+                        </Box>
+                    </Modal>
+                </div>
             <div id="tos_modal">
                 <TermsOfService/>
             </div>
@@ -103,7 +173,7 @@ function Profile(props) {
             <div className="profile_header">
                 <div id="profile_page_photo_container">
                  
-                <img className="user_image" src={banner} alt="profile icon"/>
+                <img className="user_image" src={Logo} alt="profile icon"/>
                    
                 </div>
 
@@ -127,7 +197,7 @@ function Profile(props) {
                         <a href="#">
                             <div id="notifications_button" className="list_member">
                                 <img className="profile_section_icon" src={notification} alt="bell icon"/>
-                                <div className="profile_section_text">Notifications and Privacy</div>
+                                <div className="profile_section_text disabled">Notifications and Privacy</div>
                                 <img className="arrow" src={chevrons} alt="select icon"/>
                             </div>
                         </a> 
@@ -140,13 +210,13 @@ function Profile(props) {
                 <h1>Documents</h1>
                 <ul>
                     <li> 
-                        <a href="/">
+                        
                             <div className="list_member">
                                 <img className="profile_section_icon" src={book} alt="book icon"/>
-                                <div className="profile_section_text"> Annual Statistical Report</div>
+                                <div className="profile_section_text disabled" onClick={handleOpen}> Annual Statistical Report</div>
                                 <img className="arrow" src={chevrons} alt="select icon"/>
                             </div>
-                        </a> 
+                       
                     </li>
                     <li> 
                         
@@ -181,6 +251,7 @@ function Profile(props) {
             </div>
            
         </div>
+        <button id="signOut" onClick={signOut}>Sign out</button>
         </div>
     );
 }

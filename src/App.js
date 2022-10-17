@@ -169,7 +169,7 @@ function App({ signOut, user }) {
   >
     {({ signOut, user }) => (
       <div className="App">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, autoRotate:disabled"></meta>
       <header className="App-header">
         <>
       {component}
@@ -177,7 +177,7 @@ function App({ signOut, user }) {
       <Navbar isNFP={isNFP}/> }
       </>
       </header>
-      <button id="signOut" onClick={signOut}>Sign out</button>
+      
     </div>
     )}
   </Authenticator>
