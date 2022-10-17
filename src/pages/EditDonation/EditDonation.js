@@ -2,20 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation, Storage } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
 import { v4 as uuid } from 'uuid'
-import cancel from "../../assets/icons/PNG/close.png"
-import './EditDonation.css';
-import '../../App.css';
-import Camera from '../../assets/icons/PNG/camera.png'
 import * as mutations from '../../graphql/mutations';
 import TimePicker from "react-datepicker";
 import DatePicker from "react-datepicker";
 import config from '../../aws-exports';
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
 
+//Pop-up modal imports
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
+//Style sheet Imports
+import './EditDonation.css';
+import '../../App.css';
+
+//Image Imports
+import Camera from '../../assets/icons/PNG/camera.png'
+import cancel from "../../assets/icons/PNG/close.png"
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -34,25 +39,6 @@ function EditDonation(props) {
     const [endTime, setStartTime1] = useState(null);
 
     // The editedDonatedItem object that stores the information which will be posted to the database
-    const [editedDonatedItem, setDonatedItem] = useState({
-        id: "",
-        title: "",
-        pickup_date:startDate,
-        category:"",
-        transport_reqs:"",
-        donorID:"",
-        nfpID:"",
-        pickup_location:"",
-        quantity:"",
-        description:"",
-        picture:"",
-        isCompleted:false,
-        start_time:startTime,
-        end_time:endTime,
-        donorName:"",
-        donorPhone:""
-        
-    });
 
     const editedDonatedItem1={
         id: "",
@@ -104,17 +90,6 @@ function EditDonation(props) {
         else {
             event.target.classList.add("selected");
          
-            // Updates the donated Item object with the selected parameters 
-            setDonatedItem (() => ({
-                ...editedDonatedItem,
-                ['category']: event.target.innerHTML,
-                ['donorID']: attributes['sub'],
-                ['pickup_location']: attributes['custom:address'],
-                ['donorName']: attributes["custom:business_name"],
-                ['donorPhone']:attributes["phone_number"]
-            }));
-            
-
         }
         for (let elem of document.getElementsByClassName("next-button")){
             if (!(getComputedStyle(elem).display ==="hidden")){
@@ -125,11 +100,6 @@ function EditDonation(props) {
 
     // Updates Title Field upon user input
     function handleTitleChange(e) {
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['title']: e.target.value
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".title").innerHTML=e.target.value;
@@ -139,11 +109,6 @@ function EditDonation(props) {
 
      // Updates Quantity Field upon user input
     function handleQuantityChange(e) {
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['quantity']: e.target.value
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".quantity").innerHTML=e.target.value;
@@ -151,11 +116,6 @@ function EditDonation(props) {
 
     // Updates Description Field upon user input
     function handleDescriptionChange(e) {
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['description']: e.target.value
-        }));
-    
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".description").innerHTML=e.target.value;
@@ -163,11 +123,6 @@ function EditDonation(props) {
     
     // Updates Address Field upon user input
     function handleAddressChange(e) {
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['pickup_location']: e.target.value
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".pickup_location").innerHTML=e.target.value;
@@ -175,11 +130,6 @@ function EditDonation(props) {
 
     // Updates Transport Requirements Field upon user input
     function handleTransportChange(e) {
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['transport_reqs']: e.target.value
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".transport_reqs").innerHTML=e.target.value;
@@ -187,11 +137,6 @@ function EditDonation(props) {
 
     // Updates the pick-up by date upon user input
     function handleDateChange(e) {
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['pickup_date']: e.toISOString().substring(0, 10)
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".pickup_date").innerHTML=e.toISOString().substring(0, 10);
@@ -200,14 +145,6 @@ function EditDonation(props) {
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-      
-        
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['start_time']: e.toISOString()
-            
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".start_time").innerHTML=e.toISOString();
@@ -216,12 +153,6 @@ function EditDonation(props) {
     // Updates the end time upon user input
     function handleTimeChange2(e) {
         setStartTime1(e)
-   
-        setDonatedItem (() => ({
-            ...editedDonatedItem,
-            ['end_time']: e.toISOString()
-        }));
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
 
         hiddenDonationInfo.querySelector(".end_time").innerHTML=e.toISOString();
@@ -244,32 +175,6 @@ function EditDonation(props) {
         p: 4,
     };
 
-    // function updateDonatedItem(url) {
-    //     setDonatedItem (() => ({
-    //         ...editedDonatedItem,
-    //         ['picture']:url
-    //     }));
-    //     console.log(editedDonatedItem);
-    // }
-
-    // Creates a new FOODITEM and adds it to the database
-    /**async function addDonation() {
-        console.log("add donation worked");
-        if (file) {
-            const { type: mimeType } = file
-            try {
-                
-                await Storage.put(key, file, {
-                contentType: mimeType
-                })
-                const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:editedDonatedItem}});
-                console.log(newFoodItem);
-            } catch (err) {
-                console.log('error: ', err)
-            }
-        }
-      }
-      **/
      async function editDonation(){
         
         if (file) {
