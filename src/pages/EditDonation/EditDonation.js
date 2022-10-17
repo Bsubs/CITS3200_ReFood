@@ -39,8 +39,7 @@ function EditDonation(props) {
     const [endTime, setStartTime1] = useState(null);
 
     // The editedDonatedItem object that stores the information which will be posted to the database
-
-    const editedDonatedItem1={
+    const editedDonatedItem={
         id: "",
         title: "",
         pickup_date:startDate,
@@ -57,9 +56,6 @@ function EditDonation(props) {
         end_time:endTime,
     }
 
-
-   
-
     //The fetch attributes function retrives the details of the current authenticated user and extracts the attributes field
     const fetchAttributes = async() => {
         try{
@@ -69,8 +65,6 @@ function EditDonation(props) {
         } catch (error) {
             console.log('error in fetching user data', error);
         }
-
-
     };
 
     //The fetch attribute function is called everytime the component is rendered. Retrives user details from Cognito
@@ -159,6 +153,8 @@ function EditDonation(props) {
     }
 
 
+
+    //Used for pop-up modal
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -175,6 +171,8 @@ function EditDonation(props) {
         p: 4,
     };
 
+
+    //Edit donation functionality
      async function editDonation(){
         
         if (file) {
@@ -184,24 +182,22 @@ function EditDonation(props) {
                 await Storage.put(key, file, {
                     contentType: mimeType
                     })
-                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem1}});
+                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem}});
                 console.log("edit donation worked");
-                handleOpen();
+                handleOpen(); //shows modal
             } catch (err) {
                 console.log('error: ', err)
             }
         }
         else{
             try {
-                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem1}});
+                const editedFoodItem = await API.graphql({query:mutations.updateFOODITEM, variables:{input:editedDonatedItem}});
                 console.log("edit donation worked");
-                handleOpen();
+                handleOpen(); //shows modal
             } catch (err) {
                 console.log('error: ', err)
             }
         }
-        
-        //window.location="/orders";
      }
 
     const [file, updateFile] = useState(null)
@@ -228,14 +224,7 @@ function EditDonation(props) {
 
        setKey(key1);
        setURL(url1);
-
-      
-     
-        
-
-
         let hiddenDonationInfo=document.getElementById("edit_donation_hidden");
-
         hiddenDonationInfo.querySelector(".picture").innerHTML=url1;
         //Makes image preview visible
         let image_placement=document.getElementById("uploaded_image_"+num_images);
@@ -247,7 +236,6 @@ function EditDonation(props) {
   
 
     // Functions for navigation buttons
-
     function next1() {
         var i = document.getElementsByClassName("selected")
         if (i.length > 0) {
@@ -268,21 +256,56 @@ function EditDonation(props) {
       
         updateDonatedItemAttributes();
 
-        let description_labels=document.querySelectorAll(".description-label");
-        console.log(description_labels);
+        //Checks if all form fields are completed. If not, colours field titles red.
+        if (checkFilledForms()==false){
+            return
+        }
+        document.getElementById("second-donation").style.display="none";
+        document.getElementById("third-donation").style.display="block";
+        document.getElementById("remove_donation_button").style.display="none";
+        
 
+        //Updates preview modal with correct donation details
+        updateIndividualProductModal();
+
+        
+    }
+
+
+    function updateIndividualProductModal(){
+        let individual_product=document.getElementById("edit_donation_modal").querySelector("#individual_product_page");
+        let productTransportRequirements=editedDonatedItem.transport_reqs;
+        if (productTransportRequirements==""){
+            productTransportRequirements="No requirements listed by donor."
+        }
+
+        individual_product.querySelector("#display_image").src=document.getElementById("edit_donation_modal").querySelector("#uploaded_image_0").src;
+        individual_product.querySelector("#individual_product_title").innerHTML=editedDonatedItem.title;
+        individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem.description;
+        individual_product.querySelector("#individual_product_location").innerHTML=editedDonatedItem.pickup_location;
+        individual_product.querySelector("#individual_product_pickupby").innerHTML=editedDonatedItem.pickup_date;
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=editedDonatedItem.start_time+"-"+editedDonatedItem.end_time;
+        individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
+        individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem.donorName;
+        individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem.donorPhone;
+        individual_product.querySelector("#clickable_phone_number").href="tel:"+editedDonatedItem.donorPhone;
+        
+    }
+    //Checks if all form fields of donation form are completed. If not, colours field titles red.
+    function checkFilledForms(){
+        let description_labels=document.querySelectorAll(".description-label");
+        
         for (let i=0;i<description_labels.length;i++){
             if (description_labels[i].classList.contains("uncompleted")){
                 description_labels[i].classList.remove("uncompleted");
             }
         }
         let isCompleted=true;
-        console.log(editedDonatedItem1);
-        for (var key in editedDonatedItem1) {
+        for (var key in editedDonatedItem) {
             
-            if (editedDonatedItem1.hasOwnProperty(key)) {
+            if (editedDonatedItem.hasOwnProperty(key)) {
             
-                if (editedDonatedItem1[key]==undefined| editedDonatedItem1[key]==""){
+                if (editedDonatedItem[key]==undefined|editedDonatedItem[key]==""){
                     console.log(key);
                     
                     for (let i=0;i<description_labels.length;i++){
@@ -294,38 +317,8 @@ function EditDonation(props) {
                 }
             }
         }
-        if (isCompleted==false){
-            return
-        }
-
-      
-        document.getElementById("second-donation").style.display="none";
-        document.getElementById("third-donation").style.display="block";
-        
-
-        let individual_product=document.getElementById("edit_donation_modal").querySelector("#individual_product_page");
-       
-       
-
-        let productTransportRequirements=editedDonatedItem1.transport_reqs;
-        if (productTransportRequirements==""){
-            productTransportRequirements="No requirements listed by donor."
-        }
-
-     
-        individual_product.querySelector("#display_image").src=document.getElementById("edit_donation_modal").querySelector("#uploaded_image_0").src;
-        individual_product.querySelector("#individual_product_title").innerHTML=editedDonatedItem1.title;
-        individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem1.description;
-        individual_product.querySelector("#individual_product_location").innerHTML=editedDonatedItem1.pickup_location;
-        individual_product.querySelector("#individual_product_pickupby").innerHTML=editedDonatedItem1.pickup_date;
-        individual_product.querySelector("#individual_product_pickuptime").innerHTML=editedDonatedItem1.start_time+"-"+editedDonatedItem1.end_time;
-        individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
-        individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem1.donorName;
-        individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem1.donorPhone;
-        individual_product.querySelector("#clickable_phone_number").href="tel:"+editedDonatedItem1.donorPhone;
-        
+        return isCompleted;
     }
-
     function getDonationInfo(info_containing_module){
         let currentInfoSkimmer=info_containing_module.querySelector(".hidden");
   
@@ -367,71 +360,48 @@ function EditDonation(props) {
         let editedDonationInfo=getDonationInfo(document.getElementById("edit_donation_hidden"));
 
         let edit_donation_modal=document.getElementById("edit_donation_modal");
-       
-
-
-
         let food_categories=edit_donation_modal.querySelectorAll(".food_category");
         let currently_selected_category;
         for (let i=0; i<food_categories.length;i++){
           if (food_categories[i].classList.contains("selected")){
             currently_selected_category=food_categories[i].innerHTML;
-           
+
           }
         }
-
-
-        
-        editedDonatedItem1.category=currently_selected_category;
-        //editedDonatedItem1.completionDate=editedDonationInfo.completionDate;
-        editedDonatedItem1.id=editedDonationInfo.donationID;
-
-        //editedDonatedItem._version=individual_product.querySelector("._version").innerHTML;
-        editedDonatedItem1.title=editedDonationInfo.title;
-
-        
+        editedDonatedItem.category=currently_selected_category;
+        editedDonatedItem.id=editedDonationInfo.donationID;
+        editedDonatedItem.title=editedDonationInfo.title;
         let dateParts=edit_donation_modal.querySelector("#pick-up_by_input").value.split("/");
-        
         let myDate= new Date("20"+dateParts[2],dateParts[1],dateParts[0]);
         if (myDate!="Invalid Date"){
-            editedDonatedItem1.pickup_date=myDate.toISOString().substring(0,10);
+            editedDonatedItem.pickup_date=myDate.toISOString().substring(0,10);
         }
         else{
-            editedDonatedItem1.pickup_date="";
+            editedDonatedItem.pickup_date="";
         }
-        
 
-        
-        
-  
-        editedDonatedItem1.transport_reqs=editedDonationInfo.transport_reqs;
-        //editedDonatedItem1.donorID=props.userInfo.donorID;
-
-
-        //editedDonatedItem1.nfpID="";
-        editedDonatedItem1.pickup_location=editedDonationInfo.pickup_location;
-
-        editedDonatedItem1.quantity=editedDonationInfo.quantity;
-
-        editedDonatedItem1.description=editedDonationInfo.description;
-        editedDonatedItem1.picture=editedDonationInfo.picture;
-        editedDonatedItem1.isCompleted=editedDonationInfo.isCompleted;
+        editedDonatedItem.transport_reqs=editedDonationInfo.transport_reqs;
+        editedDonatedItem.pickup_location=editedDonationInfo.pickup_location;
+        editedDonatedItem.quantity=editedDonationInfo.quantity;
+        editedDonatedItem.description=editedDonationInfo.description;
+        editedDonatedItem.picture=editedDonationInfo.picture;
+        editedDonatedItem.isCompleted=editedDonationInfo.isCompleted;
         if (document.getElementById("start_time_input").value==""){
-            editedDonatedItem1.start_time="";
+            editedDonatedItem.start_time="";
         }
         else{
-            editedDonatedItem1.start_time=editedDonationInfo.start_time;
+            editedDonatedItem.start_time=editedDonationInfo.start_time;
         }
        
         if (document.getElementById("end_time_input").value==undefined){
-            editedDonatedItem1.end_time="";
+            editedDonatedItem.end_time="";
         }
         else{
-            editedDonatedItem1.end_time=editedDonationInfo.end_time;
+            editedDonatedItem.end_time=editedDonationInfo.end_time;
         }
   
-        editedDonatedItem1.donorName=editedDonationInfo.donorName;
-        editedDonatedItem1.donorPhone=editedDonationInfo.donorPhone;
+        editedDonatedItem.donorName=editedDonationInfo.donorName;
+        editedDonatedItem.donorPhone=editedDonationInfo.donorPhone;
    
       }
 

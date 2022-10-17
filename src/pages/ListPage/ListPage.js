@@ -338,26 +338,7 @@ useEffect(() => {
     
     <div id="individual_product_modal">
       <IndividualProduct/>
-      <div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Added to favourites!
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Press ok to view your favourited items
-                    </Typography>
-                    <Button href="/orders">
-                        Ok
-                    </Button>
-                </Box>
-            </Modal>
-        </div>
+      
     </div>
     <div id="exit_modal"><div>x</div></div>
     <div id="list_page">

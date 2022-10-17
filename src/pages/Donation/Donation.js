@@ -144,7 +144,6 @@ function Donation(props) {
             ...donatedItem,
             ['description']: e.target.value
         }));
-        console.log(donatedItem);
     }
     
     // Updates Address Field upon user input
@@ -174,7 +173,6 @@ function Donation(props) {
     // Updates the start time upon user input
     function handleTimeChange1(e) {
         setStartTime(e)
-        console.log(e.toISOString());
         
         setDonatedItem (() => ({
             ...donatedItem,
@@ -194,6 +192,7 @@ function Donation(props) {
     }
 
     
+    //Used for pop-up modal
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -222,8 +221,6 @@ function Donation(props) {
                 contentType: mimeType
                 })
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log(newFoodItem);
-                console.log("add donation worked");
                 handleOpen();
             } catch (err) {
                 console.log('error: ', err)
@@ -234,7 +231,6 @@ function Donation(props) {
         else {
             try {
                 const newFoodItem = await API.graphql({query:mutations.createFOODITEM, variables:{input:donatedItem}});
-                console.log("add donation worked");
                 handleOpen();
             } catch (err) {
                 console.log('error: ', err)
@@ -319,6 +315,7 @@ function Donation(props) {
         }
         document.getElementById("second-donation").style.display="none";
         document.getElementById("third-donation").style.display="block";
+        document.getElementById("remove_donation_button").style.display="none";
 
         
         //Updates preview modal with correct donation details
@@ -349,7 +346,6 @@ function Donation(props) {
             if (donatedItem.hasOwnProperty(key)) {
             
                 if (donatedItem[key]==undefined|donatedItem[key]==""){
-                    console.log(key);
                     
                     for (let i=0;i<description_labels.length;i++){
                         if (description_labels[i].classList.contains(key)){

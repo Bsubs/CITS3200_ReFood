@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { Amplify, Auth } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
-import './Profile.css';
-import profile from './profile-circle.png';
-import lock from '../../../src/assets/icons/PNG/lock.png';
-import notification from '../../../src/assets/icons/PNG/notification.png';
-import chevrons from '../../../src/assets/icons/PNG/chevrons-right.png';
-import book from '../../../src/assets/icons/PNG/book.png';
-import banner from "./bakers-delight.jpg";
-import Logo from "../../../src/assets/images/logo.png";
+
+
 import TermsOfService from "../../components/forms/ConsentForm/ConsentForm";
 import ProfileSettings from"./ProfileSettings/ProfileSettings";
 import Notifications from "./Notifications/Notifications";
 
+
+//Imports for pop-up modal
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
-//Configuring AWS Amplify 
+//Image imports
+import profile from '../../../src/assets/icons/PNG/profile-circle.png';
+import lock from '../../../src/assets/icons/PNG/lock.png';
+import notification from '../../../src/assets/icons/PNG/notification.png';
+import chevrons from '../../../src/assets/icons/PNG/chevrons-right.png';
+import book from '../../../src/assets/icons/PNG/book.png';
+import Logo from "../../../src/assets/images/logo.png";
 
+//Configuring AWS Amplify 
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from '../../aws-exports';
+
 // Authentication Module
 import { signOut, Authenticator, useAuthenticator, TextField, SelectField, withAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
+
+//Style sheets imports
+import './Profile.css';
+
+
 //DO NOT import anything below this line 
 Amplify.configure(awsExports);
 

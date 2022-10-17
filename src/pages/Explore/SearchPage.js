@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Amplify, API, Auth, AWSCloudWatchProvider, graphqlOperation } from 'aws-amplify';
 import "./SearchPage.css";
-import search from './search.png';
+import search from '../../assets/icons/PNG/search.png';
 import * as queries from '../../graphql/queries';
 import Explore from "./Explore"
 
