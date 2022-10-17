@@ -41,7 +41,7 @@ function ProfileSettings(props) {
                     
                         <img id="profile_photo" className="" src={Profile} alt="profile icon"/>
                         <input id="profile_photo_upload_button" type='file'  name='image' accept="image/png, image/gif, image/jpeg" onChange={changeProfilePhoto} ></input>
-                        <label id="profile_upload_label" for="profile_photo_upload_button">Change Photo</label>
+                        <label id="profile_upload_label" for="profile_photo_upload_button" className="hidden">Change Photo</label>
                     </div>
                    
 

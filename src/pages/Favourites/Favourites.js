@@ -12,6 +12,11 @@ import Logo from "../../assets/images/logo.png";
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import EditDonation from '../EditDonation/EditDonation';
 
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 import {Products} from '../ListPage/products';
 
 function Favourites(props) {
@@ -67,19 +72,19 @@ function Favourites(props) {
         if (userID!=undefined){
 
     
-        try{
-            const allDonations = await API.graphql({query:queries.listFavouritesTables, variables:{filter: filter}});
-            const itemList = allDonations.data.listFavouritesTables.items;
-           
-            console.log("Food items List:");
-            console.log(itemList);
+          try{
+              const allDonations = await API.graphql({query:queries.listFavouritesTables, variables:{filter: filter}});
+              const itemList = allDonations.data.listFavouritesTables.items;
+            
+              console.log("Food items List:");
+              console.log(itemList);
 
-            fetchDonationListings(itemList);
-            
-            
-        } catch (error) {
-            console.log('error in fetching FoodItems', error);
-        }
+              fetchDonationListings(itemList);
+              
+              
+          } catch (error) {
+              console.log('error in fetching FoodItems', error);
+          }
         }
   
     };
@@ -184,6 +189,7 @@ function Favourites(props) {
             for (let i=0;i<itemList.length;i++){
                 IDsToDelete.push(itemList[i].id);
             }
+            handleOpen();
         } catch (error) {
             console.log('error in fetching FoodItems', error);
         }
@@ -200,6 +206,7 @@ function Favourites(props) {
                 const allDonations = await API.graphql({query:mutations.deleteFavouritesTable, variables:{input:filter}});
                 console.log("deletion successful")
        
+                handleOpen();
             } catch (error) {
                 console.log('error in fetching FoodItems', error);
             }
@@ -355,6 +362,23 @@ function Favourites(props) {
       return donationInfo;
     }
 
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+
    
     return (
         <div id="favourites_page">
@@ -362,6 +386,28 @@ function Favourites(props) {
            
                 <IndividualProduct/>
             </div>
+
+            <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
+                <div>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                               Donation removed successfully
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Press ok to return to your saved donations                            
+                                </Typography>
+                            <Button href="/orders">
+                                Ok
+                            </Button>
+                        </Box>
+                    </Modal>
+                </div>
            
             <div id="exit_modal"><div>x</div></div>
             <div id="orders_list">

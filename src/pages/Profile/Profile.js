@@ -3,14 +3,17 @@ import { Amplify, Auth } from 'aws-amplify';
 import { type } from '@testing-library/user-event/dist/type';
 import './Profile.css';
 import profile from './profile-circle.png';
-import lock from './lock.png';
-import notification from './notification.png';
-import chevrons from './chevrons-right.png';
-import book from './book.png';
+import lock from '../../../src/assets/icons/PNG/lock.png';
+import notification from '../../../src/assets/icons/PNG/notification.png';
+import chevrons from '../../../src/assets/icons/PNG/chevrons-right.png';
+import book from '../../../src/assets/icons/PNG/book.png';
 import banner from "./bakers-delight.jpg";
+import Logo from "../../../src/assets/images/logo.png";
 import TermsOfService from "../../components/forms/ConsentForm/ConsentForm";
 import ProfileSettings from"./ProfileSettings/ProfileSettings";
 import Notifications from "./Notifications/Notifications";
+
+
 function Profile(props) {
     useEffect(()=>{
         
@@ -103,7 +106,7 @@ function Profile(props) {
             <div className="profile_header">
                 <div id="profile_page_photo_container">
                  
-                <img className="user_image" src={banner} alt="profile icon"/>
+                <img className="user_image" src={Logo} alt="profile icon"/>
                    
                 </div>
 
@@ -181,6 +184,7 @@ function Profile(props) {
             </div>
            
         </div>
+      
         </div>
     );
 }

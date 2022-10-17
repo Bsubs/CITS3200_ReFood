@@ -579,7 +579,7 @@ function EditDonation(props) {
                                 Edit Donation Successful
                             </Typography>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Press ok to return to the orders page
+                                Press ok to return to the donations page
                             </Typography>
                             <Button href="/orders">
                                 Ok
