@@ -1,5 +1,6 @@
 *{
     font-family: "arial","verdana";
+
    
 }
 #profile_page{
@@ -8,10 +9,13 @@
     margin: 2rem;
     display: flex;
     flex-direction: column;
-    
+    padding-bottom: 10vh;
   
 }
 
+#profile_page .disabled{
+    color: grey;
+}
 
 #profile_page #profile_settings{
     display: none;

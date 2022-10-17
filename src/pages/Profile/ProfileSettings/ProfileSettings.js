@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './ProfileSettings.css';
-import Profile from "./bakers-delight.jpg";
+import Profile from "../../../assets/images/logo.png";
 
 function ProfileSettings(props) {
     let contactName=props.name;
@@ -50,41 +50,41 @@ function ProfileSettings(props) {
                 
                 <div className="form-row">
                     <label htmlFor="description" className="description-label"> Contact Name</label><br></br>
-                    <input type="text" className="description-input" name="text" defaultValue={contactName}></input>
+                    <input readonly="readonly" type="text" className="description-input" name="text" defaultValue={contactName}></input>
                 </div> 
                 
                 <div className="form-row">
                     <label htmlFor="description" className="description-label">Business Name</label><br></br>
-                    <input type="text" className="description-input" name="text" defaultValue={businessName}></input>
+                    <input readonly="readonly" type="text" className="description-input" name="text" defaultValue={businessName}></input>
                     
                 </div> 
                 
                 <div className="form-row">
                     <label htmlFor="quantity" className="description-label">Phone Number</label><br></br>
-                    <input type="text" className="description-input" name="text"  defaultValue={phoneNumber}></input>
+                    <input readonly="readonly" type="text" className="description-input" name="text"  defaultValue={phoneNumber}></input>
                 </div> 
                 
                 <div className="form-row">
                     <label htmlFor="description" className="description-label">Location</label><br></br>
-                    <input type="text" className="description-input" name="text" defaultValue={location}></input>
+                    <input readonly="readonly" type="text" className="description-input" name="text" defaultValue={location}></input>
                     
                 </div> 
 
                 <div className="form-row">
                     <label htmlFor="description" className="description-label">E-mail Address</label><br></br>
-                    <input type="text" className="description-input" name="text" defaultValue={emailAddress}></input>
+                    <input readonly="readonly" type="text" className="description-input" name="text" defaultValue={emailAddress}></input>
                     
                 </div> 
 
                 <div className="form-row">
                     <label htmlFor="description" className="description-label">ABN</label><br></br>
-                    <input type="text" className="description-input" name="text" defaultValue={ABN}></input>
+                    <input readonly="readonly" className="description-input"  defaultValue={ABN}></input>
                     
                 </div> 
 
                 <div className="form-row">
                     <label htmlFor="description" className="description-label">Donor/Collector</label><br></br>
-                    <input type="text" className="description-input" name="text" defaultValue={userType}></input>
+                    <input readonly="readonly" className="description-input"  defaultValue={userType}></input>
                     
                 </div> 
                 
@@ -92,7 +92,10 @@ function ProfileSettings(props) {
 
       
         </div>
-        <button  id="save_profile_settings" className="button">
+
+
+         
+        <button  id="save_profile_settings" className="button hidden">
            
           Save
         </button>

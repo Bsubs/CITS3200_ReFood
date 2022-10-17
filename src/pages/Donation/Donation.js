@@ -482,7 +482,7 @@ function Donation(props) {
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label pickup_location">Pick-up Location</label><br></br>
-                                <input id="pick-up_location_box" type="text" className="description-input" name="text" placeholder={attributes['custom:address']} onChange={handleAddressChange}></input>
+                                <input id="pick-up_location_box" type="text" className="description-input" name="text" value={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
                             
 
