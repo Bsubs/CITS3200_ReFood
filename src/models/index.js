@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { Message, FOODITEM } = initSchema(schema);
+const { FavouritesTable, Message, FOODITEM } = initSchema(schema);
 
 export {
+  FavouritesTable,
   Message,
   FOODITEM
 };

@@ -12,11 +12,11 @@ import Logo from "../../assets/images/logo.png";
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import EditDonation from '../EditDonation/EditDonation';
 
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
 import {Products} from '../ListPage/products';
 
 function Favourites(props) {
@@ -27,11 +27,6 @@ function Favourites(props) {
     var individual_product;
     var exit_button;
     var orders_list;
-
-
-
-
-
 
     //The attributes object stores the user attributes retrived from the AWS Cognito Database
     const [attributes, setAttributes] = useState({});
@@ -212,7 +207,7 @@ function Favourites(props) {
             }
         }
         
-        
+        handleOpen();
     }
    
     
@@ -379,12 +374,30 @@ function Favourites(props) {
     };
 
 
-   
     return (
         <div id="favourites_page">
             <div id="individual_product_modal">
-           
                 <IndividualProduct/>
+                <div>
+                  <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                  >
+                      <Box sx={style}>
+                          <Typography id="modal-modal-title" variant="h6" component="h2">
+                              Removed item from favourites
+                          </Typography>
+                          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                              Press ok to return to favourites page
+                          </Typography>
+                          <Button href="/orders">
+                              Ok
+                          </Button>
+                      </Box>
+                  </Modal>
+                </div>
             </div>
 
             <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
