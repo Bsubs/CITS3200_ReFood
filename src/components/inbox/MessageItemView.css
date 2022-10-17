@@ -1,0 +1,97 @@
+.message-item-view {
+    display: block;
+    position: relative;
+    padding: 4px 56px;
+    margin: 8px 0;
+}
+
+.message-item-view .msg-box {
+    /* border-radius: 4px;
+    background-color: #FFF;
+    padding: 8px;
+    line-height: 18px;
+    font-size: 16px; */
+}
+
+.message-item-view .msg-box .text {
+    float: left;
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 8px;
+    line-height: 18px;
+    font-size: 16px;
+}
+
+.message-item-view.right .msg-box .text {
+    float: right;
+}
+
+.message-item-view .msg-box .clearfix {
+    clear: both;
+}
+
+.message-item-view .timestamp {
+    text-align: center;
+    color: #CCC;
+    padding: 8px;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.message-item-view .left-angle {
+    width: 0;
+    height: 0;
+    border: 6px solid;
+    border-color: transparent #FFF transparent transparent ;
+    position: absolute;
+    left: 44px;
+    top: 14px;
+}
+
+.message-item-view .right-angle {
+    width: 0;
+    height: 0;
+    border: 6px solid;
+    border-color: transparent transparent transparent #FFF;
+    position: absolute;
+    right: 44px;
+    top: 14px;
+}
+
+.message-item-view .left-avatar {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    padding: 1px;
+    padding-left: 8px;
+}
+
+.message-item-view .timestamp ~ .left-avatar {
+    top: 36px;
+}
+
+.message-item-view .timestamp ~ .left-angle {
+    top: 46px;
+}
+
+.message-item-view .timestamp ~ .right-angle {
+    top: 46px;
+}
+
+.message-item-view .right-avatar {
+    position: absolute;
+    right: 0;
+    top: 4px;
+    padding: 1px;
+    padding-right: 8px;
+}
+
+.message-item-view .left-avatar img, .message-item-view .right-avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.message-item-view .timestamp ~ .right-avatar {
+    top: 36px;
+}
