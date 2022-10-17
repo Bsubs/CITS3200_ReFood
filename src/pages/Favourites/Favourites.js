@@ -7,16 +7,20 @@ import { ComponentPropsToStylePropsMap, withAuthenticator } from '@aws-amplify/u
 import * as mutations from '../../graphql/mutations';
 import { listFOODITEMS,listFavouritesTables} from '../../graphql/queries';
 import * as queries from '../../graphql/queries';
-import './Favourites.css';
-import Logo from "../../assets/images/logo.png";
 import IndividualProduct from '../IndividualProduct/IndividualProduct';
 import EditDonation from '../EditDonation/EditDonation';
 
+//Stylesheet Imports
+import './Favourites.css';
+
+//Image imports
+import Logo from "../../assets/images/logo.png";
+
+//Pop-up modal imports
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
 import {Products} from '../ListPage/products';
 
 function Favourites(props) {
@@ -63,20 +67,13 @@ function Favourites(props) {
             eq: userID
         }   
         }
-
         if (userID!=undefined){
-
     
           try{
               const allDonations = await API.graphql({query:queries.listFavouritesTables, variables:{filter: filter}});
               const itemList = allDonations.data.listFavouritesTables.items;
-            
-              console.log("Food items List:");
-              console.log(itemList);
-
               fetchDonationListings(itemList);
-              
-              
+
           } catch (error) {
               console.log('error in fetching FoodItems', error);
           }
@@ -92,8 +89,7 @@ function Favourites(props) {
         }
 
         let uniqueFavouriteIDs=Array.from([...new Set(favouriteIDs)]);
-        
-        console.log(uniqueFavouriteIDs);
+
         let filter= {
             id: {
                 in: uniqueFavouriteIDs
@@ -103,7 +99,6 @@ function Favourites(props) {
             const allDonations = await API.graphql({query:queries.listFOODITEMS, variables:{filter:filter}});
             const itemList = allDonations.data.listFOODITEMS.items;
             setFoodItems(itemList);
-            console.log(itemList);
    
         } catch (error) {
             console.log('error in fetching FoodItems', error);
@@ -158,12 +153,7 @@ function Favourites(props) {
         let favouriteElementID=getDonationInfo(document.getElementById("individual_product_modal")).donationID;
     
         let userID=document.getElementById("user_id").innerHTML;
-        console.log(document.getElementById("individual_product_modal"))
-        console.log(favouriteElementID, userID);
         //console.log(donationInfo);
-
-
-       
         let filter= {
             userID: {
                 eq: userID
@@ -179,8 +169,6 @@ function Favourites(props) {
         try{
             const allDonations = await API.graphql({query:queries.listFavouritesTables, variables:{filter:filter}});
             const itemList = allDonations.data.listFavouritesTables.items;
-            //console.log(itemList);
-            console.log(itemList);
             for (let i=0;i<itemList.length;i++){
                 IDsToDelete.push(itemList[i].id);
             }
@@ -188,9 +176,6 @@ function Favourites(props) {
         } catch (error) {
             console.log('error in fetching FoodItems', error);
         }
-        console.log(IDsToDelete);
-
-
         for (let i=0;i<IDsToDelete.length;i++){
             filter= {
                 id: IDsToDelete[i]
@@ -207,7 +192,7 @@ function Favourites(props) {
             }
         }
         
-        handleOpen();
+        
     }
    
     
@@ -258,49 +243,38 @@ function Favourites(props) {
     //inserts product information into the individual product modal
     function openIndividualProductModal(){
       let donationInfo=getDonationInfo(this);
-      let transport_reqs=donationInfo.transport_reqs;
-      let donation_picture=donationInfo.picture;
-
       individual_product= document.getElementById("individual_product_modal");
       updateHiddenVariables(donationInfo,individual_product);
+      updateIndividualProductModal(donationInfo);
+      showIndividualProduct();
+      }
 
-      let donation_id=this.querySelector(".donationID").innerHTML;
+      function updateIndividualProductModal(donationInfo){
+        let individual_product= document.getElementById("individual_product_modal");
 
-
-      exit_button=document.getElementById("exit_modal");
-      orders_list=document.getElementById("orders_list");
-
-    
-
-      //let productStartTime=this.querySelector(".")
-      if (transport_reqs==undefined){
+        let transport_reqs=donationInfo.transport_reqs;
+        let donation_picture=donationInfo.picture;
+        if (transport_reqs==undefined){
           transport_reqs="No requirements listed by donor."
       }
 
       if (donation_picture==""){
         donation_picture=Logo;
       }
-      
+          //stylising individual modal
+          individual_product.querySelector("#display_image").src=donation_picture;
+          individual_product.querySelector("#individual_product_title").innerHTML=donationInfo.title;
+          individual_product.querySelector("#individual_product_description").innerHTML=donationInfo.description;
+          individual_product.querySelector("#individual_product_location").innerHTML=donationInfo.pickup_location;
+          individual_product.querySelector("#individual_product_pickupby").innerHTML=donationInfo.pickup_date;
+          individual_product.querySelector("#individual_product_pickuptime").innerHTML=donationInfo.start_time+"-"+donationInfo.end_time;
+          individual_product.querySelector("#individual_product_transport_requirements").innerHTML=transport_reqs;
+          individual_product.querySelector("#individual_product_seller_name").innerHTML=donationInfo.donorName;
+          individual_product.querySelector("#individual_product_seller_number").innerHTML=donationInfo.donorPhone;
+          individual_product.querySelector("#clickable_phone_number").href="tel:"+donationInfo.donorPhone;
+          individual_product.querySelector("#remove_donation_button").innerHTML=donation_button_text;
 
-      //stylising individual modal
-      individual_product.querySelector("#display_image").src=donation_picture;
-      individual_product.querySelector("#individual_product_title").innerHTML=donationInfo.title;
-      individual_product.querySelector("#individual_product_description").innerHTML=donationInfo.description;
-      individual_product.querySelector("#individual_product_location").innerHTML=donationInfo.pickup_location;
-      individual_product.querySelector("#individual_product_pickupby").innerHTML=donationInfo.pickup_date;
-      individual_product.querySelector("#individual_product_pickuptime").innerHTML=donationInfo.start_time+"-"+donationInfo.end_time;
-      individual_product.querySelector("#individual_product_transport_requirements").innerHTML=transport_reqs;
-      individual_product.querySelector("#individual_product_seller_name").innerHTML=donationInfo.donorName;
-      individual_product.querySelector("#individual_product_seller_number").innerHTML=donationInfo.donorPhone;
-      individual_product.querySelector("#clickable_phone_number").href="tel:"+donationInfo.donorPhone;
-      individual_product.querySelector("#remove_donation_button").innerHTML=donation_button_text;
-  
-      individual_product.querySelector("#individual_product_quantity").innerHTML=donationInfo.quantity;
-
-      showIndividualProduct();
-
-     
-     
+          individual_product.querySelector("#individual_product_quantity").innerHTML=donationInfo.quantity;
       }
 
       function showIndividualProduct(){
@@ -357,6 +331,8 @@ function Favourites(props) {
       return donationInfo;
     }
 
+
+    //To manage pop-up modal
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -374,30 +350,12 @@ function Favourites(props) {
     };
 
 
+   
     return (
         <div id="favourites_page">
             <div id="individual_product_modal">
+           
                 <IndividualProduct/>
-                <div>
-                  <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                  >
-                      <Box sx={style}>
-                          <Typography id="modal-modal-title" variant="h6" component="h2">
-                              Removed item from favourites
-                          </Typography>
-                          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                              Press ok to return to favourites page
-                          </Typography>
-                          <Button href="/orders">
-                              Ok
-                          </Button>
-                      </Box>
-                  </Modal>
-                </div>
             </div>
 
             <Button id="open_completed_modal" onClick={handleOpen}>Open modal</Button>
