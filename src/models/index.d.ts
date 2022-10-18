@@ -1,25 +1,15 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 
-type FavouritesTableMetaData = {
+type MessageMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type MessageMetaData = {
+type FavouritesTableMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
 type FOODITEMMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-export declare class FavouritesTable {
-  readonly id: string;
-  readonly userID?: string | null;
-  readonly donationID?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-  constructor(init: ModelInit<FavouritesTable, FavouritesTableMetaData>);
-  static copyOf(source: FavouritesTable, mutator: (draft: MutableModel<FavouritesTable, FavouritesTableMetaData>) => MutableModel<FavouritesTable, FavouritesTableMetaData> | void): FavouritesTable;
 }
 
 export declare class Message {
@@ -31,6 +21,16 @@ export declare class Message {
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Message, MessageMetaData>);
   static copyOf(source: Message, mutator: (draft: MutableModel<Message, MessageMetaData>) => MutableModel<Message, MessageMetaData> | void): Message;
+}
+
+export declare class FavouritesTable {
+  readonly id: string;
+  readonly userID?: string | null;
+  readonly donationID?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<FavouritesTable, FavouritesTableMetaData>);
+  static copyOf(source: FavouritesTable, mutator: (draft: MutableModel<FavouritesTable, FavouritesTableMetaData>) => MutableModel<FavouritesTable, FavouritesTableMetaData> | void): FavouritesTable;
 }
 
 export declare class FOODITEM {

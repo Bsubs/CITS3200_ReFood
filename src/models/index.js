@@ -4,10 +4,10 @@ import { schema } from './schema';
 
 
 
-const { FavouritesTable, Message, FOODITEM } = initSchema(schema);
+const { Message, FavouritesTable, FOODITEM } = initSchema(schema);
 
 export {
-  FavouritesTable,
   Message,
+  FavouritesTable,
   FOODITEM
 };
