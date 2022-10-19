@@ -13,17 +13,13 @@ The business section allows for a business to upload what kind of food they are 
 
 The NFP section allows registered organizations to claim donations that they have been allocated. 
 
-## Architecture of the Application
-
-TBD
-
 ## How to Access the Application
 
-TBD
+Please refer to the ReFood_User_Documentation provided
 
 ## Unit Tests and How to Run Them
 
-TBD
+Please refer to the ReFood_Developer_Documentation provided
 
 ## Agile Development of the Application
 
