@@ -441,23 +441,23 @@ function Donation(props) {
                         <form>
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label title"> Food Item(s)</label><br></br>
-                                <input id="title_input_box" type="text" className="" name="text" onChange={handleTitleChange}></input>
+                                <input id="title_input_box" type="text"  name="text" onChange={handleTitleChange}></input>
                             </div> 
                             
                             
                             <div className="form-row">
                                 <label htmlFor="quantity" className="quantity-label description-label quantity">Quantity/Volume of Food</label><br></br>
-                                <input id="quantity_input_box" type="text" className="" name="text" onChange={handleQuantityChange}></input>
+                                <input id="quantity_input_box" type="text"  name="text" onChange={handleQuantityChange}></input>
                             </div> 
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label description">Food Description</label><br></br>
-                                <textarea id="food-description-input" type="text" className="" name="text" onChange={handleDescriptionChange}></textarea>
+                                <textarea id="food-description-input" type="text"  name="text" onChange={handleDescriptionChange}></textarea>
                                 
                             </div> 
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label transport_reqs">Transport Requirements</label><br></br>
-                                <textarea id="food-requirements-input" type="text" className="" name="text" onChange={handleTransportChange}></textarea>
+                                <textarea id="food-requirements-input" type="text" name="text" onChange={handleTransportChange}></textarea>
                                 
                             </div> 
                             
@@ -482,7 +482,7 @@ function Donation(props) {
                             
                             <div className="form-row">
                                 <label htmlFor="description" className="description-label pickup_location">Pick-up Location</label><br></br>
-                                <input id="pick-up_location_box" type="text" className="" name="text" value={attributes['custom:address']} onChange={handleAddressChange}></input>
+                                <input id="pick-up_location_box" type="text" name="text" value={attributes['custom:address']} onChange={handleAddressChange}></input>
                             </div> 
                             
 
