@@ -1,7 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react'; //, { useState } 
 import './ConsentForm.css';
 
-function ConsentForm() {
+//This page is the first that appears to users upon visiting the web application. 
+function ConsentForm(props) {
+
+
+  if (props.isNFP=="True"){
+    var accept_terms_link="/listpage"
+  }
+  else{
+    var accept_terms_link="/profile"
+  }
+
   return (
     <div id="consent_form">
     <h1>User Agreement Form</h1>
@@ -45,7 +55,7 @@ function ConsentForm() {
         <button  id="exit_app_button" className="button" >
           Exit App
         </button>
-        <a href="/explore">
+        <a href={accept_terms_link}>
         <button  id="accept_terms_button" className="button">
            
           Accept and Continue

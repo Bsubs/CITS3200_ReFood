@@ -1,0 +1,53 @@
+.tab-menu > button {
+    float: left;
+    width: 50%;
+    padding: 15px 20px;
+    font-size: 20px;
+  }
+
+
+  .tab-menu > button.focus {
+    float: left;
+    width: 50%;
+    padding: 15px 20px;
+    font-size: 20px;
+    /* background-color: black; */
+    border-bottom: 2px solid #b32424;
+  }
+  .tab-menu > button:hover {
+    float: left;
+    width: 50%;
+    padding: 15px 20px;
+    font-size: 20px;
+    border-bottom: 2px solid #f6f6f8;
+  }
+  p.thick{font-weight: bold;}
+
+  #Unread_Messages_header{
+    background-color: rgb(48, 154, 87);
+    }
+  #Read_Messages_header{
+    background-color: rgb(48, 154, 87);
+    }
+  #Unread_Notifications_header{
+    background-color: rgb(48, 154, 87);
+      }
+  #Read_Notifications_header{
+    background-color: rgb(48, 154, 87);
+    }
+
+.inbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+}
+
+.inbox-wrapper .header {
+  text-align: center;
+}
+
+.inbox-wrapper .list-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 4px;
+}

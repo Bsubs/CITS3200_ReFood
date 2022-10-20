@@ -1,0 +1,21 @@
+*{
+    font-family: "papyrus";
+}
+
+#signOut{
+    background-color: red;
+    border: none;
+    color: white;
+    margin: 2rem;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.text-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-indent: 1px;
+    word-wrap: normal;
+    word-break: normal;
+}

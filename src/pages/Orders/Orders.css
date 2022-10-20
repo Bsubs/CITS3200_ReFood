@@ -1,0 +1,83 @@
+#orders_page{
+    background-color: lightgrey;
+    min-height: 100vh;
+}
+#orders_header{
+    background-color: rgb(48, 154, 87);
+    height: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    margin-bottom: 1rem;
+}
+#orders_list{
+
+    padding-bottom: 10vh;
+}
+
+#orders_list .isCompletedIcon{
+    display: none;
+}
+
+#orders_list .order_type{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 0.5rem;
+    height: 2rem;
+
+    width: 100%;
+    color: white;
+}
+#in_progress_orders_header{
+    background-color: rgb(48, 154, 87);
+    
+}
+
+#completed_orders_header{
+    background-color: rgb(48, 154, 87);
+}
+
+#orders_list .order_type
+#orders_page .image_box{
+    height: 10vh;
+    min-width: 10vh;
+}
+
+#orders_page .productDescription{
+    display: none;
+}
+
+#orders_page .productName{
+    padding-top:0;
+ 
+}
+
+#orders_page #individual_product_modal{
+    display: none;
+    background-color: white;
+}
+
+#orders_page #exit_modal{
+    display: none;
+    align-items: center;
+    justify-content: center;
+ 
+    
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+
+    background-color: white;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    opacity: 70%;
+  }
+
+  #edit_donation_modal{
+    display: none;
+background-color: white;
+}

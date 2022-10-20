@@ -1,11 +1,13 @@
+/*Preface styles by page id to avoid cross-styling*/
 #consent_form{
+    background-color: white;
     height: 90vh;
     padding: 1rem;
 }
-h1{
+#consent_form h1{
     text-align: center;
 }
-h2{
+#consent_form h2{
     padding: 0.1rem;
     border-bottom: 1px solid;
 }
@@ -17,7 +19,7 @@ html {
     text-decoration: underline;
 }
 
-br{
+#consent_form br{
     line-height: 10rem;
 }
 

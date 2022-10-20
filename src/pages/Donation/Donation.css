@@ -1,0 +1,280 @@
+
+#donation_page{
+
+  font-family: "arial","verdana";
+
+  overflow-y: scroll;
+}
+#food_category_selection li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  border-top: 1px solid black;
+  height: 12.5%;
+  font-size: 3vh;
+  margin-top: 0;
+}
+
+#donation_page ul{
+  margin-top: 0;
+  padding: 0rem;
+  height: 75vh;
+  margin-bottom: 10vh;
+
+}
+.donation-heading {
+
+  color: rgb(255, 255, 255);
+  text-align: center;
+  
+}
+
+
+#donation_page .top-row, .middle-row, .bottom-row {
+ 
+  left: 0;
+  right: 0;
+}
+
+#second-donation .top-row{
+  height: 10vh;
+}
+#second-donation .bottom-row{
+  height: 5vh;
+}
+#cancel-icon {
+ margin-top: 5px;
+ display: block;
+ margin-left: 0%;
+ margin-right: 15px;
+ float: left;
+}
+#donation_page #help-button {
+  margin-top: 5px;
+  margin-left: 15px;
+  float: right;
+  margin-right: 3%;
+  background-color: lightgray;
+  padding: 8px;
+  border-radius: 10px 10px 10px 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#donation_page .top-row {
+  
+  background-color: rgb(48, 154, 87);
+  top: 0;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+#donation_page .middle-row {
+  background-color: rgb(255, 255, 255);
+  height: 100%;
+  top: 15%;
+  bottom: 10%;
+
+  
+ 
+
+}
+
+#donation_page #second-donation .middle-row{
+  top: 10%;
+  overflow-y: scroll;
+  padding-bottom: 10vh;
+}
+#donation_page .bottom-row {
+  position: fixed;
+  z-index: 1;
+  height: 10vh;
+  padding: 2rem;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top:3px solid #bbb;
+  font-size: 100%;
+  background-color: white;
+}
+#donation_page .food-type {
+  border-radius: 25px;
+  padding: 10px;
+  width: 350px;
+  height: 125px;
+  border: 2px solid gray;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+#donation_page .Donation .navbar {
+  display: none;
+}
+
+#donation_page .back-button {
+  text-decoration: underline;
+  font-size: 2vh;
+  float: left;
+
+}
+#donation_page .next-button {
+  
+  font-size: 2vh;
+  background-color: lightgray;
+  padding-left: 6%;
+  padding-right: 6%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+}
+
+#donation_page #second-donation {
+  display: none;
+  overflow: scroll;
+}
+#donation_page .selected {
+
+  background-color: grey;
+}
+
+#donation_page #donation_preview_modal{
+  display: none;
+}
+
+
+#donation_page input{
+
+  padding: 0.3rem;
+  width: 100%;
+}
+
+
+#donation_page .description-input{
+
+  padding: 0.5rem;
+}
+#donation_page .description-input:focus{
+  opacity: 100%;
+}
+
+#second-donation .middle-row{
+ 
+  margin: 2vh;
+}
+
+#donation_page .form-row{
+  box-sizing: border-box;
+  padding-bottom: 1rem;
+}
+
+#donation_page .react-DatePicker{
+  width: 100%;
+}
+
+#second-donation .description-label{
+  font-weight: bold;
+  font-size: 1.8vh;
+  
+}
+
+
+#food-description-input{
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 15vh;
+  max-height: 15vh;
+}
+#food-requirements-input{
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 5vh;
+  max-height: 5vh;
+}
+
+ .image_box{
+  position: relative;
+  display:flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  width: 35vw;
+  height: 10vh;
+  margin-right: 3vh;
+  overflow: hidden;
+}
+
+#donation_page .image_upload_button{
+  height: 10vh;
+  width: 35vw;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+}
+
+#donation_page .images{
+  display: flex;
+  
+}
+
+#donation_page .delete_image{
+  position: absolute;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  border-radius: 1rem;
+  opacity: 70%;
+  font-size: 1rem;
+  height: 20px;
+  width: 20px;
+  top: 2px;
+  right: 2px;
+  background-color: white
+  
+
+}
+
+#donation_page .uploaded_image{
+  overflow: hidden;
+	position: absolute;
+  opacity: 0;
+}
+
+#donation_page .make_image_visible{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 100%;
+  border-radius: 0.5rem;
+}
+
+#donation_page .timePicker{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+#donation_page .react-datepicker-wrapper{
+  width: 45%;
+}
+
+#dates-input{
+  margin-bottom: 1rem;
+}
+
+#third-donation{
+  display: none;
+}
+#open_completed_modal{
+  display: none;
+}
+
+.uncompleted{
+  color: red;
+}
