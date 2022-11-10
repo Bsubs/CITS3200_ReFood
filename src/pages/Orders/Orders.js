@@ -253,6 +253,11 @@ function updateHiddenVariables(donationInfo, itemToUpdate){
     individual_product.querySelector("#individual_product_location").innerHTML=donationInfo.pickup_location;
     individual_product.querySelector("#individual_product_pickupby").innerHTML=donationInfo.pickup_date;
     individual_product.querySelector("#individual_product_pickuptime").innerHTML=donationInfo.start_time+"-"+donationInfo.end_time;
+    console.log(donationInfo.start_time);
+    console.log(new Date(donationInfo.start_time))
+    console.log((new Date(donationInfo.start_time)).getTime());
+    console.log((new Date(donationInfo.start_time)).getUTCHours());
+    console.log((new Date(donationInfo.start_time)).toLocaleTimeString('en-US',{hour: '2-digit', minute:'2-digit'}));
     individual_product.querySelector("#individual_product_transport_requirements").innerHTML=transport_reqs;
     individual_product.querySelector("#individual_product_seller_name").innerHTML=donationInfo.donorName;
     individual_product.querySelector("#individual_product_seller_number").innerHTML=donationInfo.donorPhone;
@@ -470,7 +475,7 @@ function updateHiddenVariables(donationInfo, itemToUpdate){
                         donorID={contents.donorID}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
-                        end_time={contents.end_time}
+                        
                         donationID={contents.id}
                         isCompleted={contents.isCompleted}
                         nfpID={contents.nfpID}
@@ -481,8 +486,9 @@ function updateHiddenVariables(donationInfo, itemToUpdate){
                         
                         
                         quantity={contents.quantity}
-                        start_time={contents.start_time}
-                        
+                        end_time={(new Date(contents.end_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'})}
+                        start_time={(new Date(contents.start_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'})}
+                       
                         title={contents.title}
                         transport_reqs={contents.transport_reqs}
                         updatedAt={contents.updatedAt}
@@ -506,7 +512,7 @@ function updateHiddenVariables(donationInfo, itemToUpdate){
                         donorID={contents.donorID}
                         donorName={contents.donorName}
                         donorPhone={contents.donorPhone}
-                        end_time={contents.end_time}
+                        
                         donationID={contents.id}
                         isCompleted={contents.isCompleted}
                         nfpID={contents.nfpID}
@@ -517,7 +523,8 @@ function updateHiddenVariables(donationInfo, itemToUpdate){
                         
                         
                         quantity={contents.quantity}
-                        start_time={contents.start_time}
+                        end_time={(new Date(contents.end_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'})}
+                        start_time={(new Date(contents.start_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'})}
                         
                         title={contents.title}
                         transport_reqs={contents.transport_reqs}

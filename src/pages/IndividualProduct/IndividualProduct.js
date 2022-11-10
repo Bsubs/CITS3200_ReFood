@@ -19,6 +19,8 @@ export default function IndividualProduct(props) {
         return date;
     }
 
+    
+
   return (
     <div id="individual_product_page">
         <div id="multiple_image_wheel"> 
