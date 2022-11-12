@@ -70,6 +70,7 @@ function App({ signOut, user }) {
 
     case "/":
       return <ConsentForm isNFP={isNFP}/>
+      break
     case "/explore":
       component = <Explore userInfo={attributes}/>
       var showNav = "True";
@@ -117,6 +118,7 @@ function App({ signOut, user }) {
     default:
       component = <Donation/>
       showNav = "False";
+      break
 
   }
   return (
