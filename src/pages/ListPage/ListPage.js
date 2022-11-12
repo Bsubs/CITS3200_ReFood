@@ -361,7 +361,7 @@ useEffect(() => {
                   donorID={contents.donorID}
                   donorName={contents.donorName}
                   donorPhone={contents.donorPhone}
-                  end_time={contents.end_time}
+                  
                   donationID={contents.id}
                   isCompleted={contents.isCompleted}
                   nfpID={contents.nfpID}
@@ -372,7 +372,8 @@ useEffect(() => {
                   
                   
                   quantity={contents.quantity}
-                  start_time={contents.start_time}
+                  end_time={(new Date(contents.end_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'})}
+                  start_time={(new Date(contents.start_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'})}
                   
                   title={contents.title}
                   transport_reqs={contents.transport_reqs}

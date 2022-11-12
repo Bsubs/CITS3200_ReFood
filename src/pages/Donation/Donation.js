@@ -172,7 +172,8 @@ function Donation(props) {
 
     // Updates the start time upon user input
     function handleTimeChange1(e) {
-        setStartTime(e)
+        setStartTime(e);
+        console.log(e.toISOString());
         
         setDonatedItem (() => ({
             ...donatedItem,
@@ -375,7 +376,10 @@ function Donation(props) {
         individual_product.querySelector("#individual_product_description").innerHTML=donatedItem.description;
         individual_product.querySelector("#individual_product_location").innerHTML=donatedItem.pickup_location;
         individual_product.querySelector("#individual_product_pickupby").innerHTML=donatedItem.pickup_date;
-        individual_product.querySelector("#individual_product_pickuptime").innerHTML=donatedItem.start_time+"-"+donatedItem.end_time;
+
+        let end_time=(new Date(donatedItem.end_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'});
+        let start_time=(new Date(donatedItem.start_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'});
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=start_time+"-"+end_time;
         individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
         individual_product.querySelector("#individual_product_seller_name").innerHTML=donatedItem.donorName;
         individual_product.querySelector("#individual_product_seller_number").innerHTML=donatedItem.donorPhone;
