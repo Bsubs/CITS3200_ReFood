@@ -284,7 +284,10 @@ function EditDonation(props) {
         individual_product.querySelector("#individual_product_description").innerHTML=editedDonatedItem.description;
         individual_product.querySelector("#individual_product_location").innerHTML=editedDonatedItem.pickup_location;
         individual_product.querySelector("#individual_product_pickupby").innerHTML=editedDonatedItem.pickup_date;
-        individual_product.querySelector("#individual_product_pickuptime").innerHTML=editedDonatedItem.start_time+"-"+editedDonatedItem.end_time;
+        let end_time=(new Date(editedDonatedItem.end_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'});
+        let start_time=(new Date(editedDonatedItem.start_time)).toLocaleTimeString('en-US',{hour: 'numeric', minute:'2-digit'});
+
+        individual_product.querySelector("#individual_product_pickuptime").innerHTML=start_time+"-"+end_time;
         individual_product.querySelector("#individual_product_transport_requirements").innerHTML=productTransportRequirements;
         individual_product.querySelector("#individual_product_seller_name").innerHTML=editedDonatedItem.donorName;
         individual_product.querySelector("#individual_product_seller_number").innerHTML=editedDonatedItem.donorPhone;
@@ -365,7 +368,6 @@ function EditDonation(props) {
         for (let i=0; i<food_categories.length;i++){
           if (food_categories[i].classList.contains("selected")){
             currently_selected_category=food_categories[i].innerHTML;
-
           }
         }
         editedDonatedItem.category=currently_selected_category;

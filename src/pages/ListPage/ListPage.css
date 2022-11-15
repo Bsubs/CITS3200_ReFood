@@ -40,6 +40,9 @@
   opacity: 70%;
 }
 
+#display_image{
+  max-width: 100vw;
+}
 #search_bar{
   display: flex;
   background-color: white;
